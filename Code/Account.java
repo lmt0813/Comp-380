@@ -1,10 +1,28 @@
 public class Account{
     String accountID;
-    String userName;
+    String name;
     String password;
-    String email;
+    String accountType;
+    String address;
+    String phoneNumber;
+
 
     public Account(){
+
+    }
+
+    public void makeReview(){
+
+
+    }
+
+    public void changePassword(){
+
+
+    }
+
+    public void changeSettings(){
+
 
     }
 
