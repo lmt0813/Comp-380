@@ -1,7 +1,9 @@
-testing for project 
+Commands to Commit and Push
+ - git add *filename*
+ - git commit -m 'message'
+ - git push
 
-UPDATE: test
 
-Testing, testing, 123
-
-testing testing 134
+Command to Pull
+-Make sure to pull for any updates we make to anything
+ - git pull
