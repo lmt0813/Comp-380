@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class NewAccount extends JFrame implements ActionListener {
+public class CreateAccount extends JFrame implements ActionListener {
     
     JFrame frame;
     String userName, name, password, accountType, address, phoneNumber;
