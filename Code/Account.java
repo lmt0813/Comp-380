@@ -18,16 +18,15 @@ public class Account{
         this.phoneNumber = phoneNumber;
     }
 
-    private void makeReview(){
-
-
+    private void makeReview(Hotel hotel){
+        // will call another class to make review
     }
 
     private void changeEmail(String newEmail) {
         email = newEmail;
     }
 
-    //maybe make param as current password as security? or email with verification?
+    
     private void changePassword(String newPassword){
         password = newPassword;
     }
