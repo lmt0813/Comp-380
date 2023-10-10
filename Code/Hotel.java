@@ -5,15 +5,17 @@ public class Hotel {
     protected String hotelName;
     protected String[] staff;
     protected String[] criteria;
+    protected Room[] roomList;
 
     public Hotel(){}
 
-    public Hotel(String hotelName, String location, int roomCapacity, String[] staff, String[] critera){
+    public Hotel(String hotelName, String location, int roomCapacity, String[] staff, String[] critera, Room[] roomList){
         this.hotelName = hotelName;
         this.staff = staff;
         this.criteria = critera;
         this.location = location;
         this.roomCapacity = roomCapacity;
+        this.roomList = roomList;
     }
 
     public void changeVacancy(int rooms){
