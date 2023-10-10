@@ -8,7 +8,7 @@ public class Account{
     private String phoneNumber;
 
 
-    public Account(String username, String password, String name,String email String accountType, String address, String phoneNumber){
+    public Account(String username, String password, String name,String email, String accountType, String address, String phoneNumber){
         this.username = username;
         this.password = password;
         this.name = name;
