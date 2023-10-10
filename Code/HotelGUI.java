@@ -28,8 +28,9 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     ButtonGroup bgIn, bgOut;
     JScrollPane scrollPane;
 
-    HotelGUI(Account user) {
+    HotelGUI(Account User) {
         // instantiate UI components
+
         searchCriteria = new String[] {"Pool", "Pet Friendly", "Breakfast"};
         criteriaCheckBoxes = new JCheckBox[searchCriteria.length];
         dates = new String[] {"January" , "February" , "March" , "April", "May" , "June" , "July" , "August" , "September", "October" , "November" , "December"};
@@ -46,7 +47,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
         //construct UI
         criteriaLabel = new JLabel("Criteria Selected: ");
-        userNameLabel = new JLabel(user.username);
+        userNameLabel = new JLabel();
         myAccount.add(userNameLabel);
 
         menuBar.add(myAccount);
@@ -99,7 +100,11 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
         // set scrollpane
         resultsPanel = new JPanel();
-        scrollPane = new JScrollPane();
+        resultsPanel.setLayout(null);
+        resultsPanel.add(new JTextField("Text Field"));
+        scrollPane = new JScrollPane(resultsPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBounds(100,750,700,250);
+        mainFrame.add(scrollPane);
 
         // final UI configuration
         mainFrame.setLayout(null);
@@ -177,7 +182,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     } // end parse dates method
 
     public static void main(String[] args) throws ParseException{
-        //HotelGUI hotelGUI = new HotelGUI(new Account("jkaz27", "h"));
+        
         LocalDate localdate = LocalDate.of(2023, 10, 3);
         SimpleDateFormat sdf = new SimpleDateFormat();
         System.out.println(localdate.getDayOfMonth() +"/"+localdate.getMonthValue()+"/"+localdate.getYear());

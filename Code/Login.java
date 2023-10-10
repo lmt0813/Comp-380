@@ -110,16 +110,18 @@ public class Login extends JFrame implements ActionListener, ItemListener{
     public void readInfo(String usernameString, String passwordString, File loginFile) {
         try {
             scanner = new Scanner(loginFile);
-            String username, password;
+            String username, name, password, accountType, address, phoneNumber;
             while(scanner.hasNextLine()) {
                 username = scanner.next();
+                name = scanner.next();
                 password = scanner.next();
+                accountType = scanner.next();
+                address = scanner.next();
+                phoneNumber = scanner.next();
                 if(username.equals(usernameString) && password.equals(passwordString)) {
-                    JOptionPane.showMessageDialog(null, "Welcome: " + username + "!");
-                    Account constructor = new Account(username, password);
-                    HotelGUI hotelGUI = new HotelGUI(constructor);
-                    close();
-                    return;
+                    if(accountType.equalsIgnoreCase("User")) {
+                        loginUser(username, name, password, accountType, address, phoneNumber);
+                    }
                 }
                 else if(username.equals(usernameString) && !password.equals(passwordString)) {
                     JOptionPane.showMessageDialog(null, "Password Incorrect. Please re-enter");
@@ -140,6 +142,18 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         finally {
            scanner.close();
         } // end finally
+    }
+
+    public void loginUser(String username, String name, String password, String accountType, String address, String phoneNumber) {
+        JOptionPane.showMessageDialog(null, "Welcome: " + username + "!");
+        Account constructor = new Account(username, password, name, accountType, address, phoneNumber);
+        HotelGUI hotelGUI = new HotelGUI(constructor);
+        close();
+        return;
+    }
+
+    public void loginManager() {
+
     }
 
     public void close() {
