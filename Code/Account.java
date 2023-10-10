@@ -7,9 +7,13 @@ public class Account{
     private String phoneNumber;
 
 
-    public Account(String username, String password){
+    public Account(String username, String password, String name, String accountType, String address, String phoneNumber){
         this.username = username;
         this.password = password;
+        this.name = name;
+        this.accountType = accountType;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
     }
 
     private void makeReview(){
