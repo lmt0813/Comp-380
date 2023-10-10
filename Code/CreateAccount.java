@@ -18,7 +18,7 @@ public class CreateAccount extends JFrame implements ActionListener {
     File userFile;
 
 
-    NewAccount() {
+    CreateAccount() {
         frame = new JFrame();
         userNameField = new JTextField();
         nameField = new JTextField();
@@ -84,7 +84,7 @@ public class CreateAccount extends JFrame implements ActionListener {
   
 
     public static void main(String[] args) {
-        NewAccount newAccount = new NewAccount();
+        CreateAccount newAccount = new CreateAccount();
     }
 
 
