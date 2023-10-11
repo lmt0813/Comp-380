@@ -3,6 +3,7 @@ public class Hotel {
     protected int roomsAvailable;
     protected String location;
     protected String hotelName;
+    protected String hotelID;
     protected String[] staff;
     protected String[] criteria;
     protected Room[] roomList;

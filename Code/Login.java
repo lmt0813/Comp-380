@@ -110,17 +110,18 @@ public class Login extends JFrame implements ActionListener, ItemListener{
     public void readInfo(String usernameString, String passwordString, File loginFile) {
         try {
             scanner = new Scanner(loginFile);
-            String username, name, password, accountType, address, phoneNumber;
+            String username, name, password, accountType, address, phoneNumber, email;
             while(scanner.hasNextLine()) {
                 username = scanner.next();
-                name = scanner.next();
                 password = scanner.next();
+                name = scanner.next();
+                email = scanner.next();
                 accountType = scanner.next();
                 address = scanner.next();
                 phoneNumber = scanner.next();
                 if(username.equals(usernameString) && password.equals(passwordString)) {
                     if(accountType.equalsIgnoreCase("User")) {
-                        loginUser(username, name, password, accountType, address, phoneNumber);
+                        loginUser(username, password, name, email, accountType, address, phoneNumber);
                     }
                 }
                 else if(username.equals(usernameString) && !password.equals(passwordString)) {
@@ -144,9 +145,9 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         } // end finally
     }
 
-    public void loginUser(String username, String name, String password, String accountType, String address, String phoneNumber) {
+    public void loginUser(String username, String password, String name, String email, String accountType, String address, String phoneNumber) {
         JOptionPane.showMessageDialog(null, "Welcome: " + username + "!");
-        Account constructor = new Account(username, password, name, accountType, address, phoneNumber);
+        Account constructor = new Account(username, password, name, email, accountType, address, phoneNumber);
         HotelGUI hotelGUI = new HotelGUI(constructor);
         close();
         return;

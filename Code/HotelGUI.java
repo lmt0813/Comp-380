@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,11 +27,9 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     JMenuItem[] daysIn, daysOut;
     JRadioButton[] dateRadioButtonsIn, dateRadioButtonsOut;
     ButtonGroup bgIn, bgOut;
-    JScrollPane scrollPane;
 
     HotelGUI(Account User) {
         // instantiate UI components
-
         searchCriteria = new String[] {"Pool", "Pet Friendly", "Breakfast"};
         criteriaCheckBoxes = new JCheckBox[searchCriteria.length];
         dates = new String[] {"January" , "February" , "March" , "April", "May" , "June" , "July" , "August" , "September", "October" , "November" , "December"};
@@ -98,25 +97,18 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         bgOut = new ButtonGroup();
         setDays();
 
-        // set scrollpane
-        resultsPanel = new JPanel();
-        resultsPanel.setLayout(null);
-        resultsPanel.add(new JTextField("Text Field"));
-        scrollPane = new JScrollPane(resultsPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBounds(100,750,700,250);
-        mainFrame.add(scrollPane);
-
         // final UI configuration
         mainFrame.setLayout(null);
         mainFrame.setSize(1000,750);
-        mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(true);
+        mainFrame.setVisible(true);
+        
 
     } // end constructor
 
-    public void searchHotels() {
-        
+    public void searchHotels(LinkedList<String> criteriaList) {
+        System.out.println(criteriaList);
     } // end search hotels method
 
     public void setCriteria() {
@@ -140,7 +132,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
         if(source == searchButton) {
-            searchHotels();
+            LinkedList<String> criteria = new LinkedList<String>();
+            getCriteria(criteria);
+            System.out.println(criteria);
+           // searchHotels(criteria);
         }
 
         if(source == checkInDateButton) {
@@ -170,6 +165,19 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     }
 
+    public void getCriteria(LinkedList<String> selectedCriteria) {
+        for(int i = 0; i < criteriaCheckBoxes.length; i ++) {
+            if(criteriaCheckBoxes[i].isSelected()) {
+                System.out.println(searchCriteria[i]);
+                selectedCriteria.add(searchCriteria[i]);
+            }
+        }
+    }
+
+    public void getResults() {
+
+    }
+
     @Override
     public void itemStateChanged(ItemEvent e) {
        if(e.getSource() == checkInDates) {
@@ -182,7 +190,6 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     } // end parse dates method
 
     public static void main(String[] args) throws ParseException{
-        
         LocalDate localdate = LocalDate.of(2023, 10, 3);
         SimpleDateFormat sdf = new SimpleDateFormat();
         System.out.println(localdate.getDayOfMonth() +"/"+localdate.getMonthValue()+"/"+localdate.getYear());
