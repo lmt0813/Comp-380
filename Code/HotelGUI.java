@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HotelGUI extends JFrame implements ActionListener, ItemListener {
-    
+   
     Account user; // logged in as a user
     JLabel userNameLabel, criteriaLabel;
     JFrame mainFrame;
@@ -23,17 +23,19 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     JCheckBox[] criteriaCheckBoxes;
     JComboBox<String> checkInDates, checkOutDates;
     String[] dates;
-    JPanel dayChooserIn, dayChooserOut, resultsPanel;
+    JPanel dayChooserIn, dayChooserOut, resultsPanel, top, bottom;
     JMenuItem[] daysIn, daysOut;
     JRadioButton[] dateRadioButtonsIn, dateRadioButtonsOut;
     ButtonGroup bgIn, bgOut;
+    JScrollPane sp;
 
-    HotelGUI(Account User) {
+    HotelGUI(Account user) {
         // instantiate UI components
         searchCriteria = new String[] {"Pool", "Pet Friendly", "Breakfast"};
         criteriaCheckBoxes = new JCheckBox[searchCriteria.length];
         dates = new String[] {"January" , "February" , "March" , "April", "May" , "June" , "July" , "August" , "September", "October" , "November" , "December"};
         mainFrame = new JFrame();
+        mainFrame.getContentPane();
         menuBar = new JMenuBar();
         myBookings = new JMenu("My Bookings");
         myAccount = new JMenu("My Account");
@@ -43,7 +45,13 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         hotelFile = new File("./hotels.txt");
         searchButton = new JButton("Search");
         searchButton.addActionListener(this);
-
+        
+        top = new JPanel();
+        top.setLayout(null);
+        bottom = new JPanel(new GridLayout(100,2));
+        sp = new JScrollPane(bottom, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+       
+    
         //construct UI
         criteriaLabel = new JLabel("Criteria Selected: ");
         userNameLabel = new JLabel();
@@ -54,9 +62,9 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         menuBar.add(criteria);
         mainFrame.setJMenuBar(menuBar);
         search.setBounds(50,100,700,25);
-        mainFrame.add(search);
+        top.add(search);
         searchButton.setBounds(770, 100, 100, 25);
-        mainFrame.add(searchButton);
+        top.add(searchButton);
         
         // for check in and out date chooser
         dayChooserIn = new JPanel();
@@ -82,13 +90,13 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         checkOutDateButton = new JButton("Check Out Selector");
         checkOutDateButton.setBounds(650, 150, 145, 20);
         checkOutDateButton.addActionListener(this);
-        mainFrame.add(checkInDateButton);
-        mainFrame.add(checkOutDateButton);
+        top.add(checkInDateButton);
+        top.add(checkOutDateButton);
 
-        mainFrame.add(dayChooserIn);
-        mainFrame.add(dayChooserOut);
-        mainFrame.add(checkInDates);
-        mainFrame.add(checkOutDates);
+        top.add(dayChooserIn);
+        top.add(dayChooserOut);
+        top.add(checkInDates);
+        top.add(checkOutDates);
         
         //set button groups for date choosers
         dateRadioButtonsIn = new JRadioButton[31];
@@ -99,7 +107,11 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
         // final UI configuration
         mainFrame.setLayout(null);
-        mainFrame.setSize(1000,750);
+        top.setBounds(0,0,1000,200);
+        sp.setBounds(5,350, 1000, 250);
+        mainFrame.add(top);
+        mainFrame.add(sp);
+        mainFrame.setSize(1025,750);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(true);
         mainFrame.setVisible(true);
