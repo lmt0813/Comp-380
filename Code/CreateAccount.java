@@ -17,7 +17,7 @@ public class CreateAccount extends JFrame implements ActionListener {
     JButton createButton;
     BufferedWriter bw;
     File userFile;
-    ArrayList<String> usernameList = new ArrayList<String>();
+    static ArrayList<String> usernameList = new ArrayList<String>();
 
 
     CreateAccount() {
@@ -85,6 +85,7 @@ public class CreateAccount extends JFrame implements ActionListener {
   
 
     public static void main(String[] args) {
+        setUsernameList();
         CreateAccount newAccount = new CreateAccount();
     }
 
@@ -95,6 +96,15 @@ public class CreateAccount extends JFrame implements ActionListener {
         if(e.getSource() == createButton) {
             getAttributes();
         }
+    }
+
+    public static void setUsernameList() {
+        Scanner sc = new Scanner("usernames.txt");
+        while(sc.hasNext()) {
+            usernameList.add(sc.nextLine());
+           // System.out.println(usernameList.indexOf(0));
+        }
+        sc.close();
     }
 
     public void getAttributes() {
@@ -115,6 +125,13 @@ public class CreateAccount extends JFrame implements ActionListener {
         }
         if(checkPhoneNumber() == false) return;
         System.out.println("The method worked and I can go watch football!");
+
+        //writing usernames into usernames.txt
+        try{ PrintStream ps = new PrintStream("usernames.txt");
+            ps.append(userName);
+            ps.close();
+        }catch(FileNotFoundException e) {}
+        
         createAccount();
     }
 
