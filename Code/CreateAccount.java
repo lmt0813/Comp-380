@@ -1,3 +1,4 @@
+import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ public class CreateAccount extends JFrame implements ActionListener {
     JButton createButton;
     BufferedWriter bw;
     File userFile;
+    ArrayList<String> usernameList = new ArrayList<String>();
 
 
     CreateAccount() {
@@ -80,7 +82,6 @@ public class CreateAccount extends JFrame implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
   
 
     public static void main(String[] args) {
@@ -97,7 +98,13 @@ public class CreateAccount extends JFrame implements ActionListener {
     }
 
     public void getAttributes() {
+        usernameList.add("bob");
         userName = userNameField.getText();
+        if(usernameList.contains(userName)) {
+            JOptionPane.showMessageDialog(null, "username already in use");
+            return;
+        }
+        usernameList.add(userName);
         name = nameField.getText();
         passwordResult = passwordField.getPassword();
         convertPassword();
