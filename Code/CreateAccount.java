@@ -98,7 +98,6 @@ public class CreateAccount extends JFrame implements ActionListener {
     }
 
     public void getAttributes() {
-        usernameList.add("bob");
         userName = userNameField.getText();
         if(usernameList.contains(userName)) {
             JOptionPane.showMessageDialog(null, "username already in use");
