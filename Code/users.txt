@@ -1,6 +1,7 @@
 jkaz27
-Joey
 password1
+Joey
+joseph.kaz.911@my.csun.edu
 user
 address
 phoneNumber
