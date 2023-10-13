@@ -17,7 +17,7 @@ public class CreateAccount extends JFrame implements ActionListener {
     JButton createButton;
     BufferedWriter bw;
     File userFile;
-    static ArrayList<String> usernameList = new ArrayList<String>();
+    static ArrayList<String> usernameList;
 
 
     CreateAccount() {
@@ -85,6 +85,7 @@ public class CreateAccount extends JFrame implements ActionListener {
   
 
     public static void main(String[] args) {
+        usernameList = new ArrayList<String>();
         setUsernameList();
         CreateAccount newAccount = new CreateAccount();
     }
@@ -106,7 +107,6 @@ public class CreateAccount extends JFrame implements ActionListener {
             }
             sc.close();
         } catch (FileNotFoundException e){}
-        
     }
 
     public void getAttributes() {
