@@ -5,6 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
+
+//Problems  spamming create Account button on GUI will create that account that many times, so
+//          the newUsers.txt and usernames.txt will have that many duplicates
+//Fix:      have the GUI window close after you create an account,
+//          you probably want to run Login right after you click create account button anyways
+//
+//Problem:  need to add email and user type as fields
+//          will also need to add those fields in append method in getAttributes() to add to text file
+//          (if it's too messy in getAttributes() we can put PrintStreams into methods and call the method
+//          in getAttributes())
+//Fix:      easy fix, just do it
+//You can delete these when the problems are fixed ^^ I leave it to you Joey
+
 public class CreateAccount extends JFrame implements ActionListener {
     
     JFrame frame;
@@ -115,7 +128,6 @@ public class CreateAccount extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "username already in use");
             return;
         }
-        usernameList.add(userName);
         name = nameField.getText();
         passwordResult = passwordField.getPassword();
         convertPassword();
@@ -129,10 +141,17 @@ public class CreateAccount extends JFrame implements ActionListener {
         System.out.println("The method worked and I can go watch football!");
 
         //writing usernames into usernames.txt
-        try{ PrintStream ps = new PrintStream("usernames.txt");
+        try{ PrintStream ps = new PrintStream(new FileOutputStream("usernames.txt", true));
             ps.append(userName + "\n");
             ps.close();
         }catch(FileNotFoundException e) {}
+        
+        //writing accountInfo into newUsers.txt
+        //will need to add email and user type to append after added to GUI
+        try { PrintStream ps = new PrintStream(new FileOutputStream("newUsers.txt", true));
+            ps.append(userName + ", " + String.valueOf(passwordResult) + ", " + name + ", " + address + ", " + phoneNumber + "\n");
+            ps.close();
+        } catch (FileNotFoundException e) {}
         
         createAccount();
     }
