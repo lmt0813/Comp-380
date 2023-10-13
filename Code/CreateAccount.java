@@ -99,12 +99,14 @@ public class CreateAccount extends JFrame implements ActionListener {
     }
 
     public static void setUsernameList() {
-        Scanner sc = new Scanner("usernames.txt");
-        while(sc.hasNext()) {
-            usernameList.add(sc.nextLine());
-           // System.out.println(usernameList.indexOf(0));
-        }
-        sc.close();
+        try {
+            Scanner sc = new Scanner(new File("usernames.txt"));
+            while(sc.hasNext()) {
+                usernameList.add(sc.nextLine());
+            }
+            sc.close();
+        } catch (FileNotFoundException e){}
+        
     }
 
     public void getAttributes() {
@@ -128,7 +130,7 @@ public class CreateAccount extends JFrame implements ActionListener {
 
         //writing usernames into usernames.txt
         try{ PrintStream ps = new PrintStream("usernames.txt");
-            ps.append(userName);
+            ps.append(userName + "\n");
             ps.close();
         }catch(FileNotFoundException e) {}
         
