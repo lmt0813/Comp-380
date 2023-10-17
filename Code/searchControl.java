@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class searchControl {
-     protected ArrayList<String> searchCriteria;
+     protected LinkedList<String> searchCriteria;
      
-     public ArrayList<Hotel> searchResults(String[] search){
+     public LinkedList<Hotel> searchResults(LinkedList<String> search){
         ArrayList<Hotel> results = new ArrayList<Hotel>();
 
         ArrayList<Hotel> dummyList;
