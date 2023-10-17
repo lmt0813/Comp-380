@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.io.*;
-
 import java.awt.event.*;
 import java.util.*;
 
@@ -14,11 +13,10 @@ public class Login extends JFrame implements ActionListener, ItemListener{
     JTextField usernameText;
     JButton loginButton, newUserButton;
     Scanner scanner;
-
     Login() {
         // instantiate GUI Components
 
-        options = new String[] {"User" , "Manager", "New User"};
+        options = new String[] {"User" , "Manager"};
         files = new String[]{"./users.txt", "./managers.txt"};
         comboBox = new JComboBox<String>(options);
         passwordField = new JPasswordField();
@@ -87,7 +85,14 @@ public class Login extends JFrame implements ActionListener, ItemListener{
                 return;
             }
             readInfo(username,password, loginInfo);
+        } // end login button
+
+        if(e.getSource() == newUserButton) {
+            CreateAccount c = new CreateAccount();
+            close();
+            return;
         }
+
     } // end actionperformed method
 
     public void itemStateChanged(ItemEvent e) {

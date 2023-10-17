@@ -8,7 +8,7 @@ public class Hotel {
     protected String[] criteria;
     protected Room[] roomList;
 
-    public Hotel(){}
+    public Hotel() {}
 
     public Hotel(String hotelName, String location, int roomCapacity, String[] staff, String[] critera, Room[] roomList){
         this.hotelName = hotelName;

@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+
+import javax.naming.directory.SearchControls;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
@@ -28,6 +30,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     JRadioButton[] dateRadioButtonsIn, dateRadioButtonsOut;
     ButtonGroup bgIn, bgOut;
     JScrollPane sp;
+    LinkedList<String> criteriaResults;
 
     HotelGUI(){}
 
@@ -107,6 +110,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         bgOut = new ButtonGroup();
         setDays();
 
+        criteriaResults = new LinkedList<String>();
+
         // final UI configuration
         mainFrame.setLayout(null);
         top.setBounds(0,0,1000,300);
@@ -146,9 +151,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
         if(source == searchButton) {
-            LinkedList<String> criteria = new LinkedList<String>();
-            getCriteria(criteria);
-            System.out.println(criteria);
+            criteriaResults = new LinkedList<String>();
+            getCriteria(criteriaResults);
+            searchControl sc = new searchControl();
+            sc.searchResults(criteriaResults);
            // searchHotels(criteria);
         }
 
@@ -182,10 +188,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     public void getCriteria(LinkedList<String> selectedCriteria) {
         for(int i = 0; i < criteriaCheckBoxes.length; i ++) {
             if(criteriaCheckBoxes[i].isSelected()) {
-                System.out.println(searchCriteria[i]);
                 selectedCriteria.add(searchCriteria[i]);
             }
         }
+        System.out.println(selectedCriteria);
     }
 
     public void getResults() {
