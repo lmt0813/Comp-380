@@ -29,6 +29,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     ButtonGroup bgIn, bgOut;
     JScrollPane sp;
 
+    HotelGUI(){}
+
     HotelGUI(Account user) {
         // instantiate UI components
         searchCriteria = new String[] {"Pool", "Pet Friendly", "Breakfast"};
@@ -40,7 +42,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         myBookings = new JMenu("My Bookings");
         myAccount = new JMenu("My Account");
         criteria = new JMenu("Criteria");
-        setCriteria();
+        setCriteria();                                  
         search = new JTextField();
         hotelFile = new File("./hotels.txt");
         searchButton = new JButton("Search");
@@ -107,7 +109,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
         // final UI configuration
         mainFrame.setLayout(null);
-        top.setBounds(0,0,1000,200);
+        top.setBounds(0,0,1000,300);
         sp.setBounds(5,350, 1000, 250);
         mainFrame.add(top);
         mainFrame.add(sp);
@@ -202,8 +204,11 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     } // end parse dates method
 
     public static void main(String[] args) throws ParseException{
+        HotelGUI g = new HotelGUI();
         LocalDate localdate = LocalDate.of(2023, 10, 3);
-        SimpleDateFormat sdf = new SimpleDateFormat();
+        LocalDate localDate2 = LocalDate.of(2023, 10, 17);
+        Duration diff = Duration.between(localdate.atStartOfDay(), localDate2.atStartOfDay());
+        System.out.println(diff.toDays());
         System.out.println(localdate.getDayOfMonth() +"/"+localdate.getMonthValue()+"/"+localdate.getYear());
 
     } 
