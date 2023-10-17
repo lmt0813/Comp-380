@@ -23,6 +23,10 @@ public class Hotel {
         this.roomsAvailable = rooms;
     }
 
+    public String[] getCriteria(){
+        return this.criteria;
+    }
+
     protected void hireStaff(){
 
     }
