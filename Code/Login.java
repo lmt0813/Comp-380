@@ -13,6 +13,7 @@ public class Login extends JFrame implements ActionListener, ItemListener{
     JTextField usernameText;
     JButton loginButton, newUserButton;
     Scanner scanner;
+    String attributes[];
     Login() {
         // instantiate GUI Components
 
@@ -117,6 +118,7 @@ public class Login extends JFrame implements ActionListener, ItemListener{
             scanner = new Scanner(loginFile);
             String username, name, password, accountType, address, phoneNumber, email;
             while(scanner.hasNextLine()) {
+                attributes = scanner.next().split(",");
                 username = scanner.next();
                 password = scanner.next();
                 name = scanner.next();
@@ -160,6 +162,10 @@ public class Login extends JFrame implements ActionListener, ItemListener{
 
     public void loginManager() {
 
+    }
+
+    public void setAttriubtes() {
+        
     }
 
     public void close() {
