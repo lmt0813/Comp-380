@@ -1,32 +1,58 @@
 import java.util.*;
+import java.io.*;
 
 public class searchControl {
-     protected LinkedList<String> searchCriteria;
+
+    private Scanner scanner;
+    protected LinkedList<String> searchCriteria;
+    LinkedList<Room> results = new LinkedList<Room>();
+    String attributes[];
+    String hotelID, roomID, roomType;
+    int numberBed, floorNumber, roomNumber;
+    boolean avaialbility;
+    double price;
+    File roomFile;
+
+    searchControl() {roomFile = new File("./Room.txt");}
      
-     public LinkedList<Hotel> searchResults(LinkedList<String> search){
-        LinkedList<Hotel> results = new LinkedList<Hotel>();
-
-        LinkedList<Hotel> dummyList;
-
-        //assuming that an array of hotels exist and a different class has this
-        // method to pass said list on
-
-        //also need to make getCriteria method in hotel.java
-
-        //dummyList = getHotelList();  
-
-        /*
-        for(int i = 0; i < dummmyList.length(); i++){
-            for(int j = 0; j < dummyList.get(i).getCriteria.length(); j++){
-                if(dummyList.get(i).getCriteria[j].compareTo(search[i]) == 0){
-                    results.add(dummyList.get(i));
-                }
-            }
-
-        }
-        */
-
+    public LinkedList<Room> searchResults(LinkedList<String> search){
         return results;
      }
+
+     public LinkedList<Room> searchResults() {
+        try {
+            scanner = new Scanner(roomFile);
+            while(scanner.hasNextLine()) {
+                attributes = scanner.next().split(",");
+                System.out.println("Scanned");
+                addRoom(attributes);
+            }
+        }
+
+        catch(FileNotFoundException e){e.printStackTrace();}
+
+        catch(NoSuchElementException e){e.printStackTrace();}
+
+        finally {scanner.close();}
+
+        return results;
+    }
+
+    public void addRoom(String[] attStrings) {
+        assignAttributes();
+        results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
+        System.out.println("room added");
+    }
+
+    public void assignAttributes() {
+        hotelID = attributes[0];
+        roomID = attributes[1];
+        numberBed = Integer.parseInt(attributes[2]);
+        avaialbility = Boolean.parseBoolean(attributes[3]);
+        floorNumber = Integer.parseInt(attributes[4]);
+        roomNumber = Integer.parseInt(attributes[5]);
+        roomType = attributes[6];
+        price = Double.parseDouble(attributes[7]);
+    }
     
 }

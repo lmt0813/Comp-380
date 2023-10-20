@@ -1,0 +1,5 @@
+The Hilton Inn,111 Address a,1,100,100
+Ramada Inn, 222 Address b,2,50,50
+Roadway Inn, 333 Address c,3,27,27
+Super 8, 444 Address 4,4,48,48
+Motel 6, 555 Address 5,5,35,35

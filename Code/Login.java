@@ -4,16 +4,17 @@ import java.awt.event.*;
 import java.util.*;
 
 public class Login extends JFrame implements ActionListener, ItemListener{
-    JFrame mainFrame;
-    JPasswordField passwordField;
-    JLabel label, usernameLabel, passwordLabel;
-    JComboBox<String> comboBox;
-    File loginInfo;
-    String[] options, files;
-    JTextField usernameText;
-    JButton loginButton, newUserButton;
-    Scanner scanner;
-    String attributes[];
+    private JFrame mainFrame;
+    private JPasswordField passwordField;
+    private JLabel label, usernameLabel, passwordLabel;
+    private JComboBox<String> comboBox;
+    private File loginInfo;
+    private String[] options, files;
+    private JTextField usernameText;
+    private JButton loginButton, newUserButton;
+    private Scanner scanner;
+    private String attributes[];
+    private String username, password, name, email, accountType, address, phoneNumber;
     Login() {
         // instantiate GUI Components
 
@@ -116,16 +117,9 @@ public class Login extends JFrame implements ActionListener, ItemListener{
     public void readInfo(String usernameString, String passwordString, File loginFile) {
         try {
             scanner = new Scanner(loginFile);
-            String username, name, password, accountType, address, phoneNumber, email;
             while(scanner.hasNextLine()) {
                 attributes = scanner.next().split(",");
-                username = scanner.next();
-                password = scanner.next();
-                name = scanner.next();
-                email = scanner.next();
-                accountType = scanner.next();
-                address = scanner.next();
-                phoneNumber = scanner.next();
+                setAttriubtes(attributes);
                 if(username.equals(usernameString) && password.equals(passwordString)) {
                     if(accountType.equalsIgnoreCase("User")) {
                         loginUser(username, password, name, email, accountType, address, phoneNumber);
@@ -143,8 +137,8 @@ public class Login extends JFrame implements ActionListener, ItemListener{
                     
         }
 
-        catch (FileNotFoundException fne){
-
+        catch (FileNotFoundException fne){ 
+            fne.printStackTrace();
         } //end catch
 
         finally {
@@ -164,8 +158,14 @@ public class Login extends JFrame implements ActionListener, ItemListener{
 
     }
 
-    public void setAttriubtes() {
-        
+    public void setAttriubtes(String[] attributeStrings) {
+        username = attributeStrings[0];
+        password = attributeStrings[1];
+        name = attributeStrings[2];
+        email = attributeStrings[3];
+        accountType = attributeStrings[4];
+        address = attributeStrings[5];
+        phoneNumber = attributeStrings[6];
     }
 
     public void close() {

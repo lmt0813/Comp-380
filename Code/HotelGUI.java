@@ -31,6 +31,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     ButtonGroup bgIn, bgOut;
     JScrollPane sp;
     LinkedList<String> criteriaResults;
+    LinkedList<Room> roomResults;
 
     HotelGUI(){}
 
@@ -154,7 +155,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             criteriaResults = new LinkedList<String>();
             getCriteria(criteriaResults);
             searchControl sc = new searchControl();
-            sc.searchResults(criteriaResults);
+            roomResults = sc.searchResults();
+            for(Room room: roomResults) {
+                System.out.println(room.hotelID);
+            }
            // searchHotels(criteria);
         }
 
