@@ -14,12 +14,9 @@ public class searchControl {
     File roomFile;
 
     searchControl() {roomFile = new File("./Room.txt");}
-     
-    public LinkedList<Room> searchResults(LinkedList<String> search){
-        return results;
-     }
+   
 
-     public LinkedList<Room> searchResults() {
+     public LinkedList<Room> searchResults(LinkedList<String> search) {
         try {
             scanner = new Scanner(roomFile);
             while(scanner.hasNextLine()) {
@@ -27,6 +24,7 @@ public class searchControl {
                 System.out.println("Scanned");
                 addRoom(attributes);
             }
+            System.out.println("Finished scanning");
         }
 
         catch(FileNotFoundException e){e.printStackTrace();}
