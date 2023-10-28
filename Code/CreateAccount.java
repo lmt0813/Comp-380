@@ -32,11 +32,11 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     BufferedWriter bw;
     File userFile;
     JComboBox<String> cb;
-    static ArrayList<String> usernameList;
+    LinkedList<String> usernameList;
 
 
     CreateAccount() {
-        usernameList = new ArrayList<String>();
+        usernameList = new LinkedList<String>();
         frame = new JFrame();
         userNameField = new JTextField();
         nameField = new JTextField();
@@ -114,11 +114,11 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setUsernameList();
     }
-  
 
     public static void main(String[] args) {
-        setUsernameList();
         CreateAccount newAccount = new CreateAccount();
     }
 
@@ -127,7 +127,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createButton) {
-            getAttributes();
+            if(getAttributes() == 1) return;
+            createAccount();
+            accountCreated();
         }
     }
 
@@ -138,24 +140,30 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
-    public static void setUsernameList() {
+    public void setUsernameList() {
         try {
-            Scanner sc = new Scanner(new File("usernames.txt"));
+            usernameList.clear();
+            Scanner sc = new Scanner(new File("users.txt"));
             while(sc.hasNext()) {
-                usernameList.add(sc.nextLine());
+                String[] attributes = sc.next().split(",");
+                usernameList.add(attributes[0]);
+                usernameList.add(email);
             }
             sc.close();
         } catch (FileNotFoundException e){}
+
+        finally {
+            System.out.println(usernameList);
+        }
     }
 
-    public void getAttributes() {
+    public int getAttributes() {
         userName = userNameField.getText();
-        if(usernameList.contains(userName)) {
+        if(userName.compareTo("") != 0 && usernameList.contains(userName)) {
             JOptionPane.showMessageDialog(null, "username already in use");
-            return;
+            return 1;
         }
         type = cb.getSelectedItem().toString();
-        System.out.println(type);
         email = emailField.getText();
         name = nameField.getText();
         passwordResult = passwordField.getPassword();
@@ -164,24 +172,11 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         phoneNumber = phoneNumberField.getText();
         fields = new String[] {type, email,name, userName, password, address, phoneNumber};
         if(checkNullFields() == false) {
-            return;
+            return 1;
         }
-        if(checkPhoneNumber() == false) return;
-
-        //writing usernames into usernames.txt
-        try{ PrintStream ps = new PrintStream(new FileOutputStream("usernames.txt", true));
-            ps.append(userName + "\n");
-            ps.close();
-        }catch(FileNotFoundException e) {}
+        if(checkPhoneNumber() == false) return 1;
         
-        //writing accountInfo into newUsers.txt
-        //will need to add email and user type to append after added to GUI
-        try { PrintStream ps = new PrintStream(new FileOutputStream("newUsers.txt", true));
-            ps.append(userName + ", " + String.valueOf(passwordResult) + ", " + name + ", " + address + ", " + phoneNumber + "\n");
-            ps.close();
-        } catch (FileNotFoundException e) {}
-        
-        createAccount();
+        return 0;
         
     }
 
@@ -200,18 +195,25 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
     public void createAccount() {
         try {
-            userFile = new File("./users.txt");
-            bw = new BufferedWriter(new FileWriter(userFile, true));
+            PrintStream ps = new PrintStream(new FileOutputStream("users.txt", true));
+            ps.append(userName + "," + String.valueOf(passwordResult) + "," + name + "," + email + ",user," + address + "," + phoneNumber+"\n");
+            ps.close();
+        } 
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
-        catch(FileNotFoundException e) {
-            e.printStackTrace();
-        } 
-        
-        catch (IOException e) {
-            e.printStackTrace();
         }
+
+    public void accountCreated() {
+        JOptionPane.showMessageDialog(null, "Account Successfully Created!");
+        Account constructor = new Account(userName, password, name, email, accountType, address, phoneNumber);
+        HotelGUI hotelGUI = new HotelGUI(constructor);
+        close();
+        return;
+
     }
+    
 
     public void convertPassword() {
         password = "";
@@ -243,6 +245,7 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     } // end getEmptyField Method
 
     public boolean checkPhoneNumber() {
+
         if(phoneNumber.length() != 12) {
             JOptionPane.showMessageDialog(null, "Phone Number must be of correct format: ###-###-####");
             return false;
@@ -275,5 +278,10 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
         return true;
         }
+
+    public void close() {
+        frame.dispose();
+    }
     } // end NewAccount.java class
+    
 

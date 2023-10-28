@@ -119,10 +119,12 @@ public class Login extends JFrame implements ActionListener, ItemListener{
             scanner = new Scanner(loginFile);
             while(scanner.hasNextLine()) {
                 attributes = scanner.next().split(",");
+                System.out.println(Arrays.asList(attributes));
                 setAttriubtes(attributes);
                 if(username.equals(usernameString) && password.equals(passwordString)) {
                     if(accountType.equalsIgnoreCase("User")) {
                         loginUser(username, password, name, email, accountType, address, phoneNumber);
+                        return;
                     }
                 }
                 else if(username.equals(usernameString) && !password.equals(passwordString)) {
@@ -151,7 +153,6 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         Account constructor = new Account(username, password, name, email, accountType, address, phoneNumber);
         HotelGUI hotelGUI = new HotelGUI(constructor);
         close();
-        return;
     }
 
     public void loginManager() {
