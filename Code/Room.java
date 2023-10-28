@@ -5,10 +5,10 @@ public class Room {
     protected int floorNumber;
     protected int roomNumber;
     protected String roomType;
-    protected int hotelID;
+    protected String hotelID;
     protected double price;
 
-    public Room(int hotelID, String roomID, int numberBed, boolean availability,
+    public Room(String hotelID, String roomID, int numberBed, boolean availability,
                 int floorNumber, int roomNumber, String roomType, double price) {
 
         this.hotelID = hotelID;
