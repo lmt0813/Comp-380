@@ -27,10 +27,6 @@ public class searchControl {
      4) Most likely scan hotel text file, check for attributes per hotel, then scan the room list based on hotel ID
      */
 
-
-
-
-
      //returns ArrayList<Integer> of the Hotel IDs that match the searchCriteria
      //look to hotels.txt for format of hotel info/criteria. It is pretty sensitive
      //will have to change testSearchCriteria to searchCriteria after its initialization
@@ -38,7 +34,7 @@ public class searchControl {
      public ArrayList<Integer> filterSearchCriteria() {
         //dummy code for testing since searchCriteria is not initialized
         LinkedList<String> testSearchCriteria = new LinkedList<>();
-        testSearchCriteria.add("free_WI-FI");
+        testSearchCriteria.add("Free Wi-Fi");
         testSearchCriteria.add("pool");
         //start of method
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
@@ -66,6 +62,7 @@ public class searchControl {
             scanner.close();
         } catch(FileNotFoundException e) {}
 
+        System.out.println(Arrays.asList(hotelResults));
         return hotelResults;
      }
 
@@ -96,10 +93,8 @@ public class searchControl {
             scanner = new Scanner(roomFile);
             while(scanner.hasNextLine()) {
                 attributes = scanner.next().split(",");
-                System.out.println("Scanned");
                 addRoom(attributes);
             }
-            System.out.println("Finished scanning");
         }
 
         catch(FileNotFoundException e){e.printStackTrace();}
@@ -116,7 +111,6 @@ public class searchControl {
     public void addRoom(String[] attStrings) {
         assignAttributes();
         results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
-        System.out.println("room added");
     }
 
     // method that assigns sent attributes to the data types defined in the class header

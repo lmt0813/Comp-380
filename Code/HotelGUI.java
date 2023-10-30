@@ -21,7 +21,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     JTextField search;
     File hotelFile;
     JButton searchButton, checkInDateButton, checkOutDateButton;
-    String[] searchCriteria;
+    String[] searchCriteria, textFileCriteria;
     JCheckBox[] criteriaCheckBoxes;
     JComboBox<String> checkInMonths, checkOutMonths;
     String[] dates;
@@ -40,7 +40,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
     HotelGUI(Account user) {
         // instantiate UI components
-        searchCriteria = new String[] {"Pool", "Pet Friendly", "Free Breakfast", "Free Parking", "Free Wifi"};
+        searchCriteria = new String[] {"Pool", "Pet Friendly", "Free Breakfast", "Free Parking", "Free Wi-Fi"};
+        textFileCriteria = new String[] {"Pool", "Pet Friendly" , "Free_Breakfast", "Free_Parking", "Free_Wi-Fi"};
         criteriaCheckBoxes = new JCheckBox[searchCriteria.length];
         dates = new String[] {"January" , "February" , "March" , "April", "May" , "June" , "July" , "August" , "September", "October" , "November" , "December"};
         mainFrame = new JFrame();
@@ -114,7 +115,6 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         bgOut = new ButtonGroup();
         setDays();
 
-        criteriaResults = new LinkedList<String>();
 
         // final UI configuration
         mainFrame.setLayout(null);
@@ -199,7 +199,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     public void getCriteria(LinkedList<String> selectedCriteria) {
         for(int i = 0; i < criteriaCheckBoxes.length; i ++) {
             if(criteriaCheckBoxes[i].isSelected()) {
-                selectedCriteria.add(searchCriteria[i]);
+                selectedCriteria.add(textFileCriteria[i]);
             }
         }
     }
@@ -257,7 +257,6 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     }
 
     public void displayResults() {
-        System.out.println("display called");
         for(int i = 0; i < roomResults.size(); i++) {
             bottom.add(new JLabel(roomResults.get(i).roomID +": " + roomResults.get(i).price));
             bottom.add(buttonResults.get(i));
