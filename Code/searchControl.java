@@ -34,7 +34,7 @@ public class searchControl {
      public ArrayList<Integer> filterSearchCriteria() {
         //dummy code for testing since searchCriteria is not initialized
         LinkedList<String> testSearchCriteria = new LinkedList<>();
-        testSearchCriteria.add("Free Wi-Fi");
+        testSearchCriteria.add("Free_WI-FI");
         testSearchCriteria.add("pool");
         //start of method
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
@@ -72,16 +72,16 @@ public class searchControl {
     public ArrayList<Room> filterRoomSearch(){
         ArrayList<Integer> hotelIDs = filterSearchCriteria();
         ArrayList<Room> results = new ArrayList<>();
-        
+
         try{
             scanner = new Scanner(new File("Room.txt"));
-            while(scanner.hasNextLine()){
-                String[] temp = scanner.next().split(",");
-                if(hotelIDs.contains(Integer.parseInt(temp[0])) && Boolean.parseBoolean(temp[3]) != false){
-                    results.add(new Room(Integer.parseInt(temp[0]), temp[1], Integer.parseInt(temp[2]), Boolean.parseBoolean(temp[3]), 
-                                Integer.parseInt(temp[4]), Integer.parseInt(temp[5]), temp[6], Double.parseDouble(temp[7])));
+                while(scanner.hasNextLine()){
+                    String[] temp = scanner.next().split(",");
+                    if(hotelIDs.contains(Integer.parseInt(temp[0])) && Boolean.parseBoolean(temp[3]) != false){
+                        results.add(new Room(Integer.parseInt(temp[0]), temp[1], Integer.parseInt(temp[2]), Boolean.parseBoolean(temp[3]), 
+                                    Integer.parseInt(temp[4]), Integer.parseInt(temp[5]), temp[6], Double.parseDouble(temp[7])));
+                    }
                 }
-            }
             scanner.close();
         } catch(FileNotFoundException e){}
 
