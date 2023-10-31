@@ -14,7 +14,9 @@ public class searchControl {
     File roomFile;
 
 
-    searchControl() {roomFile = new File("./Room.txt");}
+    searchControl() {
+        roomFile = new File("./Room.txt");
+    }
    
     /*
      goals for this class:
@@ -29,30 +31,21 @@ public class searchControl {
 
      //returns ArrayList<Integer> of the Hotel IDs that match the searchCriteria
      //look to hotels.txt for format of hotel info/criteria. It is pretty sensitive
-     //will have to change testSearchCriteria to searchCriteria after its initialization
-     //open to changing return type to ArrayList<Hotel>
-     public ArrayList<Integer> filterSearchCriteria() {
-        //dummy code for testing since searchCriteria is not initialized
-        LinkedList<String> testSearchCriteria = new LinkedList<>();
-        testSearchCriteria.add("Free_WI-FI");
-        testSearchCriteria.add("pool");
-        //start of method
+     private ArrayList<Integer> filterSearchCriteria() {
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
         try{
             scanner = new Scanner(new File("hotels.txt"));
             while(scanner.hasNextLine()) {
-                //probably a more efficient way to do this and might change later
-                String[] nLine = scanner.next().split(",");
-                int currentHotel = Integer.parseInt(nLine[2]);
-                nLine = scanner.next().split(",");
+                String[] readLine = scanner.next().split(",");
+                int currentHotel = Integer.parseInt(readLine[2]);
+                readLine = scanner.next().split(",");
                 int index = 0;
                 int count = 0;
-                while(index < testSearchCriteria.size()) {
-                    //need to change testSearchCriteria to searchCriteria after we figure out when we are initalizing it
-                    if(Arrays.asList(nLine).contains(testSearchCriteria.get(index)) && !(hotelResults.contains(currentHotel))) {
+                while(index < searchCriteria.size()) {
+                    if(Arrays.asList(readLine).contains(searchCriteria.get(index)) && !(hotelResults.contains(currentHotel))) {
                         count++;
                     }
-                    if(count == testSearchCriteria.size()){
+                    if(count == searchCriteria.size()){
                         hotelResults.add(currentHotel);
                         count = 0;
                     }
@@ -61,48 +54,31 @@ public class searchControl {
             }
             scanner.close();
         } catch(FileNotFoundException e) {}
-
+        
+        //println for testing (remove later)
         System.out.println(Arrays.asList(hotelResults));
         return hotelResults;
      }
 
-    //returns an ArrayList<Room>
-    //the lit contains the rooms of hotels that match the searchCriteria
-    //needs testing
-    public ArrayList<Room> filterRoomSearch(){
-        ArrayList<Integer> hotelIDs = filterSearchCriteria();
-        ArrayList<Room> results = new ArrayList<>();
 
+    //returns an LinkedList<Room> of rooms that matched the searchCriteria.
+    private void filterRoomSearch(){
+        ArrayList<Integer> hotelIDs = filterSearchCriteria();
         try{
             scanner = new Scanner(new File("Room.txt"));
                 while(scanner.hasNextLine()){
-                    String[] temp = scanner.next().split(",");
-                    if(hotelIDs.contains(Integer.parseInt(temp[0])) && Boolean.parseBoolean(temp[3]) != false){
-                        results.add(new Room(Integer.parseInt(temp[0]), temp[1], Integer.parseInt(temp[2]), Boolean.parseBoolean(temp[3]), 
-                                    Integer.parseInt(temp[4]), Integer.parseInt(temp[5]), temp[6], Double.parseDouble(temp[7])));
+                    String[] readLine = scanner.next().split(",");
+                    if(hotelIDs.contains(Integer.parseInt(readLine[0])) && Boolean.parseBoolean(readLine[3]) != false){
+                        addRoom(readLine);
                     }
                 }
             scanner.close();
         } catch(FileNotFoundException e){}
-
-        return results;
     } 
 
     public LinkedList<Room> searchResults(LinkedList<String> search) {
-        try {
-            scanner = new Scanner(roomFile);
-            while(scanner.hasNextLine()) {
-                attributes = scanner.next().split(",");
-                addRoom(attributes);
-            }
-        }
-
-        catch(FileNotFoundException e){e.printStackTrace();}
-
-        catch(NoSuchElementException e){e.printStackTrace();}
-
-        finally {scanner.close();}
-
+        searchCriteria = search;
+        filterRoomSearch();
         return results;
     }
 
@@ -112,6 +88,7 @@ public class searchControl {
         assignAttributes();
         results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
     }
+
 
     // method that assigns sent attributes to the data types defined in the class header
     public void assignAttributes() {
