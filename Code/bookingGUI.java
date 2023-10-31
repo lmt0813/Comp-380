@@ -1,13 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class bookingGUI extends JFrame{
+public class bookingGUI extends JFrame implements ActionListener{
     JLabel hotelLabel, checkinLabel, checkoutLabel, totalLabel, nameLabel, cardLabel, expLabel, securityLabel;
     //NOT FILLED 
     JLabel hotelNameLabel, checkinDateLabel, checkoutDateLabel, totalFillLabel;
     JButton submitButton;
     JComboBox <String> selectPay;
     JTextField  nameField, cardField, expField, securityField;
+    JTextField []textFieldsArray;
     JFrame frame;
 
         bookingGUI(){}
@@ -32,7 +35,9 @@ public class bookingGUI extends JFrame{
             securityLabel = new JLabel("CCV :");
             securityField = new JTextField();
             submitButton = new JButton("Submit Payment ");
-
+            
+            textFieldsArray = new JTextField[]{nameField, cardField, expField, securityField};
+            
 
             hotelLabel.setBounds(50, 50, 150, 50);
             frame.add(hotelLabel);
@@ -70,6 +75,7 @@ public class bookingGUI extends JFrame{
             securityField.setBounds(200,450, 175, 25);
             frame.add(securityField);
             submitButton.setBounds(100, 500, 150, 25);
+            submitButton.addActionListener(this);
             frame.add(submitButton);
             
 
@@ -82,6 +88,77 @@ public class bookingGUI extends JFrame{
            
 
 
+        }
+
+        public void actionPerformed(ActionEvent ae){
+            Object o = ae.getSource();
+            if (o == submitButton){
+                if (checkFields()==1)
+                return;
+                if(validateFields() == 1 )
+                return;
+            }
+        }
+        int validateFields(){
+            if(validateCard() == 1 )
+            return 1;
+            if (validateExp()== 1)
+            return 1;
+            if(validateCVV() == 1)
+            return 1;
+            return 0;
+        }
+
+
+        int validateCard(){
+            String cardLength = cardField.getText();
+            if (cardLength.length()!= 16){
+                JOptionPane.showMessageDialog(null,"Card length must be 16 digits");
+            }
+            for(int i = 0; i < cardLength.length(); i++){
+                char currentChar = cardLength.charAt(i);
+                if(!Character.isDigit(currentChar)){
+                    JOptionPane.showMessageDialog(null, "card number must consist of all numbers");
+                    return 1;
+                }
+
+            }
+            return 0; 
+        } 
+
+        int validateExp(){
+                return 0;
+        }
+
+        int validateCVV(){
+                return 0;
+        }
+
+
+        int checkFields(){
+            for(int i=0; i < textFieldsArray.length; i++){
+                if(textFieldsArray[i].getText().compareTo("")==0){
+                    JOptionPane.showMessageDialog(null,getEmptyField(i)+" cannot be empty");
+                    return 1;
+                }
+            }
+            return 0; 
+        }
+
+        String getEmptyField(int i){
+            switch (i) {
+                case 0: return "Name";
+                    
+                case 1: return "Card Number";
+
+                case 2: return "Expiration Date";
+
+                case 3: return "CCV";
+
+                default:
+                    break;
+            }
+            return "";
         }
         public static void main(String[] args) {
             bookingGUI x = new bookingGUI(new Booking());
