@@ -121,14 +121,19 @@ public class bookingGUI extends JFrame implements ActionListener{
                     JOptionPane.showMessageDialog(null, "card number must consist of all numbers");
                     return 1;
                 }
-
             }
             return 0; 
         } 
 
         int validateExp(){
-                return 0;
-        }
+            String ExpDate = expField.getText();
+            if (ExpDate.length() != 5){
+                JOptionPane.showMessageDialog(null, "must proper date format (MM/YY)");
+            }
+            if(!Character.isDigit(0)||!Character.isDigit(1))
+                JOptionPane.showConfirmDialog(null,"must be in MM/YY format");
+                return 1;
+        }//need to push 
 
         int validateCVV(){
                 return 0;
