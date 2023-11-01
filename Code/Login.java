@@ -128,19 +128,18 @@ public class Login extends JFrame implements ActionListener, ItemListener{
                 }
                 else if(username.equals(usernameString) && !password.equals(passwordString)) {
                     JOptionPane.showMessageDialog(null, "Password Incorrect. Please re-enter");
+                    return;
                 }
-
-                else {
-                    JOptionPane.showMessageDialog(null,"Username not found");
-                }
-            } // end while loop
-               
-                    
+            } // end while loop     
+            JOptionPane.showMessageDialog(null,"Username not found");
+            return;
         }
 
         catch (FileNotFoundException fne){ 
             fne.printStackTrace();
         } //end catch
+
+        catch(NoSuchElementException e) {} // reach end of the file
 
         finally {
            scanner.close();
