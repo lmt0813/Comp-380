@@ -41,7 +41,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     HotelGUI(Account user) {
         // instantiate UI components
         searchCriteria = new String[] {"Pool", "Pet Friendly", "Free Breakfast", "Free Parking", "Free Wi-Fi"};
-        textFileCriteria = new String[] {"Pool", "Pet Friendly" , "Free_Breakfast", "Free_Parking", "Free_Wi-Fi"};
+        textFileCriteria = new String[] {"Pool", "Pet_Friendly" , "Free_Breakfast", "Free_Parking", "Free_Wi-Fi"};
         criteriaCheckBoxes = new JCheckBox[searchCriteria.length];
         dates = new String[] {"January" , "February" , "March" , "April", "May" , "June" , "July" , "August" , "September", "October" , "November" , "December"};
         mainFrame = new JFrame();
@@ -163,6 +163,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         if(source == searchButton) {
             if(getDates() != 0) return;
             sp.setVisible(false);
+            bottom.removeAll();
             getResults();
             sp.setVisible(true);
             
@@ -197,6 +198,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     }
 
     public void getCriteria(LinkedList<String> selectedCriteria) {
+        selectedCriteria.clear();
         for(int i = 0; i < criteriaCheckBoxes.length; i ++) {
             if(criteriaCheckBoxes[i].isSelected()) {
                 selectedCriteria.add(textFileCriteria[i]);

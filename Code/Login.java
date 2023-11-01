@@ -119,7 +119,6 @@ public class Login extends JFrame implements ActionListener, ItemListener{
             scanner = new Scanner(loginFile);
             while(scanner.hasNextLine()) {
                 attributes = scanner.next().split(",");
-                System.out.println(Arrays.asList(attributes));
                 setAttriubtes(attributes);
                 if(username.equals(usernameString) && password.equals(passwordString)) {
                     if(accountType.equalsIgnoreCase("User")) {
