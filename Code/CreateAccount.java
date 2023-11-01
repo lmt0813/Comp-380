@@ -166,9 +166,12 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         type = cb.getSelectedItem().toString();
         email = emailField.getText();
         name = nameField.getText();
+        //could remove name variable and add firstName and lastName variables as a substitute
+        name = name.replace(' ', '_');
         passwordResult = passwordField.getPassword();
         convertPassword();
         address = addressField.getText();
+        address = address.replace(' ', '_');
         phoneNumber = phoneNumberField.getText();
         fields = new String[] {type, email,name, userName, password, address, phoneNumber};
         if(checkNullFields() == false) {
