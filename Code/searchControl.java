@@ -12,7 +12,7 @@ public class searchControl {
     boolean avaialbility;
     double price;
     File roomFile;
-
+    String searchBar;
 
     searchControl() {
         roomFile = new File("./Room.txt");
@@ -33,6 +33,9 @@ public class searchControl {
      //look to hotels.txt for format of hotel info/criteria. It is pretty sensitive
      private ArrayList<Integer> filterSearchCriteria() {
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
+        if(searchCriteria.isEmpty()) {
+            return hotelResults;
+        }
         try{
             scanner = new Scanner(new File("hotels.txt"));
             while(scanner.hasNextLine()) {
@@ -61,9 +64,42 @@ public class searchControl {
      }
 
 
+    //returns ArrayList<Integer> of hotel IDs whose names match searchBar
+    private ArrayList<Integer> searchBarFilter() {
+        ArrayList<Integer> nameMatch = new ArrayList<>();
+        if(searchBar.equals("")) {
+            return nameMatch;
+        }
+        try {
+            scanner = new Scanner(new File("hotels.txt"));
+            while(scanner.hasNext()) {
+                String[] readLine = scanner.next().split(",");
+                if(searchBar.equals(readLine[0])) {
+                    nameMatch.add(Integer.parseInt(readLine[2]));
+                }
+            }
+            scanner.close();
+        } catch(FileNotFoundException e) {}
+        return nameMatch;
+    }
+
     //returns an LinkedList<Room> of rooms that matched the searchCriteria.
     private void filterRoomSearch(){
-        ArrayList<Integer> hotelIDs = filterSearchCriteria();
+        ArrayList<Integer> nameMatchIDs = searchBarFilter();
+        ArrayList<Integer> criteriaMatchIDs = filterSearchCriteria();
+        ArrayList<Integer> hotelIDs = new ArrayList<>();
+        //combines matching elements from nameMatchIDs and criteriaMatchIDs into hotelIDs
+        if(nameMatchIDs.isEmpty()) {
+            hotelIDs = criteriaMatchIDs;
+        } else if(criteriaMatchIDs.isEmpty()) {
+            hotelIDs = nameMatchIDs;
+        } else {
+            for(int i = 0; i < criteriaMatchIDs.size(); i++) {
+                if(nameMatchIDs.contains(criteriaMatchIDs.get(i))) {
+                    hotelIDs.add(criteriaMatchIDs.get(i));
+                }
+            }
+        }
         try{
             scanner = new Scanner(new File("Room.txt"));
                 while(scanner.hasNextLine()){
@@ -76,7 +112,26 @@ public class searchControl {
         } catch(FileNotFoundException e){}
     } 
 
-    public LinkedList<Room> searchResults(LinkedList<String> search) {
+    private void allRooms() {
+        try{
+            scanner = new Scanner(new File("Room.txt"));
+            while(scanner.hasNext()) {
+                String[] attributes = scanner.next().split(",");
+                addRoom(attributes);
+            }
+            scanner.close();
+        } catch(FileNotFoundException e) {}
+    }
+
+//another param which has string of search
+//String searchbar
+    public LinkedList<Room> searchResults(LinkedList<String> search, String searchBar) {
+        if(searchBar.equals("") && search.isEmpty()) {
+            //return method call that returns LinkedList<Room> of all Rooms
+            allRooms();
+            return results;
+        }
+        this.searchBar = searchBar;
         searchCriteria = search;
         filterRoomSearch();
         return results;
