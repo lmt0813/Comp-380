@@ -1,5 +1,5 @@
 The_Hilton_Inn,111_Address_a,1,100,100
-Pool,Free_Wi-Fi,cable,Free_Breakfast,Gym
+Pool,Free_Wi-Fi,Cable,Free_Breakfast,Gym
 Ramada_Inn,222_Address_b,2,50,50
 Free_Wi-Fi,Pet_Friendly
 Roadway_Inn,333_Address_c,3,27,27
