@@ -166,6 +166,6 @@ public class bookingGUI extends JFrame implements ActionListener{
             return "";
         }
         public static void main(String[] args) {
-            bookingGUI x = new bookingGUI(new Booking());
+            //bookingGUI x = new bookingGUI(new Booking());
         }
 }

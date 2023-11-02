@@ -110,6 +110,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         bgOut = new ButtonGroup();
         setDays();
 
+        buttonResults = new LinkedList<JButton>();
 
         // final UI configuration
         mainFrame.setLayout(null);
@@ -155,14 +156,23 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         Object source = ae.getSource();
         if(source == searchButton) {
             processInformation();
+            return;
         }
 
         if(source == checkInDateButton) {
             changeCheckInVisibility();
+            return;
         }
 
         if(source == checkOutDateButton) {
             changeCheckOutVisibility();
+            return;
+        }
+        for(int i = 0; i < buttonResults.size(); i++) {
+            if(source == buttonResults.get(i)) {
+                Room r = roomResults.get(i);
+                bookingGUI x = new bookingGUI(new Booking(r.price, r.hotelID, checkIn.toString(), checkOut.toString(), "x"));
+            }
         }
     } // end actionperformed method to handle button presses
 
@@ -280,7 +290,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
     //adds the results as clickable components to the a linked list
     public void loadButtonResults() {
-        buttonResults = new LinkedList<JButton>();
+        buttonResults.clear();
         for(int i = 0; i < roomResults.size(); i++) {
             buttonResults.add(new JButton("Reserve"));
             buttonResults.get(i).addActionListener(this);
