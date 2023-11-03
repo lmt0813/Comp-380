@@ -57,8 +57,6 @@ public class searchControl {
             }
             scanner.close();
         } catch(FileNotFoundException e) {}
-        
-        System.out.println(Arrays.asList(hotelResults)); //println for testing (remove later)
         return hotelResults;
      }
 
@@ -116,9 +114,7 @@ public class searchControl {
             scanner = new Scanner(new File("Room.txt"));
             while(scanner.hasNext()) {
                 attributes = scanner.next().split(",");
-                System.out.println(Arrays.toString(attributes));
                 addRoom();
-                
             }
             scanner.close();
         } catch(FileNotFoundException e) {}
