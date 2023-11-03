@@ -12,7 +12,7 @@ public class searchControl {
     boolean avaialbility;
     double price;
     File roomFile;
-    String searchBar;
+    String searchbar;
 
     searchControl() {
         roomFile = new File("./Room.txt");
@@ -58,8 +58,7 @@ public class searchControl {
             scanner.close();
         } catch(FileNotFoundException e) {}
         
-        //println for testing (remove later)
-        System.out.println(Arrays.asList(hotelResults));
+        System.out.println(Arrays.asList(hotelResults)); //println for testing (remove later)
         return hotelResults;
      }
 
@@ -67,14 +66,14 @@ public class searchControl {
     //returns ArrayList<Integer> of hotel IDs whose names match searchBar
     private ArrayList<Integer> searchBarFilter() {
         ArrayList<Integer> nameMatch = new ArrayList<>();
-        if(searchBar.equals("")) {
+        if(searchbar.equals("")) {
             return nameMatch;
         }
         try {
             scanner = new Scanner(new File("hotels.txt"));
-            while(scanner.hasNext()) {
+            while(scanner.hasNextLine()) {
                 String[] readLine = scanner.next().split(",");
-                if(searchBar.equals(readLine[0])) {
+                if(searchbar.equals(readLine[0])) {
                     nameMatch.add(Integer.parseInt(readLine[2]));
                 }
             }
@@ -88,12 +87,12 @@ public class searchControl {
         ArrayList<Integer> nameMatchIDs = searchBarFilter();
         ArrayList<Integer> criteriaMatchIDs = filterSearchCriteria();
         ArrayList<Integer> hotelIDs = new ArrayList<>();
-        //combines matching elements from nameMatchIDs and criteriaMatchIDs into hotelIDs
         if(nameMatchIDs.isEmpty()) {
             hotelIDs = criteriaMatchIDs;
         } else if(criteriaMatchIDs.isEmpty()) {
             hotelIDs = nameMatchIDs;
         } else {
+            //combines matching elements from nameMatchIDs and criteriaMatchIDs into hotelIDs
             for(int i = 0; i < criteriaMatchIDs.size(); i++) {
                 if(nameMatchIDs.contains(criteriaMatchIDs.get(i))) {
                     hotelIDs.add(criteriaMatchIDs.get(i));
@@ -103,9 +102,9 @@ public class searchControl {
         try{
             scanner = new Scanner(new File("Room.txt"));
                 while(scanner.hasNextLine()){
-                    String[] readLine = scanner.next().split(",");
-                    if(hotelIDs.contains(Integer.parseInt(readLine[0])) && Boolean.parseBoolean(readLine[3]) != false){
-                        addRoom(readLine);
+                    attributes = scanner.next().split(",");
+                    if(hotelIDs.contains(Integer.parseInt(attributes[0])) && Boolean.parseBoolean(attributes[3]) != false){
+                        addRoom();
                     }
                 }
             scanner.close();
@@ -116,30 +115,30 @@ public class searchControl {
         try{
             scanner = new Scanner(new File("Room.txt"));
             while(scanner.hasNext()) {
-                String[] attributes = scanner.next().split(",");
-                addRoom(attributes);
+                attributes = scanner.next().split(",");
+                System.out.println(Arrays.toString(attributes));
+                addRoom();
+                
             }
             scanner.close();
         } catch(FileNotFoundException e) {}
     }
 
-//another param which has string of search
-//String searchbar
-    public LinkedList<Room> searchResults(LinkedList<String> search, String searchBar) {
-        if(searchBar.equals("") && search.isEmpty()) {
-            //return method call that returns LinkedList<Room> of all Rooms
+
+    public LinkedList<Room> searchResults(LinkedList<String> criteria, String searchbar) {
+        this.searchbar = searchbar;
+        searchCriteria = criteria;
+        //checks if searchBar and searchCriteria are both empty
+        if(this.searchbar.equals("") && searchCriteria.isEmpty()) {
             allRooms();
             return results;
         }
-        this.searchBar = searchBar;
-        searchCriteria = search;
         filterRoomSearch();
         return results;
     }
 
-    // method that adds rooms to the return list
-
-    public void addRoom(String[] attStrings) {
+    // method that adds Room Objects to the results list
+    public void addRoom() {
         assignAttributes();
         results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
     }
