@@ -64,14 +64,14 @@ public class searchControl {
     //returns ArrayList<Integer> of hotel IDs whose names match searchBar
     private ArrayList<Integer> searchBarFilter() {
         ArrayList<Integer> nameMatch = new ArrayList<>();
-        if(searchbar.equals("")) {
+        if(searchbar.compareTo("") == 0) {
             return nameMatch;
         }
         try {
             scanner = new Scanner(new File("hotels.txt"));
             while(scanner.hasNextLine()) {
                 String[] readLine = scanner.next().split(",");
-                if(searchbar.equals(readLine[0])) {
+                if(readLine[0].replace('_',' ').contains(searchbar)) {
                     nameMatch.add(Integer.parseInt(readLine[2]));
                 }
             }
@@ -125,7 +125,7 @@ public class searchControl {
         this.searchbar = searchbar;
         searchCriteria = criteria;
         //checks if searchBar and searchCriteria are both empty
-        if(this.searchbar.equals("") && searchCriteria.isEmpty()) {
+        if(this.searchbar.compareTo("") == 0 && searchCriteria.isEmpty()) {
             allRooms();
             return results;
         }

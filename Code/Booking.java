@@ -17,12 +17,6 @@ public class Booking {
 
 
     public static void main(String[] args) {
-        String x = "The_Hilton_Inn";
-        x = x.replace('_', ' ');
-        x = x.toLowerCase();
-        System.out.println(x);
-        if(x.contains("hilton")) {
-            System.out.println("Yes");
-        }
+        
     }
 }
