@@ -17,7 +17,7 @@ public class bookingGUI extends JFrame implements ActionListener{
         bookingGUI(Booking booking){
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
-            hotelNameLabel = new JLabel(booking.hotel.hotelName);
+            hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
             checkinLabel = new JLabel("Checkin Data :");
             checkinDateLabel = new JLabel(booking.checkInDate);
             checkoutLabel = new JLabel("Checkout Date :");
