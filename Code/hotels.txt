@@ -3,8 +3,8 @@ Pool,Free_Wi-Fi,Cable,Free_Breakfast,Gym
 Ramada_Inn,222_Address_b,2,50,50
 Free_Wi-Fi,Pet_Friendly
 Roadway_Inn,333_Address_c,3,27,27
-free_Wi-Fi,asdf
+free_Wi-Fi,asdf,Pet_Friendly
 Super_8,444_Address_4,4,48,48
-asd
+asdf,Pool
 Motel_6,555_Address_5,5,35,35
 asdf
