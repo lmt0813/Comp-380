@@ -41,7 +41,7 @@ public class searchControl {
             while(scanner.hasNextLine()) {
                 String[] readLine = scanner.next().split(",");
                 int currentHotel = Integer.parseInt(readLine[2]);
-                readLine = scanner.next().split(",");
+                readLine = scanner.next().replace("_"," ").split(",");
                 int index = 0;
                 int count = 0;
                 while(index < searchCriteria.size()) {
@@ -74,11 +74,14 @@ public class searchControl {
                 if(readLine[0].replace('_',' ').contains(searchbar)) {
                     nameMatch.add(Integer.parseInt(readLine[2]));
                 }
+                readLine = scanner.next().split(",");
             }
             scanner.close();
         } catch(FileNotFoundException e) {}
         return nameMatch;
     }
+
+    //this is for if searchbar is nonsense and criteria has at least one
 
     //returns an LinkedList<Room> of rooms that matched the searchCriteria.
     private void filterRoomSearch(){
