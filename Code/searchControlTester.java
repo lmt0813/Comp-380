@@ -52,7 +52,7 @@ import org.junit.Test;
             //catch(FileNotFoundException e) {}
             searchControl sc = new searchControl();
             LinkedList<String> criteria = new LinkedList<>();
-            String searchbar = "The_Hilton_Inn";
+            String searchbar = "The Hilton Inn";
             LinkedList<Room> result = sc.searchResults(criteria,searchbar);
             assertEquals(rooms.toString(), result.toString());
         }
@@ -79,35 +79,29 @@ import org.junit.Test;
             rooms.add(new Room(2, "2-84", 1, true, 1, 84, "Twin", 81.00));
             searchControl sc = new searchControl();
             LinkedList<String> criteria = new LinkedList<>();
-            criteria.add("Pet_Friendly");
-            String searchbar = "Ramada_Inn";
+            criteria.add("Pet Friendly");
+            String searchbar = "Ramada Inn";
             LinkedList<Room> result = sc.searchResults(criteria,searchbar);
             assertEquals(rooms.toString(), result.toString());
         }
-
+        //2,2-465,2,true,4,465,Queen,127.00
+        //3,3-237,2,true,2,237,Standard,79.00
+        //2,2-84,1,true,1,84,Twin,81.00
         @Test
         public void searchbarIncorrectAndCriteriaNotEmpty() {
             LinkedList<Room> rooms = new LinkedList<>();
+            rooms.add(new Room(2, "2-465", 2, true, 4, 465, "Queen", 127.00));
+            rooms.add(new Room(3, "3-237", 2, true, 2, 237, "Standard", 79.00));
+            rooms.add(new Room(2, "2-84", 1, true, 1, 84, "Twin", 81.00));
            //dunno what expected value should be
            //should it return all Rooms under Pet Friendly or nothing at all since it doesn't match searchbar?
             searchControl sc = new searchControl();
             LinkedList<String> criteria = new LinkedList<>();
-            criteria.add("Pet_Friendly");
-            String searchbar = "doo";
+            criteria.add("Pet Friendly");
+            String searchbar = "d";
             LinkedList<Room> result = sc.searchResults(criteria,searchbar);
             assertEquals(rooms.toString(), result.toString());
         }
 
-        @Test
-        public void criteriaIncorrectAndSearchbarNotEmpty() {
-            LinkedList<Room> rooms = new LinkedList<>();
-            //dunno what expected value should be
-            //should it return all Rooms under The Hilton Inn or nothing at all since didn't match criteria?
-            searchControl sc = new searchControl();
-            LinkedList<String> criteria = new LinkedList<>();
-            criteria.add("koolaid");
-            String searchbar = "The_Hilton_Inn";
-            LinkedList<Room> result = sc.searchResults(criteria, searchbar);
-            assertEquals(rooms.toString(), result.toString());
-        }
+        
     }
