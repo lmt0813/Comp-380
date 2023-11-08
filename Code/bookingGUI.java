@@ -18,7 +18,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
             hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
-            checkinLabel = new JLabel("Checkin Data :");
+            checkinLabel = new JLabel("Checkin Date :");
             checkinDateLabel = new JLabel(booking.checkInDate);
             checkoutLabel = new JLabel("Checkout Date :");
             checkoutDateLabel = new JLabel(booking.checkOutDate);
@@ -44,11 +44,11 @@ public class bookingGUI extends JFrame implements ActionListener{
             frame.add(hotelNameLabel);
             checkinLabel.setBounds(50, 100, 150, 50);
             frame.add(checkinLabel);
-            checkinDateLabel.setBounds(150, 125, 150, 50);
+            checkinDateLabel.setBounds(150, 100, 150, 50);
             frame.add(checkinDateLabel);
             checkoutLabel.setBounds(50,150, 150, 50);
             frame.add(checkoutLabel);
-            checkoutDateLabel.setBounds(150, 135, 150, 50);
+            checkoutDateLabel.setBounds(150, 150, 150, 50);
             frame.add(checkoutDateLabel);
             totalLabel.setBounds(50, 200, 150, 50);
             frame.add(totalLabel);
@@ -85,7 +85,6 @@ public class bookingGUI extends JFrame implements ActionListener{
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
            
-
 
         }
 
