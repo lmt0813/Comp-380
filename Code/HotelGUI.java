@@ -37,7 +37,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     HotelGUI(Account user) {
         // instantiate UI components
         searchCriteria = new String[] {"Pool", "Pet Friendly", "Free Breakfast", "Free Parking", "Free Wi-Fi", "Cable"};
-        textFileCriteria = new String[] {"Pool", "Pet_Friendly" , "Free_Breakfast", "Free_Parking", "Free_Wi-Fi", "Cable"};
+        textFileCriteria = new String[] {"Pool","Pet_Friendly" , "Free_Breakfast", "Free_Parking", "Free_Wi-Fi", "Cable"};
         criteriaCheckBoxes = new JCheckBox[searchCriteria.length];
         dates = new String[] {"January" , "February" , "March" , "April", "May" , "June" , "July" , "August" , "September", "October" , "November" , "December"};
         mainFrame = new JFrame();
@@ -171,7 +171,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
-                bookingGUI x = new bookingGUI(new Booking(r.price, r.hotelID, checkIn.toString(), checkOut.toString(), "x"));
+                bookingGUI b = new bookingGUI(new Booking(r.price, r.hotelID, checkIn.toString(), checkOut.toString(), "x"));
             }
         }
     } // end actionperformed method to handle button presses

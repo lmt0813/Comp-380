@@ -42,10 +42,11 @@ public class searchControl {
                 String[] readLine = scanner.next().split(",");
                 int currentHotel = Integer.parseInt(readLine[2]);
                 readLine = scanner.next().replace("_"," ").split(",");
+                System.out.println(Arrays.toString(readLine));
                 int index = 0;
                 int count = 0;
                 while(index < searchCriteria.size()) {
-                    if(Arrays.asList(readLine).contains(searchCriteria.get(index)) && !(hotelResults.contains(currentHotel))) {
+                    if(Arrays.asList(readLine).contains(searchCriteria.get(index).replace('_',' ')) && !(hotelResults.contains(currentHotel))) {
                         count++;
                     }
                     if(count == searchCriteria.size()){
@@ -71,7 +72,7 @@ public class searchControl {
             scanner = new Scanner(new File("hotels.txt"));
             while(scanner.hasNextLine()) {
                 String[] readLine = scanner.next().split(",");
-                if(readLine[0].replace('_',' ').contains(searchbar)) {
+                if(readLine[0].toLowerCase().replace('_',' ').contains(searchbar)) {
                     nameMatch.add(Integer.parseInt(readLine[2]));
                 }
                 readLine = scanner.next().split(",");
