@@ -72,7 +72,7 @@ public class searchControl {
             scanner = new Scanner(new File("hotels.txt"));
             while(scanner.hasNextLine()) {
                 String[] readLine = scanner.next().split(",");
-                if(readLine[0].toLowerCase().replace('_',' ').contains(searchbar)) {
+                if(readLine[0].toLowerCase().replace('_',' ').contains(searchbar.toLowerCase())) {
                     nameMatch.add(Integer.parseInt(readLine[2]));
                 }
                 readLine = scanner.next().split(",");
