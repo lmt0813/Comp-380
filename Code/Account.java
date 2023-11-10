@@ -36,4 +36,8 @@ public class Account{
 
     }
 
+    public String getUsername(){
+        return this.username;
+    }
+
 }

@@ -28,7 +28,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     JScrollPane sp;
     LinkedList<String> criteriaResults;
     LinkedList<Room> roomResults;
-    LinkedList<JButton> buttonResults;
+    LinkedList<JButton> buttonResults, bookingResults;
     LocalDate checkIn, checkOut;
     int checkInButtonIndex, checkOutButtonIndex, checkInMonthIndex, checkOutMonthIndex;
 
@@ -36,6 +36,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
     HotelGUI(Account user) {
         // instantiate UI components
+        this.user = user;
         searchCriteria = new String[] {"Pool", "Pet Friendly", "Free Breakfast", "Free Parking", "Free Wi-Fi", "Cable"};
         textFileCriteria = new String[] {"Pool","Pet_Friendly" , "Free_Breakfast", "Free_Parking", "Free_Wi-Fi", "Cable"};
         criteriaCheckBoxes = new JCheckBox[searchCriteria.length];
@@ -63,6 +64,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         myAccount.add(userNameLabel);
 
         menuBar.add(myAccount);
+
         menuBar.add(myBookings);
         menuBar.add(criteria);
         mainFrame.setJMenuBar(menuBar);
@@ -111,6 +113,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         setDays();
 
         buttonResults = new LinkedList<JButton>();
+        bookingResults = new LinkedList<JButton>();
 
         // final UI configuration
         mainFrame.setLayout(null);
@@ -129,6 +132,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         checkInMonthIndex = 0;
         checkOutMonthIndex = 0;
         
+        displayBookings();
 
     } // end constructor
 
@@ -171,7 +175,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
-                bookingGUI b = new bookingGUI(new Booking(r.price, r.hotelID, checkIn.toString(), checkOut.toString(), "x"));
+                bookingGUI b = new bookingGUI(new Booking(r.price, r.hotelID, checkIn.toString(), checkOut.toString(), "x", "geoff", 1));
             }
         }
     } // end actionperformed method to handle button presses
@@ -315,5 +319,24 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             checkOutMonthIndex = checkOutMonths.getSelectedIndex();
        }
     } // end item state changed method to handle date selection
+
+    public void displayBookings(){
+        LinkedList<Booking> userBooking = new LinkedList<>();
+        bookingResults.clear();
+        Booking b = new Booking();
+
+        userBooking = b.getUserBookings(user.getUsername());
+
+        if(userBooking.size() == 0){
+            myBookings.add(new JTextField("No Current Bookings"));
+            return;
+        }
+
+        for(int i = 0; i < userBooking.size(); i++){
+            bookingResults.add(new JButton(userBooking.get(i).bookingID + " " + userBooking.get(i).hotelID));
+            bookingResults.get(i).addActionListener(this);
+            myBookings.add(bookingResults.get(i));
+        }
+    }
 
 } // end class HotelGUI
