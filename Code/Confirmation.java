@@ -11,8 +11,9 @@ public class Confirmation {
     Confirmation(){}
 
     Confirmation(Hotel hotel, Account user) {this.hotel = hotel; this.user = user;}
-    public static void main(String[] args) throws InterruptedException{
-		String email, subject = "Confirmation", body = "Thank you for booking your room at Hotel Transylvania!\nPlease note that this is a test email and Hotel Transylvania is " +
+
+	public void confirm() {
+		String email, subject = "Confirmation", body = "Thank you for booking your room at " + hotel.hotelName +"\nPlease note that this is a test email and Hotel Transylvania is " +
         " is a joke if you are reading this, Geoffrey."; 
 		
         String[] command = {"python3", "Email.py" , "joseph.kaz.911@my.csun.edu", subject, body};
@@ -36,5 +37,9 @@ public class Confirmation {
 		}
 
 	}
+	
+    public static void main(String[] args) throws InterruptedException{
+		
+}
 }
 
