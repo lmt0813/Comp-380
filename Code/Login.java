@@ -82,11 +82,24 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         if(e.getSource() == loginButton) {
             String username = usernameText.getText();
             String password = new String(passwordField.getPassword());
-            if(username.equals("") || password.equals("")) { // check for either field being null
+            if(username.compareTo("") == 0 || password.compareTo("") == 0) { // check for either field being null
                 JOptionPane.showMessageDialog(null, "Username and password both cannot be null!");
                 return;
             }
-            readInfo(username,password, loginInfo);
+            switch(readInfo(username, password, loginInfo)) {
+                case 0:
+                    loginUser(username, password, name, email, accountType, address, phoneNumber);
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null,"Password Incorrect. Please re enter.");
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null,"Username not found.");
+                    break;
+                default:
+                    break;
+
+            }
         } // end login button
 
         if(e.getSource() == newUserButton) {
@@ -114,25 +127,25 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         }
     } // end assign file method
 
-    public void readInfo(String usernameString, String passwordString, File loginFile) {
+    public int readInfo(String usernameString, String passwordString, File loginFile) {
         try {
             scanner = new Scanner(loginFile);
+            attributes = scanner.next().split(",");
             while(scanner.hasNextLine()) {
-                attributes = scanner.next().split(",");
                 setAttriubtes(attributes);
                 if(username.equals(usernameString) && password.equals(passwordString)) {
                     if(accountType.equalsIgnoreCase("User")) {
-                        loginUser(username, password, name, email, accountType, address, phoneNumber);
-                        return;
+                        return 0;
                     }
                 }
                 else if(username.equals(usernameString) && !password.equals(passwordString)) {
-                    JOptionPane.showMessageDialog(null, "Password Incorrect. Please re-enter");
-                    return;
+                    return 1;
                 }
-            } // end while loop     
-            JOptionPane.showMessageDialog(null,"Username not found");
-            return;
+                
+                else if(!username.equals(usernameString)) {
+                	attributes = scanner.next().split(",");
+                }
+            } 
         }
 
         catch (FileNotFoundException fne){ 
@@ -144,6 +157,7 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         finally {
            scanner.close();
         } // end finally
+        return 2;
     }
 
     public void loginUser(String username, String password, String name, String email, String accountType, String address, String phoneNumber) {
