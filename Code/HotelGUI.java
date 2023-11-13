@@ -307,10 +307,30 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     //method adds checkout components to the GUI
     public void displayResults() {
         for(int i = 0; i < roomResults.size(); i++) {
-            bottom.add(new JLabel(roomResults.get(i).roomID +": $" + roomResults.get(i).price + "/night"));
+            int hotelID = roomResults.get(i).hotelID;
+            String[][] hotelInfo = getHotelInfo(hotelID);
+            bottom.add(new JLabel(hotelInfo[0][0] + " " + roomResults.get(i).roomID +": $" + roomResults.get(i).price + "/night " + 
+            Arrays.toString(hotelInfo[1])));
             bottom.add(buttonResults.get(i));
         }
     } // end displayResults() method
+
+    public String[][] getHotelInfo(int hotelID) {
+        String[][] readLine = new String[2][5];
+        try{
+            Scanner scanner = new Scanner(new File("hotels.txt"));
+            while(scanner.hasNextLine()) {
+                readLine[0] = scanner.next().replace("_", " ").split(",");
+                readLine[1] = scanner.next().replace("_", " ").split(",");
+                if(hotelID == Integer.parseInt(readLine[0][2])) {
+                    return readLine;
+                }
+            }
+        } catch(FileNotFoundException e) {}
+        return null;
+    }
+
+    
 
     @Override
     public void itemStateChanged(ItemEvent e) {

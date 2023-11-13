@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class bookingGUI extends JFrame implements ActionListener{
     JLabel hotelLabel, checkinLabel, checkoutLabel, totalLabel, nameLabel, cardLabel, expLabel, securityLabel;
@@ -11,10 +14,11 @@ public class bookingGUI extends JFrame implements ActionListener{
     JTextField  nameField, cardField, expField, securityField;
     JTextField []textFieldsArray;
     JFrame frame;
-
+    Booking booking;
         bookingGUI(){}
 
         bookingGUI(Booking booking){
+            this.booking = booking;
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
             hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
@@ -88,6 +92,14 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         }
 
+        public void writeBookings() {
+            try{
+                PrintWriter pw = new PrintWriter(new File("ReservedRooms.txt"));
+                pw.write(booking.price + booking.hotelID + booking.bookingID + booking.checkInDate + 
+                booking.checkOutDate + booking.paymentInformation + "\n");
+            } catch(FileNotFoundException e) {}
+        }
+
         public void actionPerformed(ActionEvent ae){
             Object o = ae.getSource();
             if (o == submitButton){
@@ -95,6 +107,7 @@ public class bookingGUI extends JFrame implements ActionListener{
                 return;
                 if(validateFields() == 1 )
                 return;
+                writeBookings();
             }
         }
         int validateFields(){
