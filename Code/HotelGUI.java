@@ -172,14 +172,14 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             changeCheckOutVisibility();
             return;
         }
-        /*
+        
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
                 bookingGUI b = new bookingGUI(new Booking(r.price, r.hotelID, checkIn.toString(), checkOut.toString(), "x", "geoff", 1));
             }
         }
-        */
+        
     } // end actionperformed method to handle button presses
 
     // method that aids the searching process by getting and setting the dates, then calling the methods
