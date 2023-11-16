@@ -105,7 +105,7 @@ public class bookingGUI extends JFrame implements ActionListener{
                 index = 4;
                 indexOfID = 2;
                 increment = 2;
-            } else if(file.equals(new File("room.txt"))) {
+            } else if(file.equals(new File("Room.txt"))) {
                 index = 3;
                 indexOfID = 5;
                 increment = 1;
@@ -126,7 +126,7 @@ public class bookingGUI extends JFrame implements ActionListener{
                             String temp = String.valueOf(changeValue);
                             readLine[index] = temp;
                         }
-                        if(file.equals(new File("room.txt"))) {
+                        if(file.equals(new File("Room.txt"))) {
                             if(instruction == '-') { //change room availability to false
                                 readLine[index] = String.valueOf(false);
                             } else readLine[index] = String.valueOf(true); //change room availability to true
@@ -175,7 +175,7 @@ public class bookingGUI extends JFrame implements ActionListener{
                 return;
                 writeBookings();
                 rewrite(new File("hotels.txt"), booking.hotelID, '-');
-                rewrite(new File("room.txt"), booking.roomID, '-');
+                rewrite(new File("Room.txt"), booking.roomID, '-');
             }
         }
         int validateFields(){
@@ -234,7 +234,7 @@ public class bookingGUI extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "CVV must be 3 numbers");
                 return 1;
                 }
-                if(!Character.isDigit(CardCVV.charAt(0))||!Character.isDigit(CardCVV.charAt(2))||!Character.isDigit(CardCVV.charAt(3))){
+                if(!Character.isDigit(CardCVV.charAt(0))||!Character.isDigit(CardCVV.charAt(1))||!Character.isDigit(CardCVV.charAt(2))){
                 JOptionPane.showMessageDialog(null, "CVV must contain 3 numbers");
                 return 1;
                 }

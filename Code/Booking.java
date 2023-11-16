@@ -38,9 +38,11 @@ public class Booking {
                 //when txt file is formated, replace variables with readLine[index]
                 //result.add(new Booking(readLine[0], readLine[1], readLine[2], ...));
             }
+            
         }
-        }catch(FileNotFoundException e){}
         sc.close();
+        }catch(FileNotFoundException e){}
+        
 
         return result;
     }
