@@ -3,6 +3,8 @@ import java.io.*;
 import java.awt.event.*;
 import java.util.*;
 
+
+//Login is a class which handles the GUI elements for the Login screen and allows the user access to the main application
 public class Login extends JFrame implements ActionListener, ItemListener{
     private JFrame mainFrame;
     private JPasswordField passwordField;
