@@ -1,10 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent;  
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.io.*;
 import java.util.*;
 
@@ -160,9 +157,16 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         public void writeBookings() {
             try{
-                PrintWriter pw = new PrintWriter(new File("ReservedRooms.txt"));
-                pw.write(booking.price + booking.hotelID + booking.bookingID + booking.checkInDate + 
-                booking.checkOutDate + booking.paymentInformation + "\n");
+                PrintWriter pw = new PrintWriter(new FileOutputStream(new File("ReservedRooms.txt"), true));
+                pw.append("Name" + ","
+                + booking.checkInDate + ","   
+                + booking.checkOutDate + ","
+                + booking.price + "," 
+                + booking.hotelID + ","  
+                + booking.bookingID + ","  
+                  
+                + booking.paymentInformation + "\n");
+                pw.close();
             } catch(FileNotFoundException e) {}
         }
 
