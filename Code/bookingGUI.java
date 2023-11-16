@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.*;
+import java.util.*;
 
 public class bookingGUI extends JFrame implements ActionListener{
     JLabel hotelLabel, checkinLabel, checkoutLabel, totalLabel, nameLabel, cardLabel, expLabel, securityLabel;
@@ -91,6 +93,70 @@ public class bookingGUI extends JFrame implements ActionListener{
            
 
         }
+        
+        //can reformat to make more readable, ask Geoffrey if confused on what this does
+        //rewrites txt file after a room is reserved to update availability values 
+        public void rewrite(File file, int ID, char instruction) {
+            //setup for what to do depending on txt file
+            int index; //index of availability value
+            int indexOfID; //index of ID
+            int increment; //increment value in for loop
+            if(file.equals(new File("hotels.txt"))) {
+                index = 4;
+                indexOfID = 2;
+                increment = 2;
+            } else if(file.equals(new File("Room.txt"))) {
+                index = 3;
+                indexOfID = 5;
+                increment = 1;
+            } else return;
+
+            try{
+                Scanner sc = new Scanner(file);
+                //initialize string[][] to be big enough
+                String[][] content = new String[100][10];
+                for(int i = 0; sc.hasNextLine(); i+=increment) {
+                    String[] readLine = sc.next().split(",");
+                    if(Integer.parseInt(readLine[indexOfID]) == ID) {
+                        if(file.equals(new File("hotels.txt"))) {
+                            int changeValue = Integer.parseInt(readLine[index]); //number of available rooms
+                            if(instruction == '-') { //subtract available rooms by 1
+                                changeValue = changeValue - 1; 
+                            } else changeValue = changeValue + 1; //add available rooms by 1
+                            String temp = String.valueOf(changeValue);
+                            readLine[index] = temp;
+                        }
+                        if(file.equals(new File("Room.txt"))) {
+                            if(instruction == '-') { //change room availability to false
+                                readLine[index] = String.valueOf(false);
+                            } else readLine[index] = String.valueOf(true); //change room availability to true
+                        }
+                    }
+                    content[i] = readLine;
+                    //only if the file is hotels.txt, then read next line to iterate through criteria
+                    if(file.equals(new File("hotels.txt"))) {
+                        readLine = sc.next().split(",");
+                        content[i+1] = readLine;
+                    }
+                }
+                sc.close();
+                PrintWriter pw = new PrintWriter(file);
+                for(int i = 0; i < content.length; i++) {
+                    for(int j = 0; j < content[i].length; j++) {
+                        pw.append(content[i][j]);
+                        if(j+1 < content[i].length) { //appends "," in between values and not after last value
+                            pw.append(",");
+                        }
+                    }
+                    if((content[i+1][0]) == null) {  //stops if next array row is has a null value
+                            pw.close();
+                            return;
+                        }
+                    pw.append("\n");
+                }
+                pw.close();
+            } catch (FileNotFoundException e) {}
+        }
 
         public void writeBookings() {
             try{
@@ -108,6 +174,8 @@ public class bookingGUI extends JFrame implements ActionListener{
                 if(validateFields() == 1 )
                 return;
                 writeBookings();
+                rewrite(new File("hotels.txt"), booking.hotelID, '-');
+                rewrite(new File("Room.txt"), booking.roomID, '-');
             }
         }
         int validateFields(){
@@ -166,7 +234,7 @@ public class bookingGUI extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "CVV must be 3 numbers");
                 return 1;
                 }
-                if(!Character.isDigit(CardCVV.charAt(0))||!Character.isDigit(CardCVV.charAt(2))||!Character.isDigit(CardCVV.charAt(3))){
+                if(!Character.isDigit(CardCVV.charAt(0))||!Character.isDigit(CardCVV.charAt(1))||!Character.isDigit(CardCVV.charAt(2))){
                 JOptionPane.showMessageDialog(null, "CVV must contain 3 numbers");
                 return 1;
                 }
