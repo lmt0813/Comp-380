@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.util.*;
 import java.io.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 
 public class HotelGUI extends JFrame implements ActionListener, ItemListener {
@@ -30,6 +32,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     LinkedList<Room> roomResults;
     LinkedList<JButton> buttonResults, bookingResults;
     LocalDate checkIn, checkOut;
+    String checkInString, checkOutString;
     int checkInButtonIndex, checkOutButtonIndex, checkInMonthIndex, checkOutMonthIndex;
 
     HotelGUI(){}
@@ -176,7 +179,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
-                bookingGUI b = new bookingGUI(new Booking(r.price, r.hotelID, checkIn.toString(), checkOut.toString(), "x", "geoff", r.roomNumber));
+                bookingGUI b = new bookingGUI(new Booking(r.price, r.hotelID, checkInString, checkOutString, "x", "geoff", r.roomNumber));
             }
         }
         
@@ -259,7 +262,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
     public int setDates() {
         try {
-            checkIn = LocalDate.of(2023, checkInMonthIndex + 1, checkInButtonIndex + 1);
+            checkIn = LocalDate.of(2023, checkOutButtonIndex+1,checkOutButtonIndex+1);
             checkOut = LocalDate.of(2023, checkOutMonthIndex + 1, checkOutButtonIndex + 1);
             Duration diff = Duration.between(checkIn.atStartOfDay(),checkOut.atStartOfDay());
             long length = diff.toDays();
@@ -270,7 +273,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             if(length < 1) {
                 JOptionPane.showMessageDialog(null, "Duration Of Stay Must Be Greater Than or Equal to 1 Day");
                 return 1;
-        }
+            }
+            checkInString = new SimpleDateFormat("mm/dd/yyyy").format(checkIn);
+            checkOutString = new SimpleDateFormat("mm//dd/yyyy").format(checkOut);
+
         }
 
         catch(DateTimeException e) {
