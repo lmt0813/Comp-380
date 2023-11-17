@@ -162,10 +162,10 @@ public class bookingGUI extends JFrame implements ActionListener{
                 pw.append(account.getUsername() + "," + account.getPassword() + ",");
                 pw.append(account.getName() + "," + account.getEmail() + ","); 
                 pw.append(account.getAccountType() + "," + account.getAddress() + ",");
-                pw.append(account.getPhoneNumber() + ",\n");
+                pw.append(account.getPhoneNumber() + "\n");
                 pw.append(booking.checkInDate + "," + booking.checkOutDate + ",");
                 pw.append(booking.price + "," + booking.hotelID + ",");
-                pw.append(booking.bookingID + "," + booking.paymentInformation + "\n");
+                pw.append(booking.bookingID + "," + "dummypaymentinfo" + "\n");
                 pw.close();
                 } catch(FileNotFoundException e) {}
         }
