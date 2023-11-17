@@ -52,8 +52,7 @@ public class Booking {
 
 
     public Account getAccount() {
-        //account.
-        return null;
+        return account;
     }
     
     public String getBookingID() {
