@@ -33,6 +33,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     LinkedList<JButton> buttonResults, bookingResults;
     LocalDate checkIn, checkOut;
     String checkInString, checkOutString;
+    SimpleDateFormat sm;
     int checkInButtonIndex, checkOutButtonIndex, checkInMonthIndex, checkOutMonthIndex;
 
     HotelGUI(){}
@@ -262,7 +263,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
     public int setDates() {
         try {
-            checkIn = LocalDate.of(2023, checkOutButtonIndex+1,checkOutButtonIndex+1);
+            checkIn = LocalDate.of(2023, checkInMonthIndex+1,checkInButtonIndex+1);
             checkOut = LocalDate.of(2023, checkOutMonthIndex + 1, checkOutButtonIndex + 1);
             Duration diff = Duration.between(checkIn.atStartOfDay(),checkOut.atStartOfDay());
             long length = diff.toDays();
@@ -274,8 +275,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
                 JOptionPane.showMessageDialog(null, "Duration Of Stay Must Be Greater Than or Equal to 1 Day");
                 return 1;
             }
-            checkInString = new SimpleDateFormat("mm/dd/yyyy").format(checkIn);
-            checkOutString = new SimpleDateFormat("mm//dd/yyyy").format(checkOut);
+            checkInString = new String(checkIn.getMonthValue() + "/" + checkIn.getDayOfMonth() + "/" + checkIn.getYear());
+            checkOutString = new String(checkOut.getMonthValue() + "/" + checkOut.getDayOfMonth()+ "/" +checkOut.getYear());
 
         }
 
