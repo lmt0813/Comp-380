@@ -179,7 +179,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
-                bookingGUI b = new bookingGUI(new Booking(r.price, r.hotelID, checkInString, checkOutString, "x", "geoff", r.roomNumber));
+                bookingGUI b = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, "geoff", r.roomNumber));
             }
         }
         
