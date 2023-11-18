@@ -29,8 +29,9 @@ public class Booking {
         return account;
     }
 
-    public int getRoomID() {
-        return getRoomID();
+    public String getRoomID() {
+        return roomID;
+
     }
 
     public double getPrice() {

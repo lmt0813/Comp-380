@@ -51,14 +51,13 @@ public class searchControl {
             scanner = new Scanner(bookingFile);
             while(scanner.hasNext()) {
                 attributes = scanner.next().split(",");
-                attributes = scanner.next().split(",");
-                if(!reservedRooms.containsKey(attributes[5])) {
+                if(!reservedRooms.containsKey(attributes[4])) {
                     ArrayList <BookingDate> tmp = new ArrayList<BookingDate>();
-                    tmp.add(new BookingDate(convertDate(attributes[0]), convertDate(attributes[1])));
-                    reservedRooms.put(attributes[5],tmp);
+                    tmp.add(new BookingDate(convertDate(attributes[1]), convertDate(attributes[2])));
+                    reservedRooms.put(attributes[4],tmp);
                 }
                 else {
-                    reservedRooms.get(attributes[5]).add(new BookingDate(convertDate(attributes[0]), convertDate(attributes[1])));
+                    reservedRooms.get(attributes[4]).add(new BookingDate(convertDate(attributes[1]), convertDate(attributes[2])));
                 }
                 
             } // end while
