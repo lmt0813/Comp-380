@@ -159,13 +159,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             try{
                 PrintWriter pw = new PrintWriter(new FileOutputStream(new File("ReservedRooms.txt"), true));
                 Account account = booking.getAccount();
-                pw.append(account.getUsername() + "," + account.getPassword() + ",");
-                pw.append(account.getName() + "," + account.getEmail() + ","); 
-                pw.append(account.getAccountType() + "," + account.getAddress() + ",");
-                pw.append(account.getPhoneNumber() + "\n");
-                pw.append(booking.checkInDate + "," + booking.checkOutDate + ",");
-                pw.append(booking.price + "," + booking.hotelID + ",");
-                pw.append(booking.bookingID + "," + "dummypaymentinfo" + "\n");
+                pw.append(account.getUsername() + ",");
+                pw.append(booking.getCheckoutInDate() + "," + booking.getCheckoutDate() + ",");
+                pw.append(booking.getHotelID() + ",");
+                pw.append(booking.getBookingID() + "\n");
                 pw.close();
                 } catch(FileNotFoundException e) {}
         }
