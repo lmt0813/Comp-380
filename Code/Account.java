@@ -1,4 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Scanner;
+
 public class Account{
+    private Scanner sc;
     private String username;
     private String name;
     private String password;
@@ -28,6 +34,27 @@ public class Account{
         this.phoneNumber = phoneNumber;
     }
 
+
+    public LinkedList<Booking> getUserBookings(){
+        LinkedList<Booking> result = new LinkedList<>();
+        try{
+        sc = new Scanner(new File("bookings.txt"));
+        
+        while(sc.hasNextLine()){
+            String[] readLine = sc.nextLine().split(",");
+            if(readLine[0] == username){
+                
+                //when txt file is formated, replace variables with readLine[index]
+                //result.add(new Booking(readLine[0], readLine[1], readLine[2], ...));
+            }
+            
+        }
+        sc.close();
+        }catch(FileNotFoundException e){}
+        return result;
+    }
+
+    
     private void makeReview(Hotel hotel){
         // will call another class to make review
     }

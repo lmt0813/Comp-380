@@ -6,57 +6,31 @@ import java.io.*;
 public class Booking {
     protected Account account;
     protected Scanner sc;
-    protected String bookingID;
     protected double price;
     protected int hotelID;
     protected String checkInDate;
     protected String checkOutDate;
-    protected String paymentInformation;
-    protected int roomID;
+    protected String roomID;
+    protected int roomNumber;
 
     public Booking(){}
 
-    public Booking(Account account, String bookingID, double price, int hotelID, String checkInDate, String checkOutDate, String paymentInformation, int roomID) {
+    public Booking(Account account, String roomID, double price, int hotelID, String checkInDate, String checkOutDate, int roomNumber) {
         this.account = account;
-        this.bookingID = bookingID;
+        this.roomID = roomID;
         this.price = price;
         this.hotelID = hotelID;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.paymentInformation = paymentInformation;
-        this.roomID = roomID;
+        this.roomNumber = roomNumber;
     }
-
-
-    public LinkedList<Booking> getUserBookings(String username){
-        LinkedList<Booking> result = new LinkedList<>();
-        try{
-        sc = new Scanner(new File("bookings.txt"));
-        
-        while(sc.hasNextLine()){
-            String[] readLine = sc.nextLine().split(",");
-            if(readLine[0] == username){
-                
-                //when txt file is formated, replace variables with readLine[index]
-                //result.add(new Booking(readLine[0], readLine[1], readLine[2], ...));
-            }
-            
-        }
-        sc.close();
-        }catch(FileNotFoundException e){}
-        
-
-        return result;
-    }
-
-
 
     public Account getAccount() {
         return account;
     }
-    
-    public String getBookingID() {
-        return bookingID;
+
+    public int getRoomID() {
+        return getRoomID();
     }
 
     public double getPrice() {
@@ -75,13 +49,12 @@ public class Booking {
         return checkOutDate;
     }
 
-    public String getPaymentInformation() {
-        return paymentInformation;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public int getRoomID() {
-        return getRoomID();
-    }
+
+    
 
     public static void main(String[] args) {
         
