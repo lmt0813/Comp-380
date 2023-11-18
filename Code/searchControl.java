@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.time.*;
 
 public class searchControl {
 
@@ -11,11 +12,22 @@ public class searchControl {
     int hotelID, numberBed, floorNumber, roomNumber;
     boolean avaialbility;
     double price;
-    File roomFile;
+    File roomFile, bookingFile, tmpFile;
     String searchbar;
+    LocalDate checkIn, checkOut, compare, today, dateAttributes;
+    HashMap<String,ArrayList<BookingDate>> reservedRooms;
+    PrintWriter pw; 
+    BookingDate bd;
 
-    searchControl() {
+    searchControl(LocalDate checkIn, LocalDate checkOut) {
         roomFile = new File("./Room.txt");
+        bookingFile = new File("./ReservedRooms.txt");
+        tmpFile = new File("./tmp.txt");
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        dateAttributes = LocalDate.now();
+        today = LocalDate.of(dateAttributes.getYear(), dateAttributes.getMonthValue(), dateAttributes.getDayOfMonth());
+        reservedRooms = new HashMap<String,ArrayList<BookingDate>>();
     }
    
     /*
@@ -31,6 +43,47 @@ public class searchControl {
 
      //returns ArrayList<Integer> of the Hotel IDs that match the searchCriteria
      //look to hotels.txt for format of hotel info/criteria. It is pretty sensitive
+
+    
+
+    private void readReservedRooms() {
+        try {
+            scanner = new Scanner(bookingFile);
+            while(scanner.hasNext()) {
+                attributes = scanner.next().split(",");
+                attributes = scanner.next().split(",");
+                if(!reservedRooms.containsKey(attributes[5])) {
+                    ArrayList <BookingDate> tmp = new ArrayList<BookingDate>();
+                    tmp.add(new BookingDate(convertDate(attributes[0]), convertDate(attributes[1])));
+                    reservedRooms.put(attributes[5],tmp);
+                }
+                else {
+                    reservedRooms.get(attributes[5]).add(new BookingDate(convertDate(attributes[0]), convertDate(attributes[1])));
+                }
+                
+            } // end while
+        } // end try
+
+        catch(IOException e){e.printStackTrace();}
+
+        finally {
+            scanner.close();
+        } // end finally
+    } // end read rooms method
+
+    public LocalDate convertDate(String ld) {
+        String[] dateComponents = ld.split("/");
+        LocalDate tmp = LocalDate.of(Integer.parseInt(dateComponents[2]), Integer.parseInt(dateComponents[0]), Integer.parseInt(dateComponents[1]));
+        return tmp;
+    }
+
+    private void writeTempFile(Room current, PrintWriter pw) {
+        pw.append(current.hotelID + "," + current.roomID + ",");
+        pw.append(Integer.toString(current.numberBed) +"," + Boolean.toString(current.avaialbility) + ",");
+        pw.append(Integer.toString(current.floorNumber) + "," + Integer.toString(current.roomNumber) + ",");
+        pw.append(current.roomType + "," + Double.toString(current.price) + "\n");
+    }
+
      private ArrayList<Integer> filterSearchCriteria() {
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
         if(searchCriteria.isEmpty()) {
@@ -108,10 +161,55 @@ public class searchControl {
                     if(hotelIDs.contains(Integer.parseInt(attributes[0])) && Boolean.parseBoolean(attributes[3]) != false){
                         addRoom();
                     }
-                }
+                    // new code //
+                    else if(hotelIDs.contains(Integer.parseInt(attributes[0])) && Boolean.parseBoolean(attributes[3]) == false) {
+                        switch(checkOverlaps(reservedRooms.get(attributes[1]), this.checkIn, this.checkOut)) {
+                            case 0:
+                                addRoom();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                } // end while
             scanner.close();
         } catch(FileNotFoundException e){}
     } 
+
+    public long compareDates(LocalDate previousCheckOut, LocalDate checkout) {
+        System.out.println("HEREEE");
+        Duration duration = Duration.between(previousCheckOut.atStartOfDay(), checkout.atStartOfDay());
+        long diff = duration.toDays();
+        return diff;
+        
+    }
+
+    public int checkBetween(BookingDate bd, LocalDate checkIn, LocalDate checkOut) {
+        // date can be either a checkin or checkout date
+        if(compareDates(bd.checkIn, checkIn) >= 0 && compareDates(bd.checkOut, checkIn) < 0) {return 1;} // compare check in date
+        if(compareDates(bd.checkIn, checkOut) > 0 && compareDates(checkOut, bd.checkOut) > 0) {return 1;} // compare check out date
+        return 0;
+    }
+
+    public int checkOverlaps(ArrayList<BookingDate> list, LocalDate checkIn, LocalDate checkOut) {
+        BookingDate bd;
+        if(list.size() == 0) {return 0;} // might not need this line to check
+        else if(list.size() == 1) {
+            bd = list.get(0);
+            if(compareDates(bd.checkOut, checkIn) >= 0 || compareDates(checkOut, bd.checkIn) >= 0) {
+                return 0;
+            }
+        } // end else-if
+        else {
+            for(BookingDate bookingDate: list) {
+                if(checkBetween(bookingDate, checkIn, checkOut) == 1) {
+                    list.remove(bookingDate);
+
+                }
+            }
+        }
+        return 1;
+    }
 
     private void allRooms() {
         try{
@@ -126,6 +224,7 @@ public class searchControl {
 
 
     public LinkedList<Room> searchResults(LinkedList<String> criteria, String searchbar) {
+        readReservedRooms();
         this.searchbar = searchbar;
         searchCriteria = criteria;
         //checks if searchBar and searchCriteria are both empty

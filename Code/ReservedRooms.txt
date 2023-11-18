@@ -1,0 +1,4 @@
+jkaz27,Password1,JoeyKaz,joseph.kaz.911@my.csun.edu,user,123FakeStreet,818-661-9396
+1/5/2023,1/7/2023,333.0,1,14,1-14,dummypaymentinfo
+jkaz27,Password1,JoeyKaz,joseph.kaz.911@my.csun.edu,user,123FakeStreet,818-661-9396
+1/12/2023,1/15/2023,333.0,1,14,1-14,dummypaymentinfo

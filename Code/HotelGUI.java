@@ -292,7 +292,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     public void getResults() {
         criteriaResults = new LinkedList<String>();
         getCriteria(criteriaResults);
-        searchControl sc = new searchControl();
+        searchControl sc = new searchControl(checkIn, checkOut);
         roomResults = sc.searchResults(criteriaResults, searchTextField.getText());
         if(roomResults.size() == 0) {
             JOptionPane.showMessageDialog(null, "No results returned for your search!");
