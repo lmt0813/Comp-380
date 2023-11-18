@@ -163,7 +163,7 @@ public class searchControl {
                     }
                     // new code //
                     else if(hotelIDs.contains(Integer.parseInt(attributes[0])) && Boolean.parseBoolean(attributes[3]) == false) {
-                        switch(checkOverlaps(reservedRooms.get(attributes[1]), this.checkIn, this.checkOut)) {
+                        switch(checkOverlaps(reservedRooms.get(attributes[1]), this.checkIn, this.checkOut)) { // check overlaps with requested checkin/checkout date
                             case 0:
                                 addRoom();
                                 break;
@@ -177,7 +177,6 @@ public class searchControl {
     } 
 
     public long compareDates(LocalDate previousCheckOut, LocalDate checkout) {
-        System.out.println("HEREEE");
         Duration duration = Duration.between(previousCheckOut.atStartOfDay(), checkout.atStartOfDay());
         long diff = duration.toDays();
         return diff;
