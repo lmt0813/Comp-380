@@ -70,6 +70,23 @@ public class searchControl {
         } // end finally
     } // end read rooms method
 
+    public void sortReservedRooms(ArrayList<BookingDate> list) {
+        for(int i = 0; i < list.size() - 1; i++) {
+            int minIndex = i;
+            for(int j = i + 1; j < list.size(); j++) {
+                if(compareDates(list.get(minIndex).checkIn, list.get(j).checkIn) < 0) {
+                    minIndex = j;
+                }
+            }
+            if(minIndex != i) {
+                BookingDate tmp = list.get(i);
+                list.set(i, list.get(minIndex));
+                list.set(minIndex, tmp);
+            }
+        }
+
+    }
+
     public LocalDate convertDate(String ld) {
         String[] dateComponents = ld.split("/");
         LocalDate tmp = LocalDate.of(Integer.parseInt(dateComponents[2]), Integer.parseInt(dateComponents[0]), Integer.parseInt(dateComponents[1]));
@@ -83,7 +100,7 @@ public class searchControl {
         pw.append(current.roomType + "," + Double.toString(current.price) + "\n");
     }
 
-     private ArrayList<Integer> filterSearchCriteria() {
+    private ArrayList<Integer> filterSearchCriteria() {
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
         if(searchCriteria.isEmpty()) {
             return hotelResults;
@@ -112,7 +129,6 @@ public class searchControl {
         } catch(FileNotFoundException e) {}
         return hotelResults;
      }
-
 
     //returns ArrayList<Integer> of hotel IDs whose names match searchBar
     private ArrayList<Integer> searchBarFilter() {
@@ -175,15 +191,13 @@ public class searchControl {
         } catch(FileNotFoundException e){}
     } 
 
-    public long compareDates(LocalDate previousCheckOut, LocalDate checkout) {
-        Duration duration = Duration.between(previousCheckOut.atStartOfDay(), checkout.atStartOfDay());
+    public long compareDates(LocalDate firstDate, LocalDate secondDate) {
+        Duration duration = Duration.between(firstDate.atStartOfDay(), secondDate.atStartOfDay());
         long diff = duration.toDays();
         return diff;
-        
     }
 
     public int checkBetween(BookingDate bd, LocalDate checkIn, LocalDate checkOut) {
-        // date can be either a checkin or checkout date
         if(compareDates(bd.checkIn, checkIn) >= 0 && compareDates(bd.checkOut, checkIn) < 0) {return 1;} // compare check in date
         if(compareDates(bd.checkIn, checkOut) > 0 && compareDates(checkOut, bd.checkOut) > 0) {return 1;} // compare check out date
         return 0;
@@ -198,13 +212,21 @@ public class searchControl {
                 return 0;
             }
         } // end else-if
+        // else statement will check to see if a date falls between any booking. If it doesn't, it will then check to see if the booking check in
+        // and check out dates fall between the list's current and next bookings
         else {
-            for(BookingDate bookingDate: list) {
-                if(checkBetween(bookingDate, checkIn, checkOut) == 1) {
-                    list.remove(bookingDate);
-
+            sortReservedRooms(list);
+            for(int i = 0; i < list.size() - 1; i++) {
+                BookingDate tmp = list.get(i);
+                BookingDate tmp2 = list.get(i+1);
+                if(checkBetween(tmp, checkIn, checkOut) == 1) {
+                    return 1;
                 }
-            }
+                if(compareDates(tmp.checkOut,checkIn) >= 0 && compareDates(checkOut,tmp2.checkIn) >= 0) {
+                    return 0;
+                }
+            } // end for loop
+            if(compareDates(list.get(list.size() - 1).checkOut, checkIn) >= 0) {return 0;}
         }
         return 1;
     }
