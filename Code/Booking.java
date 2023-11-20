@@ -42,7 +42,7 @@ public class Booking {
         return hotelID;
     }
 
-    public String getCheckoutInDate() {
+    public String getCheckInDate() {
         return checkInDate;
     }
 
