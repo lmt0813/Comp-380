@@ -14,23 +14,18 @@ public class searchControl {
     File roomFile;
     String searchbar;
 
+    //searchControl()
+    //Constructor for searchControl
+    //Input: none
+    //Output: none
     searchControl() {
         roomFile = new File("./Room.txt");
     }
-   
-    /*
-     goals for this class:
-     1) Create an additional method specifically for scanning from the text file. The searchResults method below should be a main method
-     that calls other methods and returns the list called from the HotelGUI class
-     2) Create a method that filters results based on the search criteria. We will most likely have to put two lines per hotel on the text file: one
-     for the attributes, and a second for criteria.
-     3) Could either create a initial list to scan everything and second list to return based on the filtered criteria, or load everything in to one list.,
-     check the entire list, and remove every room that doesn't fit the criteria
-     4) Most likely scan hotel text file, check for attributes per hotel, then scan the room list based on hotel ID
-     */
 
-     //returns ArrayList<Integer> of the Hotel IDs that match the searchCriteria
-     //look to hotels.txt for format of hotel info/criteria. It is pretty sensitive
+     //filterSearchCriteria()
+     //Searchs hotel.txt for hotels with criteria matching the provided list of criteria
+     //Input: none
+     //Output: ArrayList<Integer>: A list of hotel IDs which refer to hotels that match the criteria that the user provided
      private ArrayList<Integer> filterSearchCriteria() {
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
         if(searchCriteria.isEmpty()) {
@@ -61,8 +56,10 @@ public class searchControl {
         return hotelResults;
      }
 
-
-    //returns ArrayList<Integer> of hotel IDs whose names match searchBar
+    //searchBarFilter()
+    //Searchs hotels.txt for hotels that match the String provided by the user
+    //Input: none
+    //Output: ArrayList<Integer>: A list of hotel IDs which refer to hotels that match the String that the user provided
     private ArrayList<Integer> searchBarFilter() {
         ArrayList<Integer> nameMatch = new ArrayList<>();
         if(searchbar.compareTo("") == 0) {
@@ -84,7 +81,10 @@ public class searchControl {
 
     //this is for if searchbar is nonsense and criteria has at least one
 
-    //returns an LinkedList<Room> of rooms that matched the searchCriteria.
+    //filterRoomSearch()
+    //Modifies the global linked list, results, to be intialized with Room objects that match the criteria and String provided in the search
+    //Input: none
+    //Output: void
     private void filterRoomSearch(){
         ArrayList<Integer> nameMatchIDs = searchBarFilter();
         ArrayList<Integer> criteriaMatchIDs = filterSearchCriteria();
@@ -113,6 +113,10 @@ public class searchControl {
         } catch(FileNotFoundException e){}
     } 
 
+    //allRooms()
+    //Modifies the global linked list, results, to be intialized with all the available rooms in Room.txt
+    //Input: none
+    //Output: void
     private void allRooms() {
         try{
             scanner = new Scanner(new File("Room.txt"));
@@ -124,7 +128,11 @@ public class searchControl {
         } catch(FileNotFoundException e) {}
     }
 
-
+    //searchResults(LinkedList<String> criteria, String searchbar)
+    //Returns a linked list of Room objects which fit the criteria and hotel name provided by the user
+    //Input: LinkedList<String> criteria: List of criteria the user provides
+    //       String searchbar: Hotel name that the user wants to search for
+    //Output: LinkedList<Room>: List of rooms which fit the provided criteria
     public LinkedList<Room> searchResults(LinkedList<String> criteria, String searchbar) {
         this.searchbar = searchbar;
         searchCriteria = criteria;
@@ -137,14 +145,20 @@ public class searchControl {
         return results;
     }
 
-    // method that adds Room Objects to the results list
+    //addRoom()
+    //Creates room objects and adds them to the global linked list, results
+    //Input: none
+    //Output: void
     public void addRoom() {
         assignAttributes();
         results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
     }
 
 
-    // method that assigns sent attributes to the data types defined in the class header
+    //assignAttributes()
+    //Assigns attributes to the data types defined in the class header
+    //Input: none
+    //Output: void
     public void assignAttributes() {
         hotelID = Integer.parseInt(attributes[0]);
         roomID = attributes[1];
