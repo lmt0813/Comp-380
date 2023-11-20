@@ -136,7 +136,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         checkInMonthIndex = 0;
         checkOutMonthIndex = 0;
         
-        //displayBookings();
+        displayBookings();
 
     } // end constructor
 
@@ -349,13 +349,11 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
        }
     } // end item state changed method to handle date selection
 
-    /*
+    
     public void displayBookings(){
         LinkedList<Booking> userBooking = new LinkedList<>();
         bookingResults.clear();
-        Booking b = new Booking();
-
-        userBooking = b.getUserBookings(user.getUsername());
+        userBooking = user.getUserBookings();
 
         if(userBooking.size() == 0){
             myBookings.add(new JTextField("No Current Bookings"));
@@ -363,11 +361,12 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
 
         for(int i = 0; i < userBooking.size(); i++){
-            bookingResults.add(new JButton(userBooking.get(i).bookingID + " " + userBooking.get(i).hotelID));
+            String[][] hotelInfo = getHotelInfo(userBooking.get(i).hotelID);
+            bookingResults.add(new JButton(userBooking.get(i).roomID + ": " + hotelInfo[0][0]));
             bookingResults.get(i).addActionListener(this);
             myBookings.add(bookingResults.get(i));
         }
     }
-    */
+    
 
 } // end class HotelGUI

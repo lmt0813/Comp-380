@@ -1,0 +1,8 @@
+geoff,password,GeoffreyAnselmo,geoff@gmail.com,user,123GeoffAve,123-456-1234
+1-13,278.0,1,1/6/2023,1/7/2023,13
+geoff,password1,GeoffreyAnselmo,geoff1@gmail.com,user,1234GeoffSt,123-333-1234
+1-13,278.0,1,1/7/2023,1/21/2023,13
+geoff,password2,GeoffreyAnselmo,geoff2@gmail.com,user,1234GeoffBlvd,123-555-1234
+1-13,278.0,1,1/13/2023,1/14/2023,13
+geoff,password,GeoffreyAnselmo,geoff@gmail.com,user,123GeoffAve,123-456-1234
+5-111,47.0,5,3/5/2023,3/13/2023,111

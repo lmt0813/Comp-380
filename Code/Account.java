@@ -39,15 +39,14 @@ public class Account{
         LinkedList<Booking> result = new LinkedList<>();
         try{
         sc = new Scanner(new File("bookings.txt"));
-        
         while(sc.hasNextLine()){
             String[] readLine = sc.nextLine().split(",");
-            if(readLine[0] == username){
-                
-                //when txt file is formated, replace variables with readLine[index]
-                //result.add(new Booking(readLine[0], readLine[1], readLine[2], ...));
-            }
-            
+            if(readLine[0].equals(username)){
+                readLine = sc.nextLine().split(",");
+                Account account = this;
+                Booking booking = new Booking(account, readLine[0], Double.parseDouble(readLine[1]), Integer.parseInt(readLine[2]), readLine[3], readLine[4], Integer.parseInt(readLine[5]));
+                result.add(booking);
+            } else readLine = sc.nextLine().split(",");
         }
         sc.close();
         }catch(FileNotFoundException e){}
