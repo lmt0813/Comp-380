@@ -8,6 +8,17 @@ public class Room {
     protected int hotelID;
     protected double price;
 
+    //Room(int hotelID, String roomID, int numberBed, boolean availability, int floorNumber, int roomNumber, String roomType, double price)
+    //Constructor for Room objects
+    //Input: int hotelID: The ID number for the hotel that this room is from
+    //       String roomID: The ID for the room
+    //       int numberBed: Number of beds in the room
+    //       boolean availability: signifies if the room is available (true) or not (false)
+    //       int floorNumber: The floor the room is located
+    //       int roomNumber: The room number
+    //       String roomType: The type of room (i.e suite, penthouse, ect.)
+    //       double price: The price for each night spent in the room
+    //Output: none
     public Room(int hotelID, String roomID, int numberBed, boolean availability,
                 int floorNumber, int roomNumber, String roomType, double price) {
 
@@ -25,6 +36,10 @@ public class Room {
         
     }
 
+    //toString()
+    //Makes the Room object into a readable string
+    //Input: none
+    //Output: String: The attributes of the Room object, seperated by commas
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append(hotelID + ", ");
