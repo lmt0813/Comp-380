@@ -5,6 +5,13 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
+/** GUI for booking customer info 
+ * @author Victor Ruiz 
+ * @author Joseph Kaz
+ * @author Geoffrey Anselmo
+ * @version 11/21/2023
+ */
+
 public class bookingGUI extends JFrame implements ActionListener{
     JLabel hotelLabel, checkinLabel, checkoutLabel, totalLabel, nameLabel ,lastNameLabel, cardLabel, expLabel, securityLabel;
     JLabel hotelNameLabel, checkinDateLabel, checkoutDateLabel, totalFillLabel;
