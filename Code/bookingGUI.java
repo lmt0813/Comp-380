@@ -14,8 +14,13 @@ public class bookingGUI extends JFrame implements ActionListener{
     JTextField []textFieldsArray;
     JFrame frame;
     Booking booking;
+        /**Default constructor for bookingGui 
+         */
         bookingGUI(){}
 
+        /**Constructor with parameters for bookingGui
+         * @param booking the booking that the user wants 
+         */
         bookingGUI(Booking booking){
             this.booking = booking;
             frame = new JFrame();
@@ -91,14 +96,13 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         }
         
-        
-        /** 
-         * @param file
-         * @param ID
-         * @param instruction
-         */
         //can reformat to make more readable, ask Geoffrey if confused on what this does
         //rewrites txt file after a room is reserved to update availability values 
+        /**Rewrites the desired text file when a room is resereved
+         * @param file the text file that is going to be rewritten
+         * @param ID Index of the hotel ID
+         * @param instruction 
+         */
         public void rewrite(File file, int ID, char instruction) {
             //setup for what to do depending on txt file
             int index; //index of availability value
@@ -161,6 +165,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             } catch (FileNotFoundException e) {}
         }
 
+        /**Writes the bookings object into bookings.txt
+         */
         public void writeBookings() {
             try {
                 PrintWriter pw = new PrintWriter(new FileOutputStream(new File("bookings.txt"), true));
@@ -177,6 +183,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             } catch(FileNotFoundException e) {}
         }
 
+        /**Writes the reserved room into ReservedRooms.txt 
+         */
         public void writeReserved() {
             try{
                 PrintWriter pw = new PrintWriter(new FileOutputStream(new File("ReservedRooms.txt"), true));
@@ -189,6 +197,10 @@ public class bookingGUI extends JFrame implements ActionListener{
                 } catch(FileNotFoundException e) {}
         }
 
+        
+        /** 
+         * @param ae
+         */
         public void actionPerformed(ActionEvent ae){
             Object o = ae.getSource();
             if (o == submitButton){
@@ -202,6 +214,10 @@ public class bookingGUI extends JFrame implements ActionListener{
                 rewrite(new File("Room.txt"), booking.roomNumber, '-');
             }
         }
+        
+        /** 
+         * @return int
+         */
         int validateFields(){
             if(validateCard() == 1 )
             return 1;
@@ -212,6 +228,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0;
         }
 
+        
+        /** 
+         * @return int
+         */
         /*vallidates card
         checks  for 16 digit card number 
         */ 
@@ -230,6 +250,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0; 
         } 
 
+        
+        /** 
+         * @return int
+         */
         int validateExp(){
             String ExpDate = expField.getText();
             if (ExpDate.length() != 5){
@@ -252,6 +276,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0;
         }
 
+        
+        /** 
+         * @return int
+         */
         int validateCVV(){
                 String CardCVV = securityField.getText();
                 if (CardCVV.length() != 3){
@@ -266,6 +294,10 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
 
 
+        
+        /** 
+         * @return int
+         */
         int checkFields(){
             for(int i=0; i < textFieldsArray.length; i++){
                 if(textFieldsArray[i].getText().compareTo("")==0){
@@ -276,6 +308,11 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0; 
         }
 
+        
+        /** 
+         * @param i
+         * @return String
+         */
         String getEmptyField(int i){
             switch (i) {
                 case 0: return "Name";
@@ -291,6 +328,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             }
             return "";
         }
+        
+        
         public static void main(String[] args) {
             //bookingGUI x = new bookingGUI(new Booking());
         }
