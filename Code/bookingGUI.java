@@ -17,7 +17,6 @@ public class bookingGUI extends JFrame implements ActionListener{
         bookingGUI(){}
 
         bookingGUI(Booking booking){
-            this.booking = booking;
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
             hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
@@ -27,12 +26,13 @@ public class bookingGUI extends JFrame implements ActionListener{
             checkoutDateLabel = new JLabel(booking.checkOutDate);
             totalLabel = new JLabel("Total: ");
             totalFillLabel = new JLabel(Double.toString(booking.price));
-            selectPay = new JComboBox<String>();
+            String[] payMethods = {"select payment option", "pay online", "pay In-person"};
+            selectPay = new JComboBox <String>(payMethods);
             nameLabel = new JLabel("Name on card :");
             nameField = new JTextField();
             cardLabel = new JLabel("Card number: ");
             cardField = new JTextField();
-            expLabel = new JLabel("Expiration date: ");
+            expLabel = new JLabel("Expiration date (MM/YY): ");
             expField = new JTextField();
             securityLabel = new JLabel("CCV :");
             securityField = new JTextField();
@@ -57,9 +57,9 @@ public class bookingGUI extends JFrame implements ActionListener{
             frame.add(totalLabel);
             selectPay.setBounds(50, 250, 165, 25);
             frame.add(selectPay);
-            selectPay.addItem("Select payment option");
-            selectPay.addItem("Pay Online");
-            selectPay.addItem("Pay In-person");
+            //selectPay.addItem("Select payment option");
+            //selectPay.addItem("Pay Online");
+            //selectPay.addItem("Pay In-person");
             nameLabel.setBounds(50 , 300, 150, 25);
             frame.add(nameLabel);
             nameField.setBounds(200, 300 ,175, 25);
@@ -88,6 +88,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
            
+            
 
         }
         
@@ -169,18 +170,30 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         public void actionPerformed(ActionEvent ae){
             Object o = ae.getSource();
-            if (o == submitButton){
+            
+            
+            
+            if (o == submitButton){ 
+               
                 if (checkFields()==1)
                 return;
                 if(validateFields() == 1 )
                 return;
                 writeBookings();
                 rewrite(new File("hotels.txt"), booking.hotelID, '-');
-                rewrite(new File("Room.txt"), booking.roomID, '-');
+                rewrite(new File("Room.txt"), booking.roomID, '-');   
+                 
             }
+
+            
         }
+        
         int validateFields(){
-            if(validateCard() == 1 )
+            if(validateCBox() == 1)
+            return 1;
+            if(validateName() == 1)
+            return 1;
+            if(validateCard() == 1)
             return 1;
             if (validateExp()== 1)
             return 1;
@@ -189,8 +202,33 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0;
         }
 
+        /*validates combo box to ensure a choice is made for payment methods */
+        int validateCBox(){
+            if(selectPay.getSelectedIndex() == 0){
+                JOptionPane.showMessageDialog(null,"must select payment option");
+            }
+        return 0;   
+        }
+
+        /*name validation method checks name field from user input for character limit and  
+         * and checks name is consisting of letters
+         */
+        int validateName(){
+            String nameLength = nameField.getText();
+            if (nameLength.length()> 20) {
+                JOptionPane.showMessageDialog(null, "");
+            }
+            for(int i = 0; i < nameLength.length(); i++){
+                char nameChar = nameLength.charAt(i);
+                if(!Character.isAlphabetic(nameChar)){
+                    JOptionPane.showMessageDialog(null,"Name must consist of only letters");
+                }
+            }
+            return 0;
+        }
+
         /*vallidates card
-        checks  for 16 digit card number 
+        checks for 16 digit card number 
         */ 
         int validateCard(){
             String cardLength = cardField.getText();
@@ -207,6 +245,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0; 
         } 
 
+        /* checks experation date field for proper format and acceptable characters (digits)*/
         int validateExp(){
             String ExpDate = expField.getText();
             if (ExpDate.length() != 5){
@@ -229,6 +268,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0;
         }
 
+
+        /*checks security field only accepting a 3 digit security code */
         int validateCVV(){
                 String CardCVV = securityField.getText();
                 if (CardCVV.length() != 3){
@@ -270,5 +311,6 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
         public static void main(String[] args) {
             //bookingGUI x = new bookingGUI(new Booking());
+            
         }
 }
