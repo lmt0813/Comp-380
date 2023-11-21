@@ -263,8 +263,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return "";
     } // end getEmptyField Method
 
-    /**Returns a boolean after checking whether or not the phone number that the user has input is in the correct format
-    //Ouput: boolean: signifies whether the user's phonenumber has the valid format
+    /**Returns a boolean signifying whether the given phone number is in the correct format
+     * @return boolean showing if the phonenumber is in the correct format 
     */ 
     public boolean checkPhoneNumber() {
 
