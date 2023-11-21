@@ -97,8 +97,7 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
         
         //can reformat to make more readable, ask Geoffrey if confused on what this does
-        //rewrites txt file after a room is reserved to update availability values 
-        /**Rewrites the desired text file when a room is resereved
+        /**rewrites txt file after a room is reserved to update availability values 
          * @param file the text file that is going to be rewritten
          * @param ID Index of the hotel ID
          * @param instruction 
@@ -198,8 +197,8 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
 
         
-        /** 
-         * @param ae
+        /**Checks which action was performed
+         * @param ae which action was performed
          */
         public void actionPerformed(ActionEvent ae){
             Object o = ae.getSource();
@@ -215,8 +214,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             }
         }
         
-        /** 
-         * @return int
+        /**Validates the text fields relating to entering Card information
+         * @return int signifies how the method exitted
          */
         int validateFields(){
             if(validateCard() == 1 )
@@ -229,12 +228,9 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
 
         
-        /** 
-         * @return int
+        /**Checks if the card number entered is of the correct format
+         * @return int which signifies how the method exitted
          */
-        /*vallidates card
-        checks  for 16 digit card number 
-        */ 
         int validateCard(){
             String cardLength = cardField.getText();
             if (cardLength.length()!= 16){
@@ -251,8 +247,8 @@ public class bookingGUI extends JFrame implements ActionListener{
         } 
 
         
-        /** 
-         * @return int
+        /**Checks if the experiation date of the card is of the correct format
+         * @return int which signifies how the method exitted
          */
         int validateExp(){
             String ExpDate = expField.getText();
@@ -277,8 +273,8 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
 
         
-        /** 
-         * @return int
+        /**Checks if the CVV of the card is of the correct format
+         * @return int which signifies how the method exitted
          */
         int validateCVV(){
                 String CardCVV = securityField.getText();
@@ -295,8 +291,8 @@ public class bookingGUI extends JFrame implements ActionListener{
 
 
         
-        /** 
-         * @return int
+        /**Checks if any of the text fields are empty
+         * @return int which signifies how the method exitted
          */
         int checkFields(){
             for(int i=0; i < textFieldsArray.length; i++){
@@ -309,9 +305,9 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
 
         
-        /** 
-         * @param i
-         * @return String
+        /**Finds which text field is empty
+         * @param i signifies which text field to check
+         * @return String containing the name of the empty text field
          */
         String getEmptyField(int i){
             switch (i) {
