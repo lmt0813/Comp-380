@@ -6,11 +6,11 @@ import java.io.*;
 import java.util.*;
 
 public class bookingGUI extends JFrame implements ActionListener{
-    JLabel hotelLabel, checkinLabel, checkoutLabel, totalLabel, nameLabel, cardLabel, expLabel, securityLabel;
+    JLabel hotelLabel, checkinLabel, checkoutLabel, totalLabel, nameLabel ,lastNameLabel, cardLabel, expLabel, securityLabel;
     JLabel hotelNameLabel, checkinDateLabel, checkoutDateLabel, totalFillLabel;
     JButton submitButton;
     JComboBox <String> selectPay;
-    JTextField  nameField, cardField, expField, securityField;
+    JTextField  nameField, lastNameField, cardField, expField, securityField;
     JTextField []textFieldsArray;
     JFrame frame;
     Booking booking;
@@ -33,8 +33,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             totalFillLabel = new JLabel(Double.toString(booking.price));
             String[] payMethods = {"select payment option", "pay online", "pay In-person"};
             selectPay = new JComboBox <String>(payMethods);
-            nameLabel = new JLabel("Name on card :");
+            nameLabel = new JLabel("First name:");
             nameField = new JTextField();
+            lastNameLabel = new JLabel("Last Name:");
+            lastNameField = new JTextField();
             cardLabel = new JLabel("Card number: ");
             cardField = new JTextField();
             expLabel = new JLabel("Expiration date (MM/YY): ");
@@ -46,29 +48,33 @@ public class bookingGUI extends JFrame implements ActionListener{
             textFieldsArray = new JTextField[]{nameField, cardField, expField, securityField};
             
 
-            hotelLabel.setBounds(50, 50, 150, 50);
+            hotelLabel.setBounds(50, 25, 150, 50);
             frame.add(hotelLabel);
-            hotelNameLabel.setBounds(150, 50, 150, 50);
+            hotelNameLabel.setBounds(150, 25, 150, 50);
             frame.add(hotelNameLabel);
-            checkinLabel.setBounds(50, 100, 150, 50);
+            checkinLabel.setBounds(50, 75, 150, 50);
             frame.add(checkinLabel);
-            checkinDateLabel.setBounds(150, 100, 150, 50);
+            checkinDateLabel.setBounds(150, 75, 150, 50);
             frame.add(checkinDateLabel);
-            checkoutLabel.setBounds(50,150, 150, 50);
+            checkoutLabel.setBounds(50,125, 150, 50);
             frame.add(checkoutLabel);
-            checkoutDateLabel.setBounds(150, 150, 150, 50);
+            checkoutDateLabel.setBounds(150, 125, 150, 50);
             frame.add(checkoutDateLabel);
-            totalLabel.setBounds(50, 200, 150, 50);
+            totalLabel.setBounds(50, 175, 150, 50);
             frame.add(totalLabel);
-            selectPay.setBounds(50, 250, 165, 25);
+            selectPay.setBounds(50, 225, 165, 25);
             frame.add(selectPay);
             //selectPay.addItem("Select payment option");
             //selectPay.addItem("Pay Online");
             //selectPay.addItem("Pay In-person");
-            nameLabel.setBounds(50 , 300, 150, 25);
+            nameLabel.setBounds(50 , 275, 150, 25);
             frame.add(nameLabel);
-            nameField.setBounds(200, 300 ,175, 25);
+            nameField.setBounds(200, 275 ,175, 25);
             frame.add(nameField);
+            lastNameLabel.setBounds(50, 310,150 ,25);
+            frame.add(lastNameLabel);
+            lastNameField.setBounds(200, 310, 175, 25);
+            frame.add(lastNameField);
             cardLabel.setBounds(50, 350, 150, 25);
             frame.add(cardLabel);
             cardField.setBounds(200, 350, 175, 25);
@@ -229,6 +235,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 1;
             if(validateName() == 1)
             return 1;
+            if(validateLastName() == 1)
+            return 1;
             if(validateCard() == 1)
             return 1;
             if (validateExp()== 1)
@@ -257,12 +265,32 @@ public class bookingGUI extends JFrame implements ActionListener{
             for(int i = 0; i < nameLength.length(); i++){
                 char nameChar = nameLength.charAt(i);
                 if(!Character.isAlphabetic(nameChar)){
-                    JOptionPane.showMessageDialog(null,"Name must consist of only letters");
+                    JOptionPane.showMessageDialog(null,"Fist name must consist of only letters");
                 }
             }
             return 0;
         }
-        
+
+         /*last name validation method checks name field from user input for character limit and  
+         * and checks name is consisting of letters
+         */
+        int validateLastName(){
+            String lastNameLength = lastNameField.getText();
+            if(lastNameLength.length() >20){
+                JOptionPane.showMessageDialog(null, "");
+            }
+            for(int i = 0; i < lastNameLength.length(); i++){
+                char nameChar = lastNameLength.charAt(i);
+                if(!Character.isAlphabetic(nameChar)){
+                    JOptionPane.showMessageDialog(null," Last name must consist of only letters");
+                }
+
+             }
+            return 0;
+        }
+
+
+
         /**Checks if the card number entered is of the correct format
          * @return int which signifies how the method exitted
          */
