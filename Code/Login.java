@@ -19,8 +19,8 @@ public class Login extends JFrame implements ActionListener, ItemListener{
     private String username, password, name, email, accountType, address, phoneNumber;
 
 
-    //Login()
-    //Constructor for Login classs
+    /**Constructor for Login classs 
+     */
     Login() {
         // instantiate GUI Components
 
@@ -82,12 +82,10 @@ public class Login extends JFrame implements ActionListener, ItemListener{
        
     }
 
-    //actionPerformed(ActionEvent e)
-    //Performs the actions of the buttons that are pressed
-    //ex: if "Create New Account" button is pressed, it will open a new window with the createAccount GUI
-    //Input: ActionEvent e: refers to the action that was performed on certain GUI components 
-    //Output: void
-    // action performed method as a part of the actionlistener interface to help with GUI buttons
+    /**Performs the actions of the buttons that are pressed
+     *ex: if "Create New Account" button is pressed, it will open a new window with the createAccount GUI
+     * @param e refers to the action that was performed on certain GUI components 
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == loginButton) {
@@ -121,10 +119,9 @@ public class Login extends JFrame implements ActionListener, ItemListener{
 
     } // end actionperformed method
 
-    //itemStateChanged(ItemEvent e)
-    //Checks GUI componenets that are selecteable
-    //Input: ItemEvent e: refers to the GUI component which has a changable state
-    //Output: void
+    /**Checks GUI componenets that are selecteable
+     * @param e: refers to the GUI component which has a changable state
+     */
     public void itemStateChanged(ItemEvent e) {
         if(e.getSource() == comboBox) {
             int selectedItem = comboBox.getSelectedIndex();
@@ -133,10 +130,9 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         }
     } // end itemstatechanged method
 
-    //assigneFile(int selectedItem)
-    //Based off the which login option the user selected, the method will assign which file should be read from to check Login Information 
-    //Input: int selectedItem: refers which option the user selected from the "I am Logging in as" dropdown menu
-    //Output: void
+    /**Based off the which login option the user selected, the method will assign which file should be read from to check Login Information 
+     * @param selectedItem: refers which option the user selected from the "I am Logging in as" dropdown menu
+     */
     public void assignFile(int selectedItem) {
         if(selectedItem == 0) {
             loginInfo = new File(files[0]);
@@ -146,12 +142,12 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         }
     } // end assign file method
 
-    //readInfo(String usernameString, String passwordString, File loginFile)
-    //Reads the infromation that the user inputs in the username and password text fields on the GUI
-    //Input: String usernameString: refers to the String the user inputs into the username text field
-    //       String passwordString: refers to the string the user inputs into the password text field
-    //       File loginFile: refers to the file which assignFile chose, meaning the file which to read from for checking login information
-    //Output: returns an int which signifies how the method was ressolved
+    /**Reads the infromation that the user inputs in the username and password text fields on the GUI
+     * @param usernameString: refers to the String the user inputs into the username text field
+     * @param passwordString: refers to the string the user inputs into the password text field
+     * @param loginFile: refers to the file which assignFile chose, meaning the file which to read from for checking login information
+     * @return an int which signifies how the method was ressolved
+     */
     public int readInfo(String usernameString, String passwordString, File loginFile) {
         try {
             scanner = new Scanner(loginFile);
@@ -185,16 +181,15 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         return 2;
     }
 
-    //loginUser(String username, String password, String name, String email, String accountType, String address, String phoneNumber)
-    //Logs the user into the appication as a customer/user and stores their information temporaily into an Account object
-    //Input: String username: A string that refers to the username attached to the user's account
-    //       String password:A string that refers to the password attached to the user's account
-    //       String name: A string that refers to the name attached to the user's account
-    //       String email: A string that refers to the email attached to the user's account
-    //       String accountType: A string that refers to the user's account type
-    //       String address: A string that refers to the address attached to the user's account
-    //       String phoneNumber: A string that refers to the phone number attached to the user's account
-    //Output: void
+    /**Logs the user into the appication as a customer/user and stores their information temporaily into an Account object
+     * @param username: A string that refers to the username attached to the user's account
+     * @param password:A string that refers to the password attached to the user's account
+     * @param name: A string that refers to the name attached to the user's account
+     * @param email: A string that refers to the email attached to the user's account
+     * @param accountType: A string that refers to the user's account type
+     * @param address: A string that refers to the address attached to the user's account
+     * @param phoneNumber: A string that refers to the phone number attached to the user's account
+     */
     public void loginUser(String username, String password, String name, String email, String accountType, String address, String phoneNumber) {
         JOptionPane.showMessageDialog(null, "Welcome: " + username + "!");
         Account constructor = new Account(username, password, name, email, accountType, address, phoneNumber);
@@ -203,20 +198,16 @@ public class Login extends JFrame implements ActionListener, ItemListener{
     }
 
 
-    //loginManager()
-    //Allows the user access to the application and the manager features of the application
-    //Input:
-    //
-    //Output: void
+    /**Allows the user access to the application and the manager features of the application
+     */
     public void loginManager() {
 
     }
 
 
-    //setAttributes(String[] attributeStrings)
-    //Intializes the attributes of the user's account
-    //Input: String[] attributeStrings: An array of strings that holds the attributes for the user's account (i.e. username, password, ect.)
-    //Output: void
+    /**Intializes the attributes of the user's account
+     * @param attributeStrings: An array of strings that holds the attributes for the user's account (i.e. username, password, ect.)
+     */
     public void setAttriubtes(String[] attributeStrings) {
         username = attributeStrings[0];
         password = attributeStrings[1];
@@ -227,10 +218,8 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         phoneNumber = attributeStrings[6];
     }
 
-    //close()
-    //Closes the application and all the GUI components
-    //Input: none
-    //Output: void
+    /**Closes the application and all the GUI components
+     */
     public void close() {
         mainFrame.dispose();
     }

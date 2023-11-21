@@ -14,18 +14,15 @@ public class searchControl {
     File roomFile;
     String searchbar;
 
-    //searchControl()
-    //Constructor for searchControl
-    //Input: none
-    //Output: none
+    /**Constructor for searchControl
+     */
     searchControl() {
         roomFile = new File("./Room.txt");
     }
 
-     //filterSearchCriteria()
-     //Searchs hotel.txt for hotels with criteria matching the provided list of criteria
-     //Input: none
-     //Output: ArrayList<Integer>: A list of hotel IDs which refer to hotels that match the criteria that the user provided
+     /**Searchs hotel.txt for hotels with criteria matching the provided list of criteria
+      * @return An ArrayList of hotel IDs which refer to hotels that match the criteria that the user provided 
+      */
      private ArrayList<Integer> filterSearchCriteria() {
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
         if(searchCriteria.isEmpty()) {
@@ -56,10 +53,9 @@ public class searchControl {
         return hotelResults;
      }
 
-    //searchBarFilter()
-    //Searchs hotels.txt for hotels that match the String provided by the user
-    //Input: none
-    //Output: ArrayList<Integer>: A list of hotel IDs which refer to hotels that match the String that the user provided
+    /**Searchs hotels.txt for hotels that match the String provided by the user
+     * @return An ArrayList of hotel IDs which refer to hotels that match the String that the user provided
+     */
     private ArrayList<Integer> searchBarFilter() {
         ArrayList<Integer> nameMatch = new ArrayList<>();
         if(searchbar.compareTo("") == 0) {
@@ -81,10 +77,8 @@ public class searchControl {
 
     //this is for if searchbar is nonsense and criteria has at least one
 
-    //filterRoomSearch()
-    //Modifies the global linked list, results, to be intialized with Room objects that match the criteria and String provided in the search
-    //Input: none
-    //Output: void
+    /**Modifies the global linked list, results, to be intialized with Room objects that match the criteria and String provided in the search
+     */
     private void filterRoomSearch(){
         ArrayList<Integer> nameMatchIDs = searchBarFilter();
         ArrayList<Integer> criteriaMatchIDs = filterSearchCriteria();
@@ -113,10 +107,8 @@ public class searchControl {
         } catch(FileNotFoundException e){}
     } 
 
-    //allRooms()
-    //Modifies the global linked list, results, to be intialized with all the available rooms in Room.txt
-    //Input: none
-    //Output: void
+    /**Modifies the global linked list, results, to be intialized with all the available rooms in Room.txt
+     */
     private void allRooms() {
         try{
             scanner = new Scanner(new File("Room.txt"));
@@ -128,11 +120,11 @@ public class searchControl {
         } catch(FileNotFoundException e) {}
     }
 
-    //searchResults(LinkedList<String> criteria, String searchbar)
-    //Returns a linked list of Room objects which fit the criteria and hotel name provided by the user
-    //Input: LinkedList<String> criteria: List of criteria the user provides
-    //       String searchbar: Hotel name that the user wants to search for
-    //Output: LinkedList<Room>: List of rooms which fit the provided criteria
+    /**Returns a linked list of Room objects which fit the criteria and hotel name provided by the user
+     * @param criteria: List of criteria the user provides
+     * @param searchbar: Hotel name that the user wants to search for
+     * @return LinkedList<Room> of rooms which fit the provided criteria
+     */
     public LinkedList<Room> searchResults(LinkedList<String> criteria, String searchbar) {
         this.searchbar = searchbar;
         searchCriteria = criteria;
@@ -145,20 +137,16 @@ public class searchControl {
         return results;
     }
 
-    //addRoom()
-    //Creates room objects and adds them to the global linked list, results
-    //Input: none
-    //Output: void
+    /**Creates room objects and adds them to the global linked list, results
+     */
     public void addRoom() {
         assignAttributes();
         results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
     }
 
 
-    //assignAttributes()
-    //Assigns attributes to the data types defined in the class header
-    //Input: none
-    //Output: void
+    /**Assigns attributes to the data types defined in the class header
+     */
     public void assignAttributes() {
         hotelID = Integer.parseInt(attributes[0]);
         roomID = attributes[1];

@@ -14,22 +14,18 @@ public class Booking {
     protected String username;
     protected int roomID;
 
-    //Booking()
-    //Default constructor for Booking object
-    //Input:
-    //Output: none
+    /**Default constructor for Booking object */
     public Booking(){}
 
-    //Booking(double price, int hotelID, String checkInDate, String checkOutDate, String paymentInformation, String username, int roomID)
-    //Constructor for Booking object
-    //Input: double price: price of the room being reserved
-    //       int hotelID: ID of the hotel that the room belongs to
-    //       String checkInDate: The date the user will check into the hotel
-    //       String checkOutDate: The date the user will check out of the hotel
-    //       String paymentInformation: Payment information that the user used to reserve the room
-    //       String username: the username of the customer who reserved the room
-    //       int roomID: ID of the room reserved 
-    //Output: none
+    /**Constructor for Booking object
+     * @param price price of the room being reserved
+     * @param hotelID ID of the hotel that the room belongs to
+     * @param checkInDate The date the user will check into the hotel
+     * @param checkOutDate The date the user will check out of the hotel
+     * @param paymentInformation Payment information that the user used to reserve the room
+     * @param username the username of the customer who reserved the room
+     * @param roomID ID of the room reserved 
+     */
     public Booking(double price, int hotelID, String checkInDate, String checkOutDate, String paymentInformation, String username, int roomID) {
         this.bookingID = "aaaa";
         this.price = price;
@@ -41,10 +37,10 @@ public class Booking {
         this.roomID = roomID;
     }
 
-    //getUserBookings(String username)
-    //Reads the bookings.txt file and returns a linked list of the User's current bookings
-    //Input: String username: The username of the user
-    //Output: LinkedList<Booking>: A collection of Booking objects that belong to the username given
+    /**Reads the bookings.txt file and returns a linked list of the User's current bookings
+     * @param username: The username of the user
+     * @return A LinkedList<Booking> of Booking objects that belong to the username given
+     */
     public LinkedList<Booking> getUserBookings(String username){
         LinkedList<Booking> result = new LinkedList<>();
         try{

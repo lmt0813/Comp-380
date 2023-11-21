@@ -23,8 +23,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     JComboBox<String> cb;
     LinkedList<String> usernameList;
 
-    //createAccount()
-    //Contructor for createAccount objects 
+    /**Contructor for createAccount objects 
+     */
     CreateAccount() {
         usernameList = new LinkedList<String>();
         frame = new JFrame();
@@ -113,10 +113,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     }
 
 
-    //actionPerformed(ActionEvent e)
-    //Checks what actions were performed, to what components of the the GUI
-    //Input: ActionEvent e: refers to the action that was performed by the user
-    //Output: void
+    /**Checks what actions were performed, to what components of the the GUI
+     * @param e: refers to the action that was performed by the user
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createButton) {
@@ -126,10 +125,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
-    //itemStateChanged(ItemEvent ie)
-    //Checks GUI componenets that are selecteable
-    //Input: ItemEvent e: refers to the GUI component which has a changable state
-    //Output: void
+    /**Checks GUI componenets that are selecteable
+     * @param e: refers to the GUI component which has a changable state
+     */
     @Override
     public void itemStateChanged(ItemEvent ie) {
         if(ie.getSource() == cb) {
@@ -137,10 +135,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
-    //setUsernameList()
-    //Intializes the global variable usernameList with the usernames from users.txt 
-    //Input: none
-    //Output: void
+    /**Intializes the global variable usernameList with the usernames from users.txt 
+     */
     public void setUsernameList() {
         try {
             usernameList.clear();
@@ -158,10 +154,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
-    //getAttributes()
-    //Collects the attirbutes from the text fields filled by the user for the creation of their new Account
-    //Input: none
-    //Output: int: An int that signifies how the method was ressolved
+    /**Collects the attirbutes from the text fields filled by the user for the creation of their new Account
+     * @return An int that signifies how the method was ressolved
+     */
     public int getAttributes() {
         userName = userNameField.getText();
         if(userName.compareTo("") != 0 && usernameList.contains(userName)) {
@@ -189,10 +184,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     }
 
 
-    //checkNullFields()
-    //Checks if any fields were left empty, and returns a boolean
-    //Input: none
-    //Output: boolean: signify if there are any fields that are empty
+    /**Checks if any fields were left empty, and returns a boolean
+     * @return boolean: signify if there are any fields that are empty
+     */
     public boolean checkNullFields() {
         System.out.println(userName);
         for(int i = 0; i < fields.length; i++) {
@@ -207,10 +201,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     }
 
 
-    //createAccount()
-    //Creates the user's new Account and writes their accounut information into users.txt
-    //Input: none
-    //Output: void
+    /**Creates the user's new Account and writes their accounut information into users.txt
+     */
     public void createAccount() {
         try {
             PrintStream ps = new PrintStream(new FileOutputStream("users.txt", true));
@@ -224,10 +216,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     
 
-    //accountCreated()
-    //Displays a dialog message once the user's account has been created
-    //Input: none
-    //Output: void
+    /**Displays a dialog message once the user's account has been created
+     */
     public void accountCreated() {
         JOptionPane.showMessageDialog(null, "Account Successfully Created!");
         Account constructor = new Account(userName, password, name, email, accountType, address, phoneNumber);
@@ -237,10 +227,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
     }
     
-    //convertPassword()
-    //Converts the user's inputed password to the correct format
-    //Input: none
-    //Output: void
+    /**Converts the user's inputed password to the correct format
+     */
     public void convertPassword() {
         password = "";
         for(int i = 0; i < passwordResult.length; i++) {
@@ -249,10 +237,10 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     }
 
 
-    //getEmptyField(int i)
-    //Returns the name of any empty text fields on the GUI
-    //Input: int i: refers to the text field being checked
-    //Output: String: the name of the empty field
+    /**Returns the name of any empty text fields on the GUI
+     * @param i: refers to the text field being checked
+     * @return A String containting the name of the empty text field
+     */
     public String getEmptyField(int i) {
         switch(i) {
             case 0:
@@ -275,10 +263,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return "";
     } // end getEmptyField Method
 
-    //checkPhoneNumber()
-    //Returns a boolean after checking whether or not the phone number that the user has input is in the correct format
-    //Input: none
-    //Ouput: boolean: signifies whether the user's phonenumber has the valid format 
+    /**Returns a boolean after checking whether or not the phone number that the user has input is in the correct format
+    //Ouput: boolean: signifies whether the user's phonenumber has the valid format
+    */ 
     public boolean checkPhoneNumber() {
 
         if(phoneNumber.length() != 12) {
@@ -314,10 +301,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return true;
         }
     
-    //close()
-    //Closes the createAccount GUI
-    //Input: none
-    //Output: void
+    /**Closes the createAccount GUI
+     */
     public void close() {
         frame.dispose();
     }
