@@ -2,7 +2,12 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.*;
 
-
+/** Entity Class for Booking Object
+ *  @author Geoffrey Anselmo
+ *  @author Lance Trinidad
+ *  @author Joey Kaz
+ *  @version 11/18/2023
+ */
 public class Booking {
     protected Account account;
     protected Scanner sc;

@@ -3,6 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/** Entity Class for Account Object
+ * @author Geoffrey Anselmo
+ * @author Lance Trinidad
+ * @version 11/18/2023
+ */
+
 public class Account{
     private Scanner sc;
     private String username;

@@ -1,3 +1,10 @@
+/** Entity Class for Room Object
+ *  @author Lance Trinidad
+ *  @author Joey Kaz
+ *  @author Geoffrey Anselmo
+ *  @version 10/29/2023
+ */
+
 public class Room {
     protected int numberBed;
     protected boolean avaialbility;
