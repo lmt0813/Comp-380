@@ -34,6 +34,10 @@ public class Account{
     }
 
 
+    
+    /**Returns a LinkedList of the bookings of the user
+     * @return LinkedList<Booking> of Booking objects that are bookings associated with the user's account
+     */
     public LinkedList<Booking> getUserBookings(){
         LinkedList<Booking> result = new LinkedList<>();
         try{
@@ -91,42 +95,42 @@ public class Account{
         return this.password;
     }
 
-    //getName()
-    //Returns the user's name
-    //Input: none
-    //Output: String: name asocaited with the account
+    
+    /**Returns the user's name
+     * @return a String of the name asocaited with the account
+     */
     public String getName(){
         return this.name;
     }
 
-    //getEmail()
-    //Returns the account's email
-    //Input: none
-    //Output: String: email asocaited with the account
+    
+    /**Returns the account's email
+     * @return A String of the email asocaited with the account
+     */
     public String getEmail(){
         return this.email;
     }
 
-    //getPassword()
-    //Returns the type of the account
-    //Input: none
-    //Output: String: the Account's type
+    
+    /**Returns the type of the account
+     * @return a String of the the Account's type
+     */
     public String getAccountType(){
         return this.accountType;
     }
 
-    //getAddress()
-    //Returns the address assocaited with the account
-    //Input: none
-    //Output: String: address asocaited with the account
+    
+    /**Returns the address assocaited with the account
+     * @return a String of the address asocaited with the account
+     */
     public String getAddress(){
         return this.address;
     }
 
-    //getPhoneNumber()
-    //Returns the phone nuumber associated with the account
-    //Input: none
-    //Output: String: phone number asocaited with the account
+    
+    /**Returns the phone nuumber associated with the account
+     * @return a String of the phone number asocaited with the account
+     */
     public String getPhoneNumber(){
         return this.phoneNumber;
     }
