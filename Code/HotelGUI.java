@@ -36,8 +36,13 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     SimpleDateFormat sm;
     int checkInButtonIndex, checkOutButtonIndex, checkInMonthIndex, checkOutMonthIndex;
 
+    /**Defualt constructor for hotelGUI 
+     */
     HotelGUI(){}
 
+    /**Constructor with parameters for hotelGUI
+     * @param user the Account that is using the application
+     */
     HotelGUI(Account user) {
         // instantiate UI components
         this.user = user;
@@ -140,7 +145,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
     } // end constructor
 
-    // method that sets the criteria for the menu list
+    /**Sets the criteria for the menu list
+     */
     public void setCriteria() {
         for(int i = 0; i < searchCriteria.length; i++) {
             criteriaCheckBoxes[i] = new JCheckBox(searchCriteria[i]);
@@ -148,7 +154,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     } // end set criteria method
 
-    // loads the radio buttons for the checkin and checkout calendars
+    /*loads the radio buttons for the checkin and checkout calendars
+     */
     public void setDays() {
         for(int i = 1; i <= 31; i++) {
             dateRadioButtonsIn[i-1] = new JRadioButton(""+i);
@@ -160,6 +167,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     } // end setDays method
 
+    
+    /**Checks whitch action was performed and calls the appropriate methods
+     * @param ae represents where the action was performed
+     */
     public void actionPerformed(ActionEvent ae) {
         Object source = ae.getSource();
         if(source == searchButton) {
@@ -186,8 +197,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         
     } // end actionperformed method to handle button presses
 
-    // method that aids the searching process by getting and setting the dates, then calling the methods
-    // that load the result component
+    /**method that aids the searching process by getting and setting the dates, then calling the methods that load the result component
+     */
     public void processInformation() {
         String searchBar = searchTextField.getText();
         if(getDates() == 1) {return;}
@@ -202,7 +213,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         sp.setVisible(true);
     } // end process information method
 
-    // changes whether the check in calendar may be seen or not
+    /**changes whether the check in calendar may be seen or not
+     */
     public void changeCheckInVisibility() {
         if(dayChooserIn.isVisible()) {
             dayChooserIn.setVisible(false);
@@ -212,7 +224,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     } // end changeCheckInVisibility() method
 
-    // changes whether the check out calendar may be seen or not
+    /*changes whether the check out calendar may be seen or not
+     */
     public void changeCheckOutVisibility() {
         if(dayChooserOut.isVisible()) {
             dayChooserOut.setVisible(false);
@@ -222,7 +235,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     } // end changeCheckOutVisibility() method
 
-    // adds the selected criteria to a linkedlist
+    
+    /**Gets the criteria that the user selecetd 
+     * @param selectedCriteria a linkedlist containting the selected filter criteria
+     */
     public void getCriteria(LinkedList<String> selectedCriteria) {
         selectedCriteria.clear();
         for(int i = 0; i < criteriaCheckBoxes.length; i ++) {
@@ -232,7 +248,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     } // end getCriteria() method
 
-    // method that retrieves the dates from the selector components
+    
+    /**retrieves the dates from the selector components
+     * @return int signifies where the method exitted
+     */
     public int getDates() {
         for(int i = 0; i < dateRadioButtonsIn.length; i++) {
             if(dateRadioButtonsIn[i].isSelected()) {
@@ -259,8 +278,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         return 0;
     } // end getDates() method
 
-    //method that sets the dates for the bookings, and will check if they're invalid
-
+    
+    /**that sets the dates for the bookings, and will check if they're invalid
+     * @return int signifies where the method exitted
+     */
     public int setDates() {
         try {
             checkIn = LocalDate.of(2023, checkInMonthIndex+1,checkInButtonIndex+1);
@@ -287,8 +308,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         return 0;
     } // end int setDates() method
 
-    // method calls on search control class to return results for rooms, then will create the button components that 
-    // create the bookings
+    /**Calls on search control class to return results for rooms, then will create the button components that create the bookings
+     */
     public void getResults() {
         criteriaResults = new LinkedList<String>();
         getCriteria(criteriaResults);
@@ -301,7 +322,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         loadButtonResults();
     }
 
-    //adds the results as clickable components to the a linked list
+    /**Adds the results as clickable components to the a linked list
+     */
     public void loadButtonResults() {
         buttonResults.clear();
         for(int i = 0; i < roomResults.size(); i++) {
@@ -311,7 +333,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         displayResults();
     } // end loadButtonResults() method
 
-    //method adds checkout components to the GUI
+    /**Adds checkout components to the GUI
+     */
     public void displayResults() {
         for(int i = 0; i < roomResults.size(); i++) {
             int hotelID = roomResults.get(i).hotelID;
@@ -322,6 +345,11 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     } // end displayResults() method
 
+    
+    /**Gets the information of the hotel that is assocaited with the given hotelID  
+     * @param hotelID ID number that corresponds to the Hotel information that is desired
+     * @return String[][] which holds the hotel's information
+     */
     public String[][] getHotelInfo(int hotelID) {
         String[][] readLine = new String[2][5];
         try{
@@ -339,6 +367,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
 
     
 
+    
+     /**Changes the checkInMonth GUI and checkOutMonth GUI components
+     * @param e the GUI component that was selected
+     */
     @Override
     public void itemStateChanged(ItemEvent e) {
        if(e.getSource() == checkInMonths) {
@@ -349,7 +381,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
        }
     } // end item state changed method to handle date selection
 
-    
+    /**Displays the bookings that are associated with the user's account 
+     */
     public void displayBookings(){
         LinkedList<Booking> userBooking = new LinkedList<>();
         bookingResults.clear();
