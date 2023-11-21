@@ -2,6 +2,12 @@ import java.util.*;
 import java.io.*;
 import java.time.*;
 
+/**searchControl determines what rooms should be returned based off search criteria 
+ * @author Geoffrey Anselmo
+ * @author Joey Kaz 
+ * @author Lance Trinidad
+ * @version 11/19/2023
+ */
 public class searchControl {
 
     private Scanner scanner;

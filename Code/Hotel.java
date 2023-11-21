@@ -1,3 +1,8 @@
+/**Entity Class for Hotel Object
+ * @author Joey Kaz
+ * @author Lance Trinidad
+ * @version 11/21/2023
+ */
 public class Hotel {
     protected int roomCapacity;
     protected int roomsAvailable;
