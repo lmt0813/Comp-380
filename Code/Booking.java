@@ -13,26 +13,22 @@ public class Booking {
     protected String roomID;
     protected int roomNumber;
 
-    /**Default constructor for Booking object */
+    /**Default constructor for Booking object 
+     */
     public Booking(){}
 
-<<<<<<< HEAD
-    /**Constructor for Booking object
+    /**Constructor with parameters for Booking objects
+     * @param account The account of the user trying to create the booking
+     * @param roomID ID of the room reserved
      * @param price price of the room being reserved
      * @param hotelID ID of the hotel that the room belongs to
      * @param checkInDate The date the user will check into the hotel
-     * @param checkOutDate The date the user will check out of the hotel
-     * @param paymentInformation Payment information that the user used to reserve the room
-     * @param username the username of the customer who reserved the room
-     * @param roomID ID of the room reserved 
+     * @param checkoutDate The date the user will check out of the hotel
+     * @param roomNumber Room number 
      */
-    public Booking(double price, int hotelID, String checkInDate, String checkOutDate, String paymentInformation, String username, int roomID) {
-        this.bookingID = "aaaa";
-=======
     public Booking(Account account, String roomID, double price, int hotelID, String checkInDate, String checkOutDate, int roomNumber) {
         this.account = account;
         this.roomID = roomID;
->>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
         this.price = price;
         this.hotelID = hotelID;
         this.checkInDate = checkInDate;
@@ -40,56 +36,59 @@ public class Booking {
         this.roomNumber = roomNumber;
     }
 
-<<<<<<< HEAD
-    /**Reads the bookings.txt file and returns a linked list of the User's current bookings
-     * @param username: The username of the user
-     * @return A LinkedList<Booking> of Booking objects that belong to the username given
+    
+    /**Retruns the Account associted with the booking 
+     * @return Account object associted with the booking
      */
-    public LinkedList<Booking> getUserBookings(String username){
-        LinkedList<Booking> result = new LinkedList<>();
-        try{
-        sc = new Scanner(new File("bookings.txt"));
-        
-        while(sc.hasNextLine()){
-            String[] readLine = sc.nextLine().split(",");
-            if(readLine[1] == username){
-                //when txt file is formated, replace variables with readLine[index]
-                //result.add(new Booking(readLine[0], readLine[1], readLine[2], ...));
-            }
-            
-        }
-        sc.close();
-        }catch(FileNotFoundException e){}
-        
-
-        return result;
-=======
     public Account getAccount() {
         return account;
->>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
     }
 
+    
+    /**Retruns the Room ID associted with the booking 
+     * @return A String with the ID of the room that was booked
+     */
     public String getRoomID() {
         return roomID;
 
     }
 
+    
+    /**Retruns the price of the room that was booked
+     * @return a double which refers to the price of the room per night 
+     */
     public double getPrice() {
         return price;
     }
 
+    
+    /**Retruns the Hotel ID associted with the booking  
+     * @return an int that is the hotel ID associated with the booked room
+     */
     public int getHotelID() {
         return hotelID;
     }
 
+    
+    /**Retruns the date in which the user will Check into the room
+     * @return A String containing the check in date of the user 
+     */
     public String getCheckInDate() {
         return checkInDate;
     }
 
+    
+    /**Retruns the date in which the user will Check out of the room 
+     * @return A String containing the checkout date of the user 
+     */
     public String getCheckoutDate() {
         return checkOutDate;
     }
 
+    
+    /**Returns the room number of the booked room 
+     * @return an int which contains the room number of the booked room
+     */
     public int getRoomNumber() {
         return roomNumber;
     }
