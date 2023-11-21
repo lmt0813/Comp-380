@@ -91,6 +91,12 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         }
         
+        
+        /** 
+         * @param file
+         * @param ID
+         * @param instruction
+         */
         //can reformat to make more readable, ask Geoffrey if confused on what this does
         //rewrites txt file after a room is reserved to update availability values 
         public void rewrite(File file, int ID, char instruction) {
