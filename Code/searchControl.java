@@ -19,6 +19,10 @@ public class searchControl {
     PrintWriter pw; 
     BookingDate bd;
 
+    /**Constructor for searchControl
+     * @param checkIn Chosen check in date
+     * @param checkOut Chosen checkout date
+    */
     searchControl(LocalDate checkIn, LocalDate checkOut) {
         roomFile = new File("./Room.txt");
         bookingFile = new File("./ReservedRooms.txt");
@@ -29,23 +33,14 @@ public class searchControl {
         today = LocalDate.of(dateAttributes.getYear(), dateAttributes.getMonthValue(), dateAttributes.getDayOfMonth());
         reservedRooms = new HashMap<String,ArrayList<BookingDate>>();
     }
-   
-    /*
-     goals for this class:
-     1) Create an additional method specifically for scanning from the text file. The searchResults method below should be a main method
-     that calls other methods and returns the list called from the HotelGUI class
-     2) Create a method that filters results based on the search criteria. We will most likely have to put two lines per hotel on the text file: one
-     for the attributes, and a second for criteria.
-     3) Could either create a initial list to scan everything and second list to return based on the filtered criteria, or load everything in to one list.,
-     check the entire list, and remove every room that doesn't fit the criteria
-     4) Most likely scan hotel text file, check for attributes per hotel, then scan the room list based on hotel ID
-     */
 
      //returns ArrayList<Integer> of the Hotel IDs that match the searchCriteria
      //look to hotels.txt for format of hotel info/criteria. It is pretty sensitive
 
     
-
+    
+    /**Searches the bookingFile to note which rooms are booked
+      */
     private void readReservedRooms() {
         try {
             scanner = new Scanner(bookingFile);
@@ -70,6 +65,10 @@ public class searchControl {
         } // end finally
     } // end read rooms method
 
+    
+    /**Sorts a LinkedList of BookingDate objects so that the associated rooms are in order 
+     * @param list An arraylist containings the Booking Dates of reserved rooms 
+     */
     public void sortReservedRooms(ArrayList<BookingDate> list) {
         for(int i = 0; i < list.size() - 1; i++) {
             int minIndex = i;
@@ -87,12 +86,22 @@ public class searchControl {
 
     }
 
+    
+    /**Converts the date into a LocalDate object
+     * @param ld the date which is going to be convereted into a LocalDate object
+     * @return LocalDate object after converting the given date
+     */
     public LocalDate convertDate(String ld) {
         String[] dateComponents = ld.split("/");
         LocalDate tmp = LocalDate.of(Integer.parseInt(dateComponents[2]), Integer.parseInt(dateComponents[0]), Integer.parseInt(dateComponents[1]));
         return tmp;
     }
 
+    
+    /**Writes the room being reserved into ReservedRooms.txt
+     * @param current the Room being booked
+     * @param pw the PrintWriter object being used to write into a .txt file
+     */
     private void writeTempFile(Room current, PrintWriter pw) {
         pw.append(current.hotelID + "," + current.roomID + ",");
         pw.append(Integer.toString(current.numberBed) +"," + Boolean.toString(current.avaialbility) + ",");
@@ -100,6 +109,10 @@ public class searchControl {
         pw.append(current.roomType + "," + Double.toString(current.price) + "\n");
     }
 
+    
+    /**Searchs hotel.txt for hotels with criteria matching the provided list of criteria
+     * @return returns ArrayList<Integer> of hotel IDs whose names match searchBar
+     */
     private ArrayList<Integer> filterSearchCriteria() {
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
         if(searchCriteria.isEmpty()) {
@@ -130,7 +143,10 @@ public class searchControl {
         return hotelResults;
      }
 
-    //returns ArrayList<Integer> of hotel IDs whose names match searchBar
+    
+    /**Searchs hotels.txt for hotels that match the
+     * @return returns ArrayList<Integer> of hotel IDs whose names match searchBar
+     */
     private ArrayList<Integer> searchBarFilter() {
         ArrayList<Integer> nameMatch = new ArrayList<>();
         if(searchbar.compareTo("") == 0) {
@@ -152,7 +168,8 @@ public class searchControl {
 
     //this is for if searchbar is nonsense and criteria has at least one
 
-    //returns an LinkedList<Room> of rooms that matched the searchCriteria.
+    /**Modifies the global linked list, results, to be intialized with Room objects that match the criteria and String provided in the search
+     */
     private void filterRoomSearch(){
         ArrayList<Integer> nameMatchIDs = searchBarFilter();
         ArrayList<Integer> criteriaMatchIDs = filterSearchCriteria();
@@ -191,18 +208,38 @@ public class searchControl {
         } catch(FileNotFoundException e){}
     } 
 
+    
+    /**Compares two LocalDate objects 
+     * @param firstDate The date that was selected
+     * @param secondDate The date that is being compared to first date
+     * @return long
+     */
     public long compareDates(LocalDate firstDate, LocalDate secondDate) {
         Duration duration = Duration.between(firstDate.atStartOfDay(), secondDate.atStartOfDay());
         long diff = duration.toDays();
         return diff;
     }
 
+    
+    /**Checks the dates inbetween the check in date and check out date of a booking object
+     * @param bd The date which is booked
+     * @param checkIn The check in date
+     * @param checkOut The check out date
+     * @return an int signifying whether or not there is a difference
+     */
     public int checkBetween(BookingDate bd, LocalDate checkIn, LocalDate checkOut) {
         if(compareDates(bd.checkIn, checkIn) >= 0 && compareDates(bd.checkOut, checkIn) < 0) {return 1;} // compare check in date
         if(compareDates(bd.checkIn, checkOut) > 0 && compareDates(checkOut, bd.checkOut) > 0) {return 1;} // compare check out date
         return 0;
     }
 
+    
+    /**Checks the overlapping Check in and Check Out dates in reservedRooms.txt 
+     * @param list a list of BookingDates refering to the rooms that have been reserved
+     * @param checkIn The check in date that we want to compare
+     * @param checkOut The check out date that we want to compare
+     * @return an int signifiying if there were any overlapped dates
+     */
     public int checkOverlaps(ArrayList<BookingDate> list, LocalDate checkIn, LocalDate checkOut) {
         BookingDate bd;
         if(list.size() == 0) {return 0;} // might not need this line to check
@@ -231,6 +268,8 @@ public class searchControl {
         return 1;
     }
 
+    /**Modifies the global linked list, results, to be intialized with all the available rooms in Room.txt
+     */
     private void allRooms() {
         try{
             scanner = new Scanner(new File("Room.txt"));
@@ -242,7 +281,11 @@ public class searchControl {
         } catch(FileNotFoundException e) {}
     }
 
-
+    /**Returns a linked list of Room objects which fit the criteria and hotel name provided by the user
+     * @param criteria: List of criteria the user provides
+     * @param searchbar: Hotel name that the user wants to search for
+     * @return LinkedList<Room> of rooms which fit the provided criteria
+     */
     public LinkedList<Room> searchResults(LinkedList<String> criteria, String searchbar) {
         readReservedRooms();
         this.searchbar = searchbar;
@@ -256,14 +299,16 @@ public class searchControl {
         return results;
     }
 
-    // method that adds Room Objects to the results list
+    /**Creates room objects and adds them to the global linked list, results
+     */
     public void addRoom() {
         assignAttributes();
         results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
     }
 
 
-    // method that assigns sent attributes to the data types defined in the class header
+    /**Assigns attributes to the data types defined in the class header
+     */
     public void assignAttributes() {
         hotelID = Integer.parseInt(attributes[0]);
         roomID = attributes[1];

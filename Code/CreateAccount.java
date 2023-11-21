@@ -7,18 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
 
-//Problems  spamming create Account button on GUI will create that account that many times, so
-//          the newUsers.txt and usernames.txt will have that many duplicates
-//Fix:      have the GUI window close after you create an account,
-//          you probably want to run Login right after you click create account button anyways
-//
-//Problem:  need to add email and user type as fields
-//          will also need to add those fields in append method in getAttributes() to add to text file
-//          (if it's too messy in getAttributes() we can put PrintStreams into methods and call the method
-//          in getAttributes())
-//Fix:      easy fix, just do it
-//You can delete these when the problems are fixed ^^ I leave it to you Joey
-
+//CreateAccount handles the createAccount GUI and the create of any new accounts
 public class CreateAccount extends JFrame implements ActionListener, ItemListener {
     
     JFrame frame;
@@ -34,7 +23,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     JComboBox<String> cb;
     LinkedList<String> usernameList;
 
-
+    /**Contructor for createAccount objects 
+     */
     CreateAccount() {
         usernameList = new LinkedList<String>();
         frame = new JFrame();
@@ -123,7 +113,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     }
 
 
-
+    /**Checks what actions were performed, to what components of the the GUI
+     * @param e: refers to the action that was performed by the user
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createButton) {
@@ -133,6 +125,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
+    /**Checks GUI componenets that are selecteable
+     * @param e: refers to the GUI component which has a changable state
+     */
     @Override
     public void itemStateChanged(ItemEvent ie) {
         if(ie.getSource() == cb) {
@@ -140,6 +135,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
+    /**Intializes the global variable usernameList with the usernames from users.txt 
+     */
     public void setUsernameList() {
         try {
             usernameList.clear();
@@ -157,6 +154,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
+    /**Collects the attirbutes from the text fields filled by the user for the creation of their new Account
+     * @return An int that signifies how the method was ressolved
+     */
     public int getAttributes() {
         userName = userNameField.getText();
         if(userName.compareTo("") != 0 && usernameList.contains(userName)) {
@@ -183,6 +183,10 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         
     }
 
+
+    /**Checks if any fields were left empty, and returns a boolean
+     * @return boolean: signify if there are any fields that are empty
+     */
     public boolean checkNullFields() {
         System.out.println(userName);
         for(int i = 0; i < fields.length; i++) {
@@ -196,6 +200,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return true;
     }
 
+
+    /**Creates the user's new Account and writes their accounut information into users.txt
+     */
     public void createAccount() {
         try {
             PrintStream ps = new PrintStream(new FileOutputStream("users.txt", true));
@@ -207,7 +214,10 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
 
         }
+    
 
+    /**Displays a dialog message once the user's account has been created
+     */
     public void accountCreated() {
         JOptionPane.showMessageDialog(null, "Account Successfully Created!");
         Account constructor = new Account(userName, password, name, email, accountType, address, phoneNumber);
@@ -217,7 +227,8 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
     }
     
-
+    /**Converts the user's inputed password to the correct format
+     */
     public void convertPassword() {
         password = "";
         for(int i = 0; i < passwordResult.length; i++) {
@@ -225,6 +236,11 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
     }
 
+
+    /**Returns the name of any empty text fields on the GUI
+     * @param i: refers to the text field being checked
+     * @return A String containting the name of the empty text field
+     */
     public String getEmptyField(int i) {
         switch(i) {
             case 0:
@@ -247,6 +263,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return "";
     } // end getEmptyField Method
 
+    /**Returns a boolean signifying whether the given phone number is in the correct format
+     * @return boolean showing if the phonenumber is in the correct format 
+    */ 
     public boolean checkPhoneNumber() {
 
         if(phoneNumber.length() != 12) {
@@ -281,7 +300,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
         return true;
         }
-
+    
+    /**Closes the createAccount GUI
+     */
     public void close() {
         frame.dispose();
     }

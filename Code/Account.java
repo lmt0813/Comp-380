@@ -14,16 +14,15 @@ public class Account{
     private String phoneNumber;
 
 
-    //Account(String username, String password, String name,String email, String accountType, String address, String phoneNumber)
-    //Constructor for Account object
-    //Input: String username: the username associated with the account
-    //       String password: the password associated with the account
-    //       String name: user's name
-    //       String email: email associated with the account
-    //       String accountType: type of account (i.e. if its a customer or staff account)
-    //       String address: user's address
-    //       String phoneNumber: user's phone number
-    //Output: none
+    /**Constructor for Account object
+     * @param username: the username associated with the account
+     * @param password: the password associated with the account
+     * @param name: user's name
+     * @param mail: email associated with the account
+     * @param accountType: type of account (i.e. if its a customer or staff account)
+     * @param address: user's address
+     * @param phoneNumber: user's phone number
+     */
     public Account(String username, String password, String name,String email, String accountType, String address, String phoneNumber){
         this.username = username;
         this.password = password;
@@ -35,19 +34,22 @@ public class Account{
     }
 
 
+    
+    /**Returns a LinkedList of the bookings of the user
+     * @return LinkedList<Booking> of Booking objects that are bookings associated with the user's account
+     */
     public LinkedList<Booking> getUserBookings(){
         LinkedList<Booking> result = new LinkedList<>();
         try{
         sc = new Scanner(new File("bookings.txt"));
-        
         while(sc.hasNextLine()){
             String[] readLine = sc.nextLine().split(",");
-            if(readLine[0] == username){
-                
-                //when txt file is formated, replace variables with readLine[index]
-                //result.add(new Booking(readLine[0], readLine[1], readLine[2], ...));
-            }
-            
+            if(readLine[0].equals(username)){
+                readLine = sc.nextLine().split(",");
+                Account account = this;
+                Booking booking = new Booking(account, readLine[0], Double.parseDouble(readLine[1]), Integer.parseInt(readLine[2]), readLine[3], readLine[4], Integer.parseInt(readLine[5]));
+                result.add(booking);
+            } else readLine = sc.nextLine().split(",");
         }
         sc.close();
         }catch(FileNotFoundException e){}
@@ -56,21 +58,19 @@ public class Account{
 
     
     private void makeReview(Hotel hotel){
-        // will call another class to make review
+        //will call another class to make review
     }
 
-    //changeEmail(String newEmail)
-    //Change the email associated with the account
-    //Input: String newEmail: the new email that the user wants the account to be assocaited with
-    //Output: void
+    /**Change the email associated with the account
+     * @param newEmail: the new email that the user wants the account to be assocaited with
+     */
     private void changeEmail(String newEmail) {
         email = newEmail;
     }
 
-    //changePassword(String newPassword)
-    //Change the password associated with the account
-    //Input: String newPassword: the new password that the user wants the account to be assocaited with
-    //Output: void
+    /**Change the password associated with the account
+     * @param newPassword: the new password that the user wants the account to be assocaited with
+     */
     private void changePassword(String newPassword){
         password = newPassword;
     }
@@ -80,59 +80,57 @@ public class Account{
 
     }
 
-    //getUsername()
-    //Returns the account's username
-    //Input: none
-    //Output:String: username assocaited with the account
+    /**Returns the account's username
+     * @return username assocaited with the account
+     */
     public String getUsername(){
         return this.username;
     }
 
 
-    //getPassword()
-    //Returns the account's password
-    //Input: none
-    //Output:String: password asocaited with the account
+    /**Returns the account's password
+    * @return password asocaited with the account
+    */
     public String getPassword(){
         return this.password;
     }
 
-    //getName()
-    //Returns the user's name
-    //Input: none
-    //Output: String: name asocaited with the account
+    
+    /**Returns the user's name
+     * @return a String of the name asocaited with the account
+     */
     public String getName(){
         return this.name;
     }
 
-    //getEmail()
-    //Returns the account's email
-    //Input: none
-    //Output: String: email asocaited with the account
+    
+    /**Returns the account's email
+     * @return A String of the email asocaited with the account
+     */
     public String getEmail(){
         return this.email;
     }
 
-    //getPassword()
-    //Returns the type of the account
-    //Input: none
-    //Output: String: the Account's type
+    
+    /**Returns the type of the account
+     * @return a String of the the Account's type
+     */
     public String getAccountType(){
         return this.accountType;
     }
 
-    //getAddress()
-    //Returns the address assocaited with the account
-    //Input: none
-    //Output: String: address asocaited with the account
+    
+    /**Returns the address assocaited with the account
+     * @return a String of the address asocaited with the account
+     */
     public String getAddress(){
         return this.address;
     }
 
-    //getPhoneNumber()
-    //Returns the phone nuumber associated with the account
-    //Input: none
-    //Output: String: phone number asocaited with the account
+    
+    /**Returns the phone nuumber associated with the account
+     * @return a String of the phone number asocaited with the account
+     */
     public String getPhoneNumber(){
         return this.phoneNumber;
     }
