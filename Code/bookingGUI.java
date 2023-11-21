@@ -162,18 +162,31 @@ public class bookingGUI extends JFrame implements ActionListener{
         }
 
         public void writeBookings() {
-            try{
-                PrintWriter pw = new PrintWriter(new FileOutputStream(new File("ReservedRooms.txt"), true));
-                pw.append("Name" + ","
-                + booking.checkInDate + ","   
-                + booking.checkOutDate + ","
-                + booking.price + "," 
-                + booking.hotelID + ","  
-                + booking.bookingID + ","  
-                  
-                + booking.paymentInformation + "\n");
+            try {
+                PrintWriter pw = new PrintWriter(new FileOutputStream(new File("bookings.txt"), true));
+                Account account = booking.getAccount();
+                pw.append(account.getUsername() + "," + account.getPassword() + ",");
+                pw.append(account.getName() + "," + account.getEmail() + ",");
+                pw.append(account.getAccountType() + "," + account.getAddress() + ",");
+                pw.append(account.getPhoneNumber() + "\n");
+                pw.append(booking.getRoomID() + ",");
+                pw.append(booking.getPrice() + "," + booking.getHotelID() + ",");
+                pw.append(booking.getCheckInDate() + "," + booking.getCheckoutDate() + ",");
+                pw.append(booking.getRoomNumber() + "\n");
                 pw.close();
             } catch(FileNotFoundException e) {}
+        }
+
+        public void writeReserved() {
+            try{
+                PrintWriter pw = new PrintWriter(new FileOutputStream(new File("ReservedRooms.txt"), true));
+                Account account = booking.getAccount();
+                pw.append(account.getUsername() + ",");
+                pw.append(booking.getCheckInDate() + "," + booking.getCheckoutDate() + ",");
+                pw.append(booking.getHotelID() + ",");
+                pw.append(booking.getRoomID() + "\n");
+                pw.close();
+                } catch(FileNotFoundException e) {}
         }
 
         public void actionPerformed(ActionEvent ae){
@@ -183,9 +196,10 @@ public class bookingGUI extends JFrame implements ActionListener{
                 return;
                 if(validateFields() == 1 )
                 return;
+                writeReserved();
                 writeBookings();
                 rewrite(new File("hotels.txt"), booking.hotelID, '-');
-                rewrite(new File("Room.txt"), booking.roomID, '-');
+                rewrite(new File("Room.txt"), booking.roomNumber, '-');
             }
         }
         int validateFields(){

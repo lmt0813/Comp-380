@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.time.*;
 
 public class searchControl {
 
@@ -11,19 +12,97 @@ public class searchControl {
     int hotelID, numberBed, floorNumber, roomNumber;
     boolean avaialbility;
     double price;
-    File roomFile;
+    File roomFile, bookingFile, tmpFile;
     String searchbar;
+    LocalDate checkIn, checkOut, compare, today, dateAttributes;
+    HashMap<String,ArrayList<BookingDate>> reservedRooms;
+    PrintWriter pw; 
+    BookingDate bd;
 
+<<<<<<< HEAD
     /**Constructor for searchControl
      */
     searchControl() {
+=======
+    searchControl(LocalDate checkIn, LocalDate checkOut) {
+>>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
         roomFile = new File("./Room.txt");
+        bookingFile = new File("./ReservedRooms.txt");
+        tmpFile = new File("./tmp.txt");
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        dateAttributes = LocalDate.now();
+        today = LocalDate.of(dateAttributes.getYear(), dateAttributes.getMonthValue(), dateAttributes.getDayOfMonth());
+        reservedRooms = new HashMap<String,ArrayList<BookingDate>>();
     }
 
+<<<<<<< HEAD
      /**Searchs hotel.txt for hotels with criteria matching the provided list of criteria
       * @return An ArrayList of hotel IDs which refer to hotels that match the criteria that the user provided 
       */
      private ArrayList<Integer> filterSearchCriteria() {
+=======
+     //returns ArrayList<Integer> of the Hotel IDs that match the searchCriteria
+     //look to hotels.txt for format of hotel info/criteria. It is pretty sensitive
+
+    
+
+    private void readReservedRooms() {
+        try {
+            scanner = new Scanner(bookingFile);
+            while(scanner.hasNext()) {
+                attributes = scanner.next().split(",");
+                if(!reservedRooms.containsKey(attributes[4])) {
+                    ArrayList <BookingDate> tmp = new ArrayList<BookingDate>();
+                    tmp.add(new BookingDate(convertDate(attributes[1]), convertDate(attributes[2])));
+                    reservedRooms.put(attributes[4],tmp);
+                }
+                else {
+                    reservedRooms.get(attributes[4]).add(new BookingDate(convertDate(attributes[1]), convertDate(attributes[2])));
+                }
+                
+            } // end while
+        } // end try
+
+        catch(IOException e){e.printStackTrace();}
+
+        finally {
+            scanner.close();
+        } // end finally
+    } // end read rooms method
+
+    public void sortReservedRooms(ArrayList<BookingDate> list) {
+        for(int i = 0; i < list.size() - 1; i++) {
+            int minIndex = i;
+            for(int j = i + 1; j < list.size(); j++) {
+                if(compareDates(list.get(minIndex).checkIn, list.get(j).checkIn) < 0) {
+                    minIndex = j;
+                }
+            }
+            if(minIndex != i) {
+                BookingDate tmp = list.get(i);
+                list.set(i, list.get(minIndex));
+                list.set(minIndex, tmp);
+            }
+        }
+
+    }
+
+    public LocalDate convertDate(String ld) {
+        String[] dateComponents = ld.split("/");
+        LocalDate tmp = LocalDate.of(Integer.parseInt(dateComponents[2]), Integer.parseInt(dateComponents[0]), Integer.parseInt(dateComponents[1]));
+        return tmp;
+    }
+
+    private void writeTempFile(Room current, PrintWriter pw) {
+        pw.append(current.hotelID + "," + current.roomID + ",");
+        pw.append(Integer.toString(current.numberBed) +"," + Boolean.toString(current.avaialbility) + ",");
+        pw.append(Integer.toString(current.floorNumber) + "," + Integer.toString(current.roomNumber) + ",");
+        pw.append(current.roomType + "," + Double.toString(current.price) + "\n");
+    }
+
+    private ArrayList<Integer> filterSearchCriteria() {
+>>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
         ArrayList<Integer> hotelResults = new ArrayList<>(); 
         if(searchCriteria.isEmpty()) {
             return hotelResults;
@@ -53,9 +132,13 @@ public class searchControl {
         return hotelResults;
      }
 
+<<<<<<< HEAD
     /**Searchs hotels.txt for hotels that match the String provided by the user
      * @return An ArrayList of hotel IDs which refer to hotels that match the String that the user provided
      */
+=======
+    //returns ArrayList<Integer> of hotel IDs whose names match searchBar
+>>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
     private ArrayList<Integer> searchBarFilter() {
         ArrayList<Integer> nameMatch = new ArrayList<>();
         if(searchbar.compareTo("") == 0) {
@@ -102,13 +185,66 @@ public class searchControl {
                     if(hotelIDs.contains(Integer.parseInt(attributes[0])) && Boolean.parseBoolean(attributes[3]) != false){
                         addRoom();
                     }
-                }
+                    // new code //
+                    else if(hotelIDs.contains(Integer.parseInt(attributes[0])) && Boolean.parseBoolean(attributes[3]) == false) {
+                        switch(checkOverlaps(reservedRooms.get(attributes[1]), this.checkIn, this.checkOut)) { // check overlaps with requested checkin/checkout date
+                            case 0:
+                                addRoom();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                } // end while
             scanner.close();
         } catch(FileNotFoundException e){}
     } 
 
+<<<<<<< HEAD
     /**Modifies the global linked list, results, to be intialized with all the available rooms in Room.txt
      */
+=======
+    public long compareDates(LocalDate firstDate, LocalDate secondDate) {
+        Duration duration = Duration.between(firstDate.atStartOfDay(), secondDate.atStartOfDay());
+        long diff = duration.toDays();
+        return diff;
+    }
+
+    public int checkBetween(BookingDate bd, LocalDate checkIn, LocalDate checkOut) {
+        if(compareDates(bd.checkIn, checkIn) >= 0 && compareDates(bd.checkOut, checkIn) < 0) {return 1;} // compare check in date
+        if(compareDates(bd.checkIn, checkOut) > 0 && compareDates(checkOut, bd.checkOut) > 0) {return 1;} // compare check out date
+        return 0;
+    }
+
+    public int checkOverlaps(ArrayList<BookingDate> list, LocalDate checkIn, LocalDate checkOut) {
+        BookingDate bd;
+        if(list.size() == 0) {return 0;} // might not need this line to check
+        else if(list.size() == 1) {
+            bd = list.get(0);
+            if(compareDates(bd.checkOut, checkIn) >= 0 || compareDates(checkOut, bd.checkIn) >= 0) {
+                return 0;
+            }
+        } // end else-if
+        // else statement will check to see if a date falls between any booking. If it doesn't, it will then check to see if the booking check in
+        // and check out dates fall between the list's current and next bookings
+        else {
+            sortReservedRooms(list);
+            for(int i = 0; i < list.size() - 1; i++) {
+                BookingDate tmp = list.get(i);
+                BookingDate tmp2 = list.get(i+1);
+                if(checkBetween(tmp, checkIn, checkOut) == 1) {
+                    return 1;
+                }
+                if(compareDates(tmp.checkOut,checkIn) >= 0 && compareDates(checkOut,tmp2.checkIn) >= 0) {
+                    return 0;
+                }
+            } // end for loop
+            if(compareDates(list.get(list.size() - 1).checkOut, checkIn) >= 0) {return 0;}
+        }
+        return 1;
+    }
+
+>>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
     private void allRooms() {
         try{
             scanner = new Scanner(new File("Room.txt"));
@@ -126,6 +262,7 @@ public class searchControl {
      * @return LinkedList<Room> of rooms which fit the provided criteria
      */
     public LinkedList<Room> searchResults(LinkedList<String> criteria, String searchbar) {
+        readReservedRooms();
         this.searchbar = searchbar;
         searchCriteria = criteria;
         //checks if searchBar and searchCriteria are both empty

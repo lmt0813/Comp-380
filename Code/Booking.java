@@ -4,19 +4,19 @@ import java.io.*;
 
 
 public class Booking {
+    protected Account account;
     protected Scanner sc;
-    protected String bookingID;
     protected double price;
     protected int hotelID;
     protected String checkInDate;
     protected String checkOutDate;
-    protected String paymentInformation;
-    protected String username;
-    protected int roomID;
+    protected String roomID;
+    protected int roomNumber;
 
     /**Default constructor for Booking object */
     public Booking(){}
 
+<<<<<<< HEAD
     /**Constructor for Booking object
      * @param price price of the room being reserved
      * @param hotelID ID of the hotel that the room belongs to
@@ -28,15 +28,19 @@ public class Booking {
      */
     public Booking(double price, int hotelID, String checkInDate, String checkOutDate, String paymentInformation, String username, int roomID) {
         this.bookingID = "aaaa";
+=======
+    public Booking(Account account, String roomID, double price, int hotelID, String checkInDate, String checkOutDate, int roomNumber) {
+        this.account = account;
+        this.roomID = roomID;
+>>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
         this.price = price;
         this.hotelID = hotelID;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.paymentInformation = paymentInformation;
-        this.username = username;
-        this.roomID = roomID;
+        this.roomNumber = roomNumber;
     }
 
+<<<<<<< HEAD
     /**Reads the bookings.txt file and returns a linked list of the User's current bookings
      * @param username: The username of the user
      * @return A LinkedList<Booking> of Booking objects that belong to the username given
@@ -59,7 +63,39 @@ public class Booking {
         
 
         return result;
+=======
+    public Account getAccount() {
+        return account;
+>>>>>>> 49bea316d7045dad73cf17f748a4c0b1bdedd6e7
     }
+
+    public String getRoomID() {
+        return roomID;
+
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getHotelID() {
+        return hotelID;
+    }
+
+    public String getCheckInDate() {
+        return checkInDate;
+    }
+
+    public String getCheckoutDate() {
+        return checkOutDate;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+
+    
 
     public static void main(String[] args) {
         
