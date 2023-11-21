@@ -8,6 +8,12 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+/** GUI class that allows users to interact with the system. It allows users to enter their criteria for searching available rooms and displays booking results
+ * @author Joey Kaz
+ * @author Victor Ruiz
+ * @author Lance Trinidad
+ * @version 11/19/2023
+ */
 
 public class HotelGUI extends JFrame implements ActionListener, ItemListener {
    

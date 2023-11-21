@@ -7,6 +7,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
 
+/** GUI class that allows users to sign up for an account, allowing them to access the booking application
+ * @author Joey Kaz
+ * @version 10/28/2023
+ */
+
 //CreateAccount handles the createAccount GUI and the create of any new accounts
 public class CreateAccount extends JFrame implements ActionListener, ItemListener {
     

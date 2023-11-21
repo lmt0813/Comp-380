@@ -1,7 +1,13 @@
 import java.time.*;
+
+/** Class that encompases both a booking's check in and check out dates for comparison in the search control class
+ * @author Joey Kaz
+ * @version 11/19/2023
+ */
 public class BookingDate {
 
     LocalDate checkIn, checkOut;
+    
 
     /**Default constructor for Hotel objects
     */
