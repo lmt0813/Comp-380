@@ -8,16 +8,15 @@ public class Account{
     private String phoneNumber;
 
 
-    //Account(String username, String password, String name,String email, String accountType, String address, String phoneNumber)
-    //Constructor for Account object
-    //Input: String username: the username associated with the account
-    //       String password: the password associated with the account
-    //       String name: user's name
-    //       String email: email associated with the account
-    //       String accountType: type of account (i.e. if its a customer or staff account)
-    //       String address: user's address
-    //       String phoneNumber: user's phone number
-    //Output: none
+    /**Constructor for Account object
+     * @param username: the username associated with the account
+     * @param password: the password associated with the account
+     * @param name: user's name
+     * @param mail: email associated with the account
+     * @param accountType: type of account (i.e. if its a customer or staff account)
+     * @param address: user's address
+     * @param phoneNumber: user's phone number
+     */
     public Account(String username, String password, String name,String email, String accountType, String address, String phoneNumber){
         this.username = username;
         this.password = password;
@@ -29,21 +28,19 @@ public class Account{
     }
 
     private void makeReview(Hotel hotel){
-        // will call another class to make review
+        //will call another class to make review
     }
 
-    //changeEmail(String newEmail)
-    //Change the email associated with the account
-    //Input: String newEmail: the new email that the user wants the account to be assocaited with
-    //Output: void
+    /**Change the email associated with the account
+     * @param newEmail: the new email that the user wants the account to be assocaited with
+     */
     private void changeEmail(String newEmail) {
         email = newEmail;
     }
 
-    //changePassword(String newPassword)
-    //Change the password associated with the account
-    //Input: String newPassword: the new password that the user wants the account to be assocaited with
-    //Output: void
+    /**Change the password associated with the account
+     * @param newPassword: the new password that the user wants the account to be assocaited with
+     */
     private void changePassword(String newPassword){
         password = newPassword;
     }
@@ -53,19 +50,17 @@ public class Account{
 
     }
 
-    //getUsername()
-    //Returns the account's username
-    //Input: none
-    //Output:String: username assocaited with the account
+    /**Returns the account's username
+     * @return username assocaited with the account
+     */
     public String getUsername(){
         return this.username;
     }
 
 
-    //getPassword()
-    //Returns the account's password
-    //Input: none
-    //Output:String: password asocaited with the account
+    /**Returns the account's password
+    * @return password asocaited with the account
+    */
     public String getPassword(){
         return this.password;
     }
