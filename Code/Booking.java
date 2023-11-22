@@ -98,6 +98,23 @@ public class Booking {
         return roomNumber;
     }
 
+    /**Gets the room that was reserved for the booking
+     * @return a object Room associated with roomID
+     */
+    public Room getRoom(){
+        try {
+            Scanner sc = new Scanner(new File("Room.txt"));
+            while(sc.hasNextLine()){
+                String[] readLine = sc.nextLine().split(",");
+                if(hotelID == Integer.parseInt(readLine[0])){
+                    return new Room(Integer.parseInt(readLine[0]), readLine[1], Integer.parseInt(readLine[2]), Boolean.parseBoolean(readLine[3]), 
+                                    Integer.parseInt(readLine[4]), Integer.parseInt(readLine[5]), readLine[6], Double.parseDouble(readLine[7]));
+                }
+            }
+        } catch (Exception e) {}
+
+        return null;
+    }
 
     
 
