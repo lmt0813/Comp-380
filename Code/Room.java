@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /** Entity Class for Room Object
  *  @author Lance Trinidad
  *  @author Joey Kaz
@@ -41,6 +45,27 @@ public class Room {
     protected void assignKeyCard() {
         
     }
+
+
+    /**Gets the information of the hotel that is assocaited with the given hotelID  
+     * @param hotelID ID number that corresponds to the Hotel information that is desired
+     * @return String[][] which holds the hotel's information
+     */
+    public String[][] getHotelInfo() {
+        String[][] readLine = new String[2][10];
+        try{
+            Scanner scanner = new Scanner(new File("hotels.txt"));
+            while(scanner.hasNextLine()) {
+                readLine[0] = scanner.next().replace("_", " ").split(",");
+                readLine[1] = scanner.next().replace("_", " ").split(",");
+                if(hotelID == Integer.parseInt(readLine[0][2])) {
+                    return readLine;
+                }
+            }
+        } catch(FileNotFoundException e) {}
+        return null;
+    }
+
 
     /**Makes the Room object into a readable string
      * @return A string of the attributes of the Room object, seperated by commas 

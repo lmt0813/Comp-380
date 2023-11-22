@@ -125,17 +125,13 @@ public class Booking {
             String[][] content = new String[100][7];
             for(int i = 0; sc.hasNextLine(); i+=2){
                 String[] readLine1 = sc.nextLine().split(",");
-                System.out.println(Arrays.toString(readLine1) + "Account info read");
                 String[] readLine2 = sc.nextLine().split(",");
-                System.out.println(Arrays.toString(readLine2) + "Booking info read");
                 if(readLine2[0].equals(roomID) && readLine2[3].equals(checkInDate)){
                     if(!sc.hasNextLine()) {
                         break;
                     }
                     readLine1 = sc.nextLine().split(",");
-                    System.out.println(Arrays.toString(readLine1) + "Account info skipped");
                     readLine2 = sc.nextLine().split(",");
-                    System.out.println(Arrays.toString(readLine2) + "booking info skipped");
                 }//end if
                 content[i] = readLine1;
                 content[i+1] = readLine2;
