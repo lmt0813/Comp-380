@@ -66,13 +66,14 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
             cancelConfirmation();
         } else if(o == confirmButton){
             JOptionPane.showMessageDialog(null,"Booking Canceled");
+            booking.cancelBooking();
+            new HotelGUI(booking.getAccount());
             confirmationFrame.dispose();
             mainFrame.dispose();
             //add a method call that cancels the booking and rewrite ReservedRooms.txt and bookings.txt
         } else if(o == denyButton){
             confirmationFrame.dispose();
         }
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
     /**Displays a confirmation window for the user when cancelling their booking 

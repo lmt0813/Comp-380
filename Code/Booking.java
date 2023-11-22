@@ -129,6 +129,9 @@ public class Booking {
                 String[] readLine2 = sc.nextLine().split(",");
                 System.out.println(Arrays.toString(readLine2) + "Booking info read");
                 if(readLine2[0].equals(roomID) && readLine2[3].equals(checkInDate)){
+                    if(!sc.hasNextLine()) {
+                        break;
+                    }
                     readLine1 = sc.nextLine().split(",");
                     System.out.println(Arrays.toString(readLine1) + "Account info skipped");
                     readLine2 = sc.nextLine().split(",");
@@ -139,22 +142,25 @@ public class Booking {
             }//end of for
 
             sc.close();
+            
             PrintWriter pw = new PrintWriter(new File("bookings.txt"));
-
+            if(content[0][0] ==  null) {
+                pw.close();
+                return;
+            }
             for(int i = 0; i < content.length; i++){
                 for(int j = 0; j < content[i].length; j++){
-                    if(j < 7){
+                    if(j+1 < content[i].length){
                         pw.append(content[i][j] + ",");
                     } else {
                         pw.append(content[i][j]);
                     }
-                    
-                    if(content[i+1][0] == null){
-                        pw.append("\n"); 
+                }//end inner for
+                if(content[i+1][0] == null){
+                        pw.append("\n");
                         pw.close();
                         return;
-                    }
-                }//end inner for
+                }
                 pw.append("\n"); 
             }//end outer for
             pw.close();
