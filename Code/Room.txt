@@ -1,6 +1,6 @@
 1,1-13,2,false,1,13,King,278.00
 2,2-465,2,true,4,465,Queen,127.00
 3,3-237,2,true,2,237,Standard,79.00
-4,4-212,1,true,2,212,Standard,62.00
+4,4-212,1,false,2,212,Standard,62.00
 5,5-111,1,true,1,111,Standard,47.00
 1,1-14,1,false,1,14,Twin,333.00
