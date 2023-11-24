@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.*;
 
@@ -107,13 +106,62 @@ public class Booking {
             while(sc.hasNextLine()){
                 String[] readLine = sc.nextLine().split(",");
                 if(hotelID == Integer.parseInt(readLine[0])){
+                    sc.close();
                     return new Room(Integer.parseInt(readLine[0]), readLine[1], Integer.parseInt(readLine[2]), Boolean.parseBoolean(readLine[3]), 
                                     Integer.parseInt(readLine[4]), Integer.parseInt(readLine[5]), readLine[6], Double.parseDouble(readLine[7]));
                 }
             }
+            sc.close();
         } catch (Exception e) {}
 
         return null;
+    }
+
+    /**Rewrites booking.txt to remove the canceled booking
+     */
+    public void cancelBooking(){
+        try{
+            Scanner sc = new Scanner(new File("bookings.txt"));
+            String[][] content = new String[100][7];
+            for(int i = 0; sc.hasNextLine(); i+=2){
+                String[] readLine1 = sc.nextLine().split(",");
+                String[] readLine2 = sc.nextLine().split(",");
+                if(readLine2[0].equals(roomID) && readLine2[3].equals(checkInDate)){
+                    if(!sc.hasNextLine()) {
+                        break;
+                    }
+                    readLine1 = sc.nextLine().split(",");
+                    readLine2 = sc.nextLine().split(",");
+                }//end if
+                content[i] = readLine1;
+                content[i+1] = readLine2;
+            }//end of for
+
+            sc.close();
+            
+            PrintWriter pw = new PrintWriter(new File("bookings.txt"));
+            if(content[0][0] ==  null) {
+                pw.close();
+                return;
+            }
+            for(int i = 0; i < content.length; i++){
+                for(int j = 0; j < content[i].length; j++){
+                    if(j+1 < content[i].length){
+                        pw.append(content[i][j] + ",");
+                    } else {
+                        pw.append(content[i][j]);
+                    }
+                }//end inner for
+                if(content[i+1][0] == null){
+                        pw.append("\n");
+                        pw.close();
+                        return;
+                }
+                pw.append("\n"); 
+            }//end outer for
+            pw.close();
+
+            } catch (FileNotFoundException e) {}
     }
 
     

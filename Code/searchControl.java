@@ -281,7 +281,9 @@ public class searchControl {
             scanner = new Scanner(new File("Room.txt"));
             while(scanner.hasNext()) {
                 attributes = scanner.next().split(",");
-                addRoom();
+                if(Boolean.parseBoolean(attributes[3]) == true) {
+                    addRoom();
+                }
             }
             scanner.close();
         } catch(FileNotFoundException e) {}

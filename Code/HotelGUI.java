@@ -194,6 +194,14 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             return;
         }
         
+        for(int i = 0; i < bookingResults.size(); i++){
+            LinkedList<Booking> userBookings = user.getUserBookings();
+            if(source == bookingResults.get(i)){ 
+                Booking current = userBookings.get(i);
+                new MyBookingsGUI(current);
+            }
+        }
+
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
@@ -343,8 +351,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
      */
     public void displayResults() {
         for(int i = 0; i < roomResults.size(); i++) {
-            int hotelID = roomResults.get(i).hotelID;
-            String[][] hotelInfo = getHotelInfo(hotelID);
+            Room room = roomResults.get(i);
+            String[][] hotelInfo = room.getHotelInfo();
             bottom.add(new JLabel(hotelInfo[0][0] + " " + roomResults.get(i).roomID +": $" + roomResults.get(i).price + "/night " + 
             Arrays.toString(hotelInfo[1])));
             bottom.add(buttonResults.get(i));
@@ -352,24 +360,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     } // end displayResults() method
 
     
-    /**Gets the information of the hotel that is assocaited with the given hotelID  
-     * @param hotelID ID number that corresponds to the Hotel information that is desired
-     * @return String[][] which holds the hotel's information
-     */
-    public String[][] getHotelInfo(int hotelID) {
-        String[][] readLine = new String[2][5];
-        try{
-            Scanner scanner = new Scanner(new File("hotels.txt"));
-            while(scanner.hasNextLine()) {
-                readLine[0] = scanner.next().replace("_", " ").split(",");
-                readLine[1] = scanner.next().replace("_", " ").split(",");
-                if(hotelID == Integer.parseInt(readLine[0][2])) {
-                    return readLine;
-                }
-            }
-        } catch(FileNotFoundException e) {}
-        return null;
-    }
+    
 
     
 
@@ -400,8 +391,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
 
         for(int i = 0; i < userBooking.size(); i++){
-            String[][] hotelInfo = getHotelInfo(userBooking.get(i).hotelID);
-            bookingResults.add(new JButton(userBooking.get(i).roomID + ": " + hotelInfo[0][0]));
+            Booking booking = userBooking.get(i);
+            Room room = booking.getRoom();
+            String[][] hotelInfo = room.getHotelInfo();
+            bookingResults.add(new JButton(booking.getRoomID() + ": " + hotelInfo[0][0]));
             bookingResults.get(i).addActionListener(this);
             myBookings.add(bookingResults.get(i));
         }

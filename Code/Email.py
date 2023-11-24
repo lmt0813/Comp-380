@@ -2,6 +2,12 @@ from sys import argv
 import smtplib
 
 def main():
+    
+        """ Description
+        :raises:
+    
+        :rtype:
+        """
     receiver = argv[1]
     subject = argv[2]
     body = argv[3]
@@ -11,12 +17,23 @@ def main():
 # end send with arguments method
 
 def send(receiver, subject, body):
+    
+        """ Description
+        :type receiver:
+        :param receiver:
+    
+        :type subject:
+        :param subject:
+    
+        :type body:
+        :param body:
+    
+        :raises:
+    
+        :rtype:
+        """
     sender = "kazjoey37@gmail.com"
-    #receiver = 'joseph.kaz.911@my.csun.edu'
     password = 'ubsy dsqs atrp hnyj'
-    #subject = "Python Email"
-    #body = "I wrote an email over Python!"
-
     message = f"""From: {sender}
     To: Joey Kaz{receiver}
     Subject: {subject}\n
