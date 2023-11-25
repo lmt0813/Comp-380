@@ -4,7 +4,7 @@ Ramada_Inn,222_Address_b,2,50,48
 Free_Wi-Fi,Pet_Friendly
 Roadway_Inn,333_Address_c,3,27,27
 Free_Wi-Fi,asdf,Pet_Friendly
-Super_8,444_Address_4,4,48,48
-asdf,Pool
+Super_8,444_Address_4,4,48,42
+Gym,Pool
 Motel_6,555_Address_5,5,35,35
-asdf
+Pool
