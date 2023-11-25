@@ -258,7 +258,10 @@ public class searchControl {
         // else statement will check to see if a date falls between any booking. If it doesn't, it will then check to see if the booking check in
         // and check out dates fall between the list's current and next bookings
         else {
-            sortReservedRooms(list);
+            bd = list.get(0);
+            if(compareDates(bd.checkOut, checkIn) >= 0 || compareDates(checkOut, bd.checkIn) >= 0) {
+                return 0;
+            }
             for(int i = 0; i < list.size() - 1; i++) {
                 BookingDate tmp = list.get(i);
                 BookingDate tmp2 = list.get(i+1);
