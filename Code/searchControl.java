@@ -248,6 +248,9 @@ public class searchControl {
      */
     public int checkOverlaps(ArrayList<BookingDate> list, LocalDate checkIn, LocalDate checkOut) {
         BookingDate bd;
+        if(list == null) {
+            return 0;
+        }
         if(list.size() == 0) {return 0;} // might not need this line to check
         else if(list.size() == 1) {
             bd = list.get(0);
@@ -281,8 +284,12 @@ public class searchControl {
             scanner = new Scanner(new File("Room.txt"));
             while(scanner.hasNext()) {
                 attributes = scanner.next().split(",");
-                if(Boolean.parseBoolean(attributes[3]) == true) {
-                    addRoom();
+                switch(checkOverlaps(reservedRooms.get(attributes[1]), this.checkIn, this.checkOut)) { // check overlaps with requested checkin/checkout date
+                    case 0:
+                        addRoom();
+                        break;
+                    default:
+                        break;
                 }
             }
             scanner.close();
