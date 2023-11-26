@@ -17,20 +17,12 @@ import org.junit.Test;
         @Test
         public void emptySearchbarAndEmptyCriteria() {
             LinkedList<Room> rooms = new LinkedList<>();
-            try {Scanner sc = new Scanner(new File("Room.txt"));
-                while(sc.hasNextLine()) {
-                    String[] attributes = sc.next().split(",");
-                    Room room = new Room(Integer.parseInt(attributes[0]), attributes[1], Integer.parseInt(attributes[2]),
-                    Boolean.parseBoolean(attributes[3]), Integer.parseInt(attributes[4]),
-                    Integer.parseInt(attributes[5]), attributes[6], Double.parseDouble(attributes[7]));
-                    rooms.add(room);
-                }
-                rooms.remove(0);
-                rooms.remove(2);
-                rooms.remove(3);
-            }
-            
-            catch(FileNotFoundException e) {}
+            rooms.add(new Room(1,"1-13",2,false,1,13,"King",278.00));
+            rooms.add(new Room(2,"2-465",2,true,4,465,"Queen",127.00));
+            rooms.add(new Room(3,"3-237",2,true,2,237,"Standard",79.00));
+            rooms.add(new Room(4,"4-212",1,false,2,212,"Standard",62.00));
+            rooms.add(new Room(5,"5-111",1,true,1,111,"Standard",47.00));
+            //rooms.add(new Room(1,"1-14",1,false,1,14,"Twin",333.00));
             searchControl sc = new searchControl(checkin, checkout);
             LinkedList<String> criteria = new LinkedList<>();
             String searchbar = "";
@@ -42,11 +34,13 @@ import org.junit.Test;
         
         @Test
         public void emptyCriteria() {
-            //1,1-13,2,true,1,13,King,278.00
-            //1,1-14,1,true,1,14,Twin,333.00
             LinkedList<Room> rooms = new LinkedList<>();
-            //rooms.add(new Room(1, "1-13", 2, true, 1, 13, "King", 278.00));
-            //rooms.add(new Room(1,"1-14",1,true,1,14,"Twin",333.00));
+            rooms.add(new Room(1,"1-13",2,false,1,13,"King",278.00));
+            //rooms.add(new Room(2,"2-465",2,true,4,465,"Queen",127.00));
+            //rooms.add(new Room(3,"3-237",2,true,2,237,"Standard",79.00));
+            //rooms.add(new Room(4,"4-212",1,false,2,212,"Standard",62.00));
+            //rooms.add(new Room(5,"5-111",1,true,1,111,"Standard",47.00));
+            //rooms.add(new Room(1,"1-14",1,false,1,14,"Twin",333.00));
             searchControl sc = new searchControl(checkin,checkout);
             LinkedList<String> criteria = new LinkedList<>();
             String searchbar = "The Hilton Inn";
@@ -57,9 +51,12 @@ import org.junit.Test;
         @Test
         public void emptySearchbar() {
             LinkedList<Room> rooms = new LinkedList<>();
-            //rooms.add(new Room(1, "1-13", 2, true, 1, 13, "King", 278.00));
+            rooms.add(new Room(1,"1-13",2,false,1,13,"King",278.00));
+            //rooms.add(new Room(2,"2-465",2,true,4,465,"Queen",127.00));
+            //rooms.add(new Room(3,"3-237",2,true,2,237,"Standard",79.00));
+            rooms.add(new Room(4,"4-212",1,false,2,212,"Standard",62.00));
             rooms.add(new Room(5,"5-111",1,true,1,111,"Standard",47.00));
-            //rooms.add(new Room(1, "1-14", 1, true, 1, 14, "Twin", 333.00));
+            //rooms.add(new Room(1,"1-14",1,false,1,14,"Twin",333.00));
             searchControl sc = new searchControl(checkin, checkout);
             LinkedList<String> criteria = new LinkedList<>();
             criteria.add("Pool");
@@ -71,8 +68,12 @@ import org.junit.Test;
         @Test
         public void searchBarAndCriteriaNotEmpty() {
             LinkedList<Room> rooms = new LinkedList<>();
-          
-            rooms.add(new Room(2, "2-465", 2, true, 4, 465, "Queen", 127.00));
+            //rooms.add(new Room(1,"1-13",2,false,1,13,"King",278.00));
+            rooms.add(new Room(2,"2-465",2,true,4,465,"Queen",127.00));
+            //rooms.add(new Room(3,"3-237",2,true,2,237,"Standard",79.00));
+            //rooms.add(new Room(4,"4-212",1,true,2,212,"Standard",62.00));
+            //rooms.add(new Room(5,"5-111",1,false,1,111,"Standard",47.00));
+            //rooms.add(new Room(1,"1-14",1,true,1,14,"Twin",333.00));
             searchControl sc = new searchControl(checkin, checkout);
             LinkedList<String> criteria = new LinkedList<>();
             criteria.add("Pet Friendly");
@@ -80,20 +81,20 @@ import org.junit.Test;
             LinkedList<Room> result = sc.searchResults(criteria,searchbar);
             assertEquals(rooms.toString(), result.toString());
         }
-        //2,2-465,2,true,4,465,Queen,127.00
-        //3,3-237,2,true,2,237,Standard,79.00
-        //2,2-84,1,true,1,84,Twin,81.00
+
         @Test
         public void searchbarIncorrectAndCriteriaNotEmpty() {
             LinkedList<Room> rooms = new LinkedList<>();
-            rooms.add(new Room(2, "2-465", 2, true, 4, 465, "Queen", 127.00));
-            rooms.add(new Room(3, "3-237", 2, true, 2, 237, "Standard", 79.00));
-           //dunno what expected value should be
-           //should it return all Rooms under Pet Friendly or nothing at all since it doesn't match searchbar?
+            //rooms.add(new Room(1,"1-13",2,true,1,13,"King",278.00));
+            rooms.add(new Room(2,"2-465",2,true,4,465,"Queen",127.00));
+            rooms.add(new Room(3,"3-237",2,true,2,237,"Standard",79.00));
+            //rooms.add(new Room(4,"4-212",1,true,2,212,"Standard",62.00));
+            //rooms.add(new Room(5,"5-111",1,true,1,111,"Standard",47.00));
+            //rooms.add(new Room(1,"1-14",1,true,1,14,"Twin",333.00));
             searchControl sc = new searchControl(checkin, checkout);
             LinkedList<String> criteria = new LinkedList<>();
             criteria.add("Pet Friendly");
-            String searchbar = "dsadhfjldshfj";
+            String searchbar = "dsadhfjldshfs";
             LinkedList<Room> result = sc.searchResults(criteria,searchbar);
             assertEquals(rooms.toString(), result.toString());
         }
@@ -121,6 +122,5 @@ import org.junit.Test;
             int test = sc.checkBetween(bd, checkIn, checkOut);
             assertEquals(test, 0);
         }
-
         
     }

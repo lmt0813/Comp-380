@@ -198,14 +198,14 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             LinkedList<Booking> userBookings = user.getUserBookings();
             if(source == bookingResults.get(i)){ 
                 Booking current = userBookings.get(i);
-                new MyBookingsGUI(current);
+                new MyBookingsGUI(current, mainFrame);
             }
         }
 
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
-                bookingGUI b = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber));
+                bookingGUI b = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber), mainFrame);
             }
         }
         

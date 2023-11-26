@@ -130,18 +130,15 @@ public class searchControl {
                 String[] readLine = scanner.next().split(",");
                 int currentHotel = Integer.parseInt(readLine[2]);
                 readLine = scanner.next().replace("_"," ").split(",");
-                System.out.println(Arrays.toString(readLine));
-                int index = 0;
                 int count = 0;
-                while(index < searchCriteria.size()) {
-                    if(Arrays.asList(readLine).contains(searchCriteria.get(index).replace('_',' ')) && !(hotelResults.contains(currentHotel))) {
+                for(int i = 0; i < searchCriteria.size(); i++) {
+                    if(Arrays.asList(readLine).contains(searchCriteria.get(i).replace('_',' ')) && !(hotelResults.contains(currentHotel))) {
                         count++;
                     }
                     if(count == searchCriteria.size()){
                         hotelResults.add(currentHotel);
                         count = 0;
                     }
-                    index++;
                 }
             }
             scanner.close();
@@ -248,6 +245,9 @@ public class searchControl {
      */
     public int checkOverlaps(ArrayList<BookingDate> list, LocalDate checkIn, LocalDate checkOut) {
         BookingDate bd;
+        if(list == null) {
+            return 0;
+        }
         if(list.size() == 0) {return 0;} // might not need this line to check
         else if(list.size() == 1) {
             bd = list.get(0);
@@ -258,7 +258,10 @@ public class searchControl {
         // else statement will check to see if a date falls between any booking. If it doesn't, it will then check to see if the booking check in
         // and check out dates fall between the list's current and next bookings
         else {
-            sortReservedRooms(list);
+            bd = list.get(0);
+            if(compareDates(bd.checkOut, checkIn) >= 0 || compareDates(checkOut, bd.checkIn) >= 0) {
+                return 0;
+            }
             for(int i = 0; i < list.size() - 1; i++) {
                 BookingDate tmp = list.get(i);
                 BookingDate tmp2 = list.get(i+1);
@@ -281,8 +284,12 @@ public class searchControl {
             scanner = new Scanner(new File("Room.txt"));
             while(scanner.hasNext()) {
                 attributes = scanner.next().split(",");
-                if(Boolean.parseBoolean(attributes[3]) == true) {
-                    addRoom();
+                switch(checkOverlaps(reservedRooms.get(attributes[1]), this.checkIn, this.checkOut)) { // check overlaps with requested checkin/checkout date
+                    case 0:
+                        addRoom();
+                        break;
+                    default:
+                        break;
                 }
             }
             scanner.close();
