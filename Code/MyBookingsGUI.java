@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
  */
 public class MyBookingsGUI extends JFrame implements ActionListener{
     JLabel hotelNameLabel, roomNumberLabel, checkinDateLabel, checkoutDateLabel, totalDueLabel, confirmationLabel1, confirmationLabel2;
-    JFrame mainFrame, confirmationFrame;
+    JFrame mainFrame, confirmationFrame, hotelGUIFrame;
     JButton cancelButton, confirmButton, denyButton;
     Booking booking;
 
@@ -21,7 +21,8 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
     /**Constructor with parameters for MyBookingsGUI
      * @param booking The booking that the user wants to inspect
      */
-    MyBookingsGUI(Booking booking){
+    MyBookingsGUI(Booking booking, JFrame hotelGUIFrame){
+        this.hotelGUIFrame = hotelGUIFrame;
         this.booking = booking;
         mainFrame = new JFrame();
         hotelNameLabel = new JLabel("Hotel: " + booking.getHotelID());
@@ -70,6 +71,7 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
             new HotelGUI(booking.getAccount());
             confirmationFrame.dispose();
             mainFrame.dispose();
+            hotelGUIFrame.dispose();
             //add a method call that cancels the booking and rewrite ReservedRooms.txt and bookings.txt
         } else if(o == denyButton){
             confirmationFrame.dispose();
@@ -106,6 +108,6 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
 
     public static void main(String[] args) {
         Booking b = new Booking();
-        new MyBookingsGUI(b);
+        new MyBookingsGUI();
     }
 }
