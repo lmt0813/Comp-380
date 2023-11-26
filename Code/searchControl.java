@@ -130,18 +130,15 @@ public class searchControl {
                 String[] readLine = scanner.next().split(",");
                 int currentHotel = Integer.parseInt(readLine[2]);
                 readLine = scanner.next().replace("_"," ").split(",");
-                System.out.println(Arrays.toString(readLine));
-                int index = 0;
                 int count = 0;
-                while(index < searchCriteria.size()) {
-                    if(Arrays.asList(readLine).contains(searchCriteria.get(index).replace('_',' ')) && !(hotelResults.contains(currentHotel))) {
+                for(int i = 0; i < searchCriteria.size(); i++) {
+                    if(Arrays.asList(readLine).contains(searchCriteria.get(i).replace('_',' ')) && !(hotelResults.contains(currentHotel))) {
                         count++;
                     }
                     if(count == searchCriteria.size()){
                         hotelResults.add(currentHotel);
                         count = 0;
                     }
-                    index++;
                 }
             }
             scanner.close();

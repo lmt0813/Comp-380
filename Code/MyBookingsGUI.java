@@ -51,7 +51,7 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
         mainFrame.setLayout(null);
         mainFrame.setTitle("My Booking");
         mainFrame.setVisible(true);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     
@@ -103,7 +103,7 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
         confirmationFrame.setSize(350, 175);
         confirmationFrame.setLayout(null);
         confirmationFrame.setVisible(true);
-        confirmationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public static void main(String[] args) {
