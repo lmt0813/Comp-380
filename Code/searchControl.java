@@ -320,8 +320,7 @@ public class searchControl {
         assignAttributes();
         results.add(new Room(hotelID, roomID, numberBed, avaialbility, floorNumber, roomNumber, roomType, price));
     }
-
-
+    
     /**Assigns attributes to the data types defined in the class header
      */
     public void assignAttributes() {
