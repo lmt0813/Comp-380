@@ -67,7 +67,7 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
             cancelConfirmation();
         } else if(o == confirmButton){
             JOptionPane.showMessageDialog(null,"Booking Canceled");
-            booking.cancelBooking();
+            booking.cancelBooking("bookings.txt");
             new HotelGUI(booking.getAccount());
             confirmationFrame.dispose();
             mainFrame.dispose();
