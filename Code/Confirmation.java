@@ -12,6 +12,7 @@ public class Confirmation {
 
     Hotel hotel;
     Account user;
+	Booking booking;
 
     /**Default constructor for Booking object 
      */
@@ -20,16 +21,15 @@ public class Confirmation {
     /**Constructor with parameters for Booking objects
      * @param hotel the hotel whose attributes will be referenced in the confirmation email
      */
-    Confirmation(Hotel hotel, Account user) {this.hotel = hotel; this.user = user;}
+    Confirmation(Hotel hotel, Account user, Booking booking) {this.hotel = hotel; this.user = user; this.booking = booking;}
     
     /**Confirm method that processes the constructors arguments and creates a process to call the python script to send the email
      */
 
 	public void confirm() {
-		String email, subject = "Confirmation", body = "Thank you for booking your room at " + hotel.hotelName +"\nPlease note that this is a test email and Hotel Transylvania is " +
-        " is a joke if you are reading this, Geoffrey."; 
+		String email = user.getEmail(), subject = "Confirmation", body = constructMessage(); 
 		
-        String[] command = {"python3", "Email.py" , user.getEmail(), subject, body};
+        String[] command = {"python3", "Email.py" , email, subject, body};
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		processBuilder.directory(new File(System.getProperty("user.dir")));
 		
@@ -40,12 +40,19 @@ public class Confirmation {
 			while((line = reader.readLine()) != null) {
 				System.out.println(line);
 			}
-		
+			System.out.println("Finished sending");
 		}
 		catch(IOException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public String constructMessage() {
+		return new String("Hi " + user.getName() +",\n\nThank you for choosing " + hotel.getHotelName() + ". Your booking has been confirmed\n\n" +
+		"Confirmation Summary: \nHotel Name: " + hotel.getHotelName() + "\n" + 
+		"Check In Date: " + booking.getCheckInDate() + "\nCheck Out Date: " + booking.getCheckoutDate() + 
+		"Location: " + hotel.getAddress() + "\n\nWe look forward to seeing you soon.\n\nSincerely, XP Booking Services");
 	}
 }
 

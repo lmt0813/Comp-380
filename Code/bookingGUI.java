@@ -21,6 +21,8 @@ public class bookingGUI extends JFrame implements ActionListener{
     JTextField []textFieldsArray;
     JFrame frame;
     Booking booking;
+    Confirmation c;
+    Scanner scanner;
         /**Default constructor for bookingGui 
          */
         bookingGUI(){}
@@ -29,6 +31,7 @@ public class bookingGUI extends JFrame implements ActionListener{
          * @param booking the booking that the user wants 
          */
         bookingGUI(Booking booking){
+            this.booking = booking;
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
             hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
@@ -98,16 +101,12 @@ public class bookingGUI extends JFrame implements ActionListener{
             submitButton.addActionListener(this);
             frame.add(submitButton);
             
-
-
             frame.setSize(600, 600);
             frame.setLayout(null);
             frame.setTitle("Booking Confirmation");
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
            
-            
-
         }
         
         //can reformat to make more readable, ask Geoffrey if confused on what this does
@@ -221,7 +220,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             
             if (o == submitButton){ 
                
-                if (checkFields()==1)
+                if (checkFields(textFieldsArray)==1)
                 return;
                 if(validateFields() == 1 )
                 return;
@@ -229,36 +228,67 @@ public class bookingGUI extends JFrame implements ActionListener{
                 writeBookings();
                 rewrite(new File("hotels.txt"), booking.hotelID, '-');
                 rewrite(new File("Room.txt"), booking.roomNumber, '-');
+                c = new Confirmation(retrieveHotel(booking.getHotelID()), booking.getAccount(), booking);
+                c.confirm();
             }
 
             
+        }
+
+        public Hotel retrieveHotel(int hotelID) {
+            Hotel tmp = new Hotel();
+            String[] attributes;
+            try {
+                scanner = new Scanner(new File("hotels.txt"));
+                while(scanner.hasNext()) {
+                    attributes = scanner.next().split(",");
+                    if(attributes[2].compareTo(String.valueOf(hotelID)) == 0) {
+                       tmp = createHotel(attributes); 
+                       break;
+                    }
+                    attributes = scanner.next().split(",");
+                }
+            }
+
+            catch(FileNotFoundException e) {
+
+            }
+            finally {
+                scanner.close();
+            }
+            return tmp;
+        }
+
+        public Hotel createHotel(String[] attributes) {
+            return new Hotel(attributes[0], attributes[1], attributes[2], Integer.parseInt(attributes[3]),Integer.parseInt(attributes[4]));
         }
         
         /**Validates the text fields relating to entering Card information
          * @return int signifies how the method exitted
          */
         int validateFields(){
-            if(validateCBox() == 1)
+            if(validateCBox(selectPay.getSelectedIndex()) == 1)
             return 1;
             if(validateName() == 1)
             return 1;
             if(validateLastName() == 1)
             return 1;
-            if(validateCard() == 1)
+            if(validateCard(cardField.getText()) == 1)
             return 1;
-            if (validateExp()== 1)
+            if (validateExp(expField.getText())== 1)
             return 1;
-            if(validateCVV() == 1)
+            if(validateCVV(securityField.getText()) == 1)
             return 1;
             return 0;
         }
 
         /*validates combo box to ensure a choice is made for payment methods */
-        int validateCBox(){
-            if(selectPay.getSelectedIndex() == 0){
+        int validateCBox(int index){
+            if(index == 0){
                 JOptionPane.showMessageDialog(null,"must select payment option");
+                return 1;
             }
-        return 0;   
+            return 0;   
         }
 
         /*name validation method checks name field from user input for character limit and  
@@ -301,10 +331,10 @@ public class bookingGUI extends JFrame implements ActionListener{
         /**Checks if the card number entered is of the correct format
          * @return int which signifies how the method exitted
          */
-        int validateCard(){
-            String cardLength = cardField.getText();
+        int validateCard(String cardLength){
             if (cardLength.length()!= 16){
                 JOptionPane.showMessageDialog(null,"Card length must be 16 digits");
+                return 1;
             }
             for(int i = 0; i < cardLength.length(); i++){
                 char currentChar = cardLength.charAt(i);
@@ -320,8 +350,7 @@ public class bookingGUI extends JFrame implements ActionListener{
         /**Checks if the experiation date of the card is of the correct format
          * @return int which signifies how the method exitted
          */
-        int validateExp(){
-            String ExpDate = expField.getText();
+        int validateExp(String ExpDate){
             if (ExpDate.length() != 5){
                 JOptionPane.showMessageDialog(null, "Must be proper date format (MM/YY)");
                 return 1;
@@ -346,8 +375,7 @@ public class bookingGUI extends JFrame implements ActionListener{
         /**Checks if the CVV of the card is of the correct format
          * @return int which signifies how the method exitted
          */
-        int validateCVV(){
-                String CardCVV = securityField.getText();
+        int validateCVV(String CardCVV){
                 if (CardCVV.length() != 3){
                 JOptionPane.showMessageDialog(null, "CVV must be 3 numbers");
                 return 1;
@@ -364,9 +392,9 @@ public class bookingGUI extends JFrame implements ActionListener{
         /**Checks if any of the text fields are empty
          * @return int which signifies how the method exitted
          */
-        int checkFields(){
-            for(int i=0; i < textFieldsArray.length; i++){
-                if(textFieldsArray[i].getText().compareTo("")==0){
+        int checkFields(JTextField[] fields){
+            for(int i=0; i < fields.length; i++){
+                if(fields[i].getText().compareTo("")==0){
                     JOptionPane.showMessageDialog(null,getEmptyField(i)+" cannot be empty");
                     return 1;
                 }

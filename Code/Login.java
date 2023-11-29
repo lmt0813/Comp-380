@@ -110,7 +110,6 @@ public class Login extends JFrame implements ActionListener, ItemListener{
                     break;
                 default:
                     break;
-
             }
         } // end login button
 

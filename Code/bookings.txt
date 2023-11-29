@@ -18,3 +18,5 @@ jsmith1,Password2,JohnSmith,jsmith1@gmail.com,user,234fakestreet,818-888-8888
 4-212,62.0,4,2/13/2023,2/25/2023,212
 jsmith1,Password2,JohnSmith,jsmith1@gmail.com,user,234fakestreet,818-888-8888
 4-212,62.0,4,2/13/2023,2/25/2023,212
+jkaz27,Password1,JoeyKaz,joseph.kaz.911@my.csun.edu,user,123FakeStreet,818-661-9396
+3-237,79.0,3,3/13/2023,3/18/2023,237
