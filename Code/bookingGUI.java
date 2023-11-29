@@ -17,9 +17,9 @@ public class bookingGUI extends JFrame implements ActionListener{
     JLabel hotelNameLabel, checkinDateLabel, checkoutDateLabel, totalFillLabel;
     JButton submitButton;
     JComboBox <String> selectPay;
-    JTextField  nameField, lastNameField, cardField, expField, securityField;
+    JTextField  firstNameField, lastNameField, cardField, expField, securityField;
     JTextField []textFieldsArray;
-    JFrame frame;
+    JFrame frame, hotelGUIFrame;
     Booking booking;
     Confirmation c;
     Scanner scanner;
@@ -44,18 +44,18 @@ public class bookingGUI extends JFrame implements ActionListener{
             String[] payMethods = {"select payment option", "pay online", "pay In-person"};
             selectPay = new JComboBox <String>(payMethods);
             nameLabel = new JLabel("First name:");
-            nameField = new JTextField();
+            firstNameField = new JTextField();
             lastNameLabel = new JLabel("Last Name:");
             lastNameField = new JTextField();
             cardLabel = new JLabel("Card number: ");
             cardField = new JTextField();
             expLabel = new JLabel("Expiration date (MM/YY): ");
             expField = new JTextField();
-            securityLabel = new JLabel("CCV :");
+            securityLabel = new JLabel("CVV :");
             securityField = new JTextField();
             submitButton = new JButton("Submit Payment ");
             
-            textFieldsArray = new JTextField[]{nameField, cardField, expField, securityField};
+            textFieldsArray = new JTextField[]{firstNameField, lastNameField, cardField, expField, securityField};
             
 
             hotelLabel.setBounds(50, 25, 150, 50);
@@ -79,8 +79,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             //selectPay.addItem("Pay In-person");
             nameLabel.setBounds(50 , 275, 150, 25);
             frame.add(nameLabel);
-            nameField.setBounds(200, 275 ,175, 25);
-            frame.add(nameField);
+            firstNameField.setBounds(200, 275 ,175, 25);
+            frame.add(firstNameField);
             lastNameLabel.setBounds(50, 310,150 ,25);
             frame.add(lastNameLabel);
             lastNameField.setBounds(200, 310, 175, 25);
@@ -105,7 +105,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             frame.setLayout(null);
             frame.setTitle("Booking Confirmation");
             frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
            
         }
         
@@ -228,8 +228,8 @@ public class bookingGUI extends JFrame implements ActionListener{
                 writeBookings();
                 rewrite(new File("hotels.txt"), booking.hotelID, '-');
                 rewrite(new File("Room.txt"), booking.roomNumber, '-');
-                c = new Confirmation(retrieveHotel(booking.getHotelID()), booking.getAccount(), booking);
-                c.confirm();
+                hotelGUIFrame.dispose();
+                new HotelGUI(booking.getAccount());
             }
 
             
@@ -295,14 +295,15 @@ public class bookingGUI extends JFrame implements ActionListener{
          * and checks name is consisting of letters
          */
         int validateName(){
-            String nameLength = nameField.getText();
+            String nameLength = firstNameField.getText();
             if (nameLength.length()> 20) {
                 JOptionPane.showMessageDialog(null, "");
             }
             for(int i = 0; i < nameLength.length(); i++){
                 char nameChar = nameLength.charAt(i);
                 if(!Character.isAlphabetic(nameChar)){
-                    JOptionPane.showMessageDialog(null,"Fist name must consist of only letters");
+                    JOptionPane.showMessageDialog(null,"First name must consist of only letters");
+                    return 1;
                 }
             }
             return 0;
@@ -319,7 +320,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             for(int i = 0; i < lastNameLength.length(); i++){
                 char nameChar = lastNameLength.charAt(i);
                 if(!Character.isAlphabetic(nameChar)){
-                    JOptionPane.showMessageDialog(null," Last name must consist of only letters");
+                    JOptionPane.showMessageDialog(null,"Last name must consist of only letters");
+                    return 1;
                 }
 
              }
@@ -339,7 +341,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             for(int i = 0; i < cardLength.length(); i++){
                 char currentChar = cardLength.charAt(i);
                 if(!Character.isDigit(currentChar)){
-                    JOptionPane.showMessageDialog(null, "card number must consist of all numbers");
+                    JOptionPane.showMessageDialog(null, "Card number must consist of all numbers");
                     return 1;
                 }
             }
@@ -409,13 +411,15 @@ public class bookingGUI extends JFrame implements ActionListener{
          */
         String getEmptyField(int i){
             switch (i) {
-                case 0: return "Name";
+                case 0: return "First Name";
                     
-                case 1: return "Card Number";
+                case 1: return "Last Name";
 
-                case 2: return "Expiration Date";
+                case 2: return "Card Number";
 
-                case 3: return "CCV";
+                case 3: return "Expiration Date";
+
+                case 4: return "CVV";
 
                 default:
                     break;
