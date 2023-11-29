@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.EventHandler;
+
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
@@ -30,6 +32,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     JComboBox<String> checkInMonths, checkOutMonths;
     String[] dates;
     JPanel dayChooserIn, dayChooserOut, resultsPanel, top, bottom;
+    JMenuItem settingsMenuItem, logOutMenuItem;
     JMenuItem[] daysIn, daysOut;
     JRadioButton[] dateRadioButtonsIn, dateRadioButtonsOut;
     ButtonGroup bgIn, bgOut;
@@ -147,6 +150,17 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         checkInMonthIndex = 0;
         checkOutMonthIndex = 0;
         
+        // display myAccount menu items
+        //displayAccountMenuItems();
+        
+        settingsMenuItem = new JMenuItem("Settings");
+        settingsMenuItem.addActionListener(this);
+        logOutMenuItem = new JMenuItem("Log Out");
+        logOutMenuItem.addActionListener(this);
+
+        myAccount.add(settingsMenuItem);
+        myAccount.add(logOutMenuItem);
+
         displayBookings();
 
     } // end constructor
@@ -192,6 +206,15 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         if(source == checkOutDateButton) {
             changeCheckOutVisibility();
             return;
+        }
+
+        if(source == settingsMenuItem) {
+            new MyAccountGUI(user, mainFrame);
+        }
+
+        if(source == logOutMenuItem) {
+            mainFrame.dispose();
+            new Login();
         }
         
         for(int i = 0; i < bookingResults.size(); i++){
@@ -399,6 +422,35 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             myBookings.add(bookingResults.get(i));
         }
     }
+    /**Displays JMenuItems under myAccount JMenu 
+     */
+    public void displayAccountMenuItems() {
+        // settingsMenuItem = new JMenuItem(new AbstractAction("Settings") {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         new MyAccountGUI(user, mainFrame);
+        //     }
+            
+        // });
+        // logOutMenuItem = new JMenuItem(new AbstractAction("Log Out") {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         mainFrame.dispose();
+        //         new Login();
+        //     }
+        // });
+        //add JMenuItems to JMenu
+        myAccount.add(settingsMenuItem);
+        myAccount.add(logOutMenuItem);
+    }
     
+    // uncertain whether to implement confirmation on log out
+    // public int setConfirmationJFrame() {
+    //     JFrame confirmation = new JFrame();
+    //     confirmation.setLocationRelativeTo(null);
+    //     JLabel confirmationLabel = new JLabel("Are you sure you want to log out?");
+        
+    //     return 0;
+    // }
 
 } // end class HotelGUI

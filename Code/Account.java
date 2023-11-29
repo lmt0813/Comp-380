@@ -77,7 +77,7 @@ public class Account{
     /**Change the password associated with the account
      * @param newPassword: the new password that the user wants the account to be assocaited with
      */
-    private void changePassword(String newPassword){
+    public void changePassword(String newPassword){
         password = newPassword;
     }
 
