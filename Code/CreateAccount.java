@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
 
+
 /** GUI class that allows users to sign up for an account, allowing them to access the booking application
  * @author Joey Kaz
  * @version 10/28/2023
@@ -50,10 +51,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
         // add data entry fields
         typeLabel = new JLabel("Enter user type: ");
-        cb = new JComboBox<String>();
+        String[] accountTypes = {"select account type", "User", "Manager"};
+        cb = new JComboBox<String>(accountTypes);
         cb.addItemListener(this);
-        cb.addItem("User");
-        cb.addItem("Manager");
         typeLabel.setBounds(25,15,100,20);
         cb.setBounds(250,15,200,20);
         frame.add(typeLabel);
@@ -113,9 +113,6 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         setUsernameList();
     }
 
-    public static void main(String[] args) {
-        CreateAccount newAccount = new CreateAccount();
-    }
 
 
     /**Checks what actions were performed, to what components of the the GUI
@@ -127,8 +124,11 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
             if(getAttributes() == 1) return;
             createAccount();
             accountCreated();
+            //if(validatefields()==1) return;
         }
     }
+
+   
 
     /**Checks GUI componenets that are selecteable
      * @param e: refers to the GUI component which has a changable state
@@ -268,6 +268,27 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return "";
     } // end getEmptyField Method
 
+
+    int validateAccountType(){
+        if(cb.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null,"Must select account option");
+            return 1;
+        }
+    return 0;   
+    }
+
+    int validateEmail(){
+        return 1; 
+    }
+
+    int validateUserName(){
+        return 1;
+    }
+    
+
+
+
+
     /**Returns a boolean signifying whether the given phone number is in the correct format
      * @return boolean showing if the phonenumber is in the correct format 
     */ 
@@ -311,6 +332,13 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     public void close() {
         frame.dispose();
     }
-    } // end NewAccount.java class
+     // end NewAccount.java class
+
+    
+    public static void main(String[] args) {
+        CreateAccount newAccount = new CreateAccount();
+    }
+
+}
     
 
