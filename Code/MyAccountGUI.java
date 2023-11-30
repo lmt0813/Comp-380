@@ -70,7 +70,7 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         }
 
         if(source == doneButton) {
-            if(oldLabel.getText().equals("Type Old Password")) {
+            if(oldLabel.getText().equals("Type Old Password: ")) {
                 if(oldField.getText().equals(user.getPassword())) {
                 JOptionPane.showMessageDialog(null, "Password Changed");
                 user.changePassword(newField.getText());
