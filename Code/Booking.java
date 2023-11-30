@@ -119,9 +119,10 @@ public class Booking {
 
     /**Rewrites booking.txt to remove the canceled booking
      */
-    public void cancelBooking(){
+    public void cancelBooking(String file){
+        String fileName = file;
         try{
-            Scanner sc = new Scanner(new File("bookings.txt"));
+            Scanner sc = new Scanner(new File(fileName));
             String[][] content = new String[100][7];
             for(int i = 0; sc.hasNextLine(); i+=2){
                 String[] readLine1 = sc.nextLine().split(",");
