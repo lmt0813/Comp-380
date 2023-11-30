@@ -72,6 +72,8 @@ public class Account{
      */
     public void changeEmail(String newEmail) {
         email = newEmail;
+        FileChange fc = new FileChange();
+        fc.changeEmail();
     }
 
     /**Change the password associated with the account
@@ -79,6 +81,8 @@ public class Account{
      */
     public void changePassword(String newPassword){
         password = newPassword;
+        FileChange fc = new FileChange();
+        fc.changePassword();
     }
 
     private void changeSettings(){

@@ -6,9 +6,9 @@ public class MyAccountGUI extends JFrame implements ActionListener{
     private Account user;
     private JFrame mainFrame, confirmationFrame, hotelGUIFrame;
     private JLabel username, password, name, email, address, phoneNumber;
-    private JLabel oldPassword, newPassword;
-    private JTextField oldPasswordField, newPasswordField;
-    private JButton changeUsername, changePassword, changeEmail, doneButton;
+    private JLabel oldLabel, newLabel;
+    private JTextField oldField, newField;
+    private JButton changePassword, changeEmail, doneButton;
 
     public MyAccountGUI() {}
 
@@ -39,13 +39,9 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         phoneNumber.setBounds(50, 275, 200, 25);
         mainFrame.add(phoneNumber);
 
-        changeUsername = new JButton("Change Username");
         changePassword = new JButton("Change Password");
         changeEmail = new JButton("Change Email");
         
-        changeUsername.setBounds(200, 25, 150, 25);
-        changeUsername.addActionListener(this);
-        mainFrame.add(changeUsername);
         changePassword.setBounds(200, 75, 150, 25);
         changePassword.addActionListener(this);
         mainFrame.add(changePassword);
@@ -66,7 +62,7 @@ public class MyAccountGUI extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        if(source == changeUsername || source == changePassword || source == changeEmail) {
+        if(source == changePassword || source == changeEmail) {
             if(confirmationFrame != null) {
                 confirmationFrame.dispose();
             }
@@ -74,43 +70,63 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         }
 
         if(source == doneButton) {
-            if(oldPasswordField.getText() == user.getPassword()) {
-                user.changePassword(newPasswordField.getText());
+            if(oldLabel.getText().equals("Type Old Password")) {
+                if(oldField.getText().equals(user.getPassword())) {
+                JOptionPane.showMessageDialog(null, "Password Changed");
+                user.changePassword(newField.getText());
+                confirmationFrame.dispose();
+                } else JOptionPane.showMessageDialog(null, "Wrong Password");
+            } else {
+                if(oldField.getText().equals(user.getEmail())) {
+                    JOptionPane.showMessageDialog(null, "Email Changed");
+                    user.changeEmail(newField.getText());
+                    confirmationFrame.dispose();
+                } else JOptionPane.showMessageDialog(null, "Wrong email");
             }
+            
         }
 
     }
 
     public void confirmationFrameSetup(Object source) {
         confirmationFrame = new JFrame();
-
-        oldPassword = new JLabel("Type Old Password: ");
-        newPassword = new JLabel("Type New Password: ");
-        oldPasswordField = new JTextField();
-        newPasswordField = new JTextField();
+        
+        if(source == changePassword) {
+            oldLabel = new JLabel("Type Old Password: ");
+            newLabel = new JLabel("Type New Password: ");
+        } else {
+            oldLabel = new JLabel("Type Old Email");
+            newLabel = new JLabel("Type New Email");
+        }
+        
+        oldField = new JTextField();
+        newField = new JTextField();
         doneButton = new JButton("Done");
 
         doneButton.setBounds(100, 150, 75, 25);
+        doneButton.addActionListener(this);
         confirmationFrame.add(doneButton);
 
-        oldPassword.setBounds(25, 50, 125, 25);
-        confirmationFrame.add(oldPassword);
-        newPassword.setBounds(25, 100, 125, 25);
-        confirmationFrame.add(newPassword);
+        oldLabel.setBounds(25, 50, 125, 25);
+        confirmationFrame.add(oldLabel);
+        newLabel.setBounds(25, 100, 125, 25);
+        confirmationFrame.add(newLabel);
 
-        oldPasswordField.setBounds(150, 50, 100, 25);
-        confirmationFrame.add(oldPasswordField);
-        newPasswordField.setBounds(150, 100, 100, 25);
-        confirmationFrame.add(newPasswordField);    
+        oldField.setBounds(150, 50, 100, 25);
+        confirmationFrame.add(oldField);
+        newField.setBounds(150, 100, 100, 25);
+        confirmationFrame.add(newField);    
 
 
-        confirmationFrame.setSize(300, 275);
+        confirmationFrame.setSize(300, 250);
         confirmationFrame.setLocationRelativeTo(null);
         confirmationFrame.setLayout(null);
         confirmationFrame.setTitle("Account Settings");
         confirmationFrame.setVisible(true);
         confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+
+    
 
     public void disposeFrame() {
         mainFrame.dispose();
