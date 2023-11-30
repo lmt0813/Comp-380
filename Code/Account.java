@@ -70,14 +70,14 @@ public class Account{
     /**Change the email associated with the account
      * @param newEmail: the new email that the user wants the account to be assocaited with
      */
-    private void changeEmail(String newEmail) {
+    public void changeEmail(String newEmail) {
         email = newEmail;
     }
 
     /**Change the password associated with the account
      * @param newPassword: the new password that the user wants the account to be assocaited with
      */
-    private void changePassword(String newPassword){
+    public void changePassword(String newPassword){
         password = newPassword;
     }
 

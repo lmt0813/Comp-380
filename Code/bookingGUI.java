@@ -428,7 +428,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             }
             return "";
         }
-        
+
+        public void disposeFrame() {
+            frame.dispose();
+        }
         
         public static void main(String[] args) {
             //bookingGUI x = new bookingGUI(new Booking());

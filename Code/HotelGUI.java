@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.EventHandler;
+
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
@@ -30,6 +32,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     JComboBox<String> checkInMonths, checkOutMonths;
     String[] dates;
     JPanel dayChooserIn, dayChooserOut, resultsPanel, top, bottom;
+    JMenuItem settingsMenuItem, logOutMenuItem;
     JMenuItem[] daysIn, daysOut;
     JRadioButton[] dateRadioButtonsIn, dateRadioButtonsOut;
     ButtonGroup bgIn, bgOut;
@@ -41,6 +44,9 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     String checkInString, checkOutString;
     SimpleDateFormat sm;
     int checkInButtonIndex, checkOutButtonIndex, checkInMonthIndex, checkOutMonthIndex;
+    bookingGUI bookinggui;
+    MyAccountGUI myaccountgui;
+    MyBookingsGUI mybookingsgui;
 
     /**Defualt constructor for hotelGUI 
      */
@@ -147,6 +153,17 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         checkInMonthIndex = 0;
         checkOutMonthIndex = 0;
         
+        // display myAccount menu items
+        //displayAccountMenuItems();
+        
+        settingsMenuItem = new JMenuItem("Settings");
+        settingsMenuItem.addActionListener(this);
+        logOutMenuItem = new JMenuItem("Log Out");
+        logOutMenuItem.addActionListener(this);
+
+        myAccount.add(settingsMenuItem);
+        myAccount.add(logOutMenuItem);
+
         displayBookings();
 
     } // end constructor
@@ -193,19 +210,37 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             changeCheckOutVisibility();
             return;
         }
+
+        if(source == settingsMenuItem) {
+            if(myaccountgui != null) {
+                myaccountgui.disposeFrame();
+            }
+            myaccountgui = new MyAccountGUI(user, mainFrame);
+        }
+
+        if(source == logOutMenuItem) {
+            disposeAll();
+            new Login();
+        }
         
         for(int i = 0; i < bookingResults.size(); i++){
             LinkedList<Booking> userBookings = user.getUserBookings();
             if(source == bookingResults.get(i)){ 
                 Booking current = userBookings.get(i);
-                new MyBookingsGUI(current, mainFrame);
+                if(mybookingsgui != null) {
+                    mybookingsgui.disposeFrame();
+                }
+                mybookingsgui = new MyBookingsGUI(current, mainFrame);
             }
         }
 
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
-                bookingGUI b = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber), mainFrame);
+                if(bookinggui != null) {
+                    bookinggui.disposeFrame();
+                }
+                bookinggui = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber), mainFrame);
             }
         }
         
@@ -399,6 +434,19 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             myBookings.add(bookingResults.get(i));
         }
     }
-    
+
+    public void disposeAll() {
+        if(bookinggui != null) {
+            bookinggui.disposeFrame();
+        }else System.out.println("bookinggui is null");
+        if(myaccountgui != null) {
+            myaccountgui.disposeFrame();
+        }else System.out.println("myaccountgui is null");
+        if(mybookingsgui != null) {
+            mybookingsgui.disposeFrame();
+        } else System.out.println("mybookingsgui is null");
+        mainFrame.dispose();
+    }
+
 
 } // end class HotelGUI

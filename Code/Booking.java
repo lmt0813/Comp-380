@@ -153,9 +153,9 @@ public class Booking {
                     }
                 }//end inner for
                 if(content[i+1][0] == null){
-                        pw.append("\n");
-                        pw.close();
-                        return;
+                    pw.append("\n");
+                    pw.close();
+                    return;
                 }
                 pw.append("\n"); 
             }//end outer for
