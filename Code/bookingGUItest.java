@@ -4,6 +4,7 @@ import java.util.*;
 import javax.naming.directory.SearchControls;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import java.io.*;
@@ -14,7 +15,7 @@ import org.junit.Test;
 public class bookingGUItest {
 
     Account a = new Account("username", "password", "name", "email", "user", "Address", "phone");
-    bookingGUI b = new bookingGUI(new Booking(a, "roomID", 10.0, 1, "t", "t", 1));
+    bookingGUI b = new bookingGUI(new Booking(a, "roomID", 10.0, 1, "t", "t", 1), new JFrame());
 
     @Test
     public void testValidateExp() {
