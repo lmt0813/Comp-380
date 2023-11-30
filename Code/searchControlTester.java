@@ -11,15 +11,15 @@ import org.junit.Test;
 
     public class searchControlTester {
 
-        LocalDate checkin = LocalDate.of(2023, 2, 1);
-        LocalDate checkout = LocalDate.of(2023, 2, 14);
+        LocalDate checkin = LocalDate.of(2023, 1, 1);
+        LocalDate checkout = LocalDate.of(2023, 1, 14);
 
         @Test
         public void emptySearchbarAndEmptyCriteria() {
             LinkedList<Room> rooms = new LinkedList<>();
             rooms.add(new Room(1,"1-13",2,false,1,13,"King",278.00));
             rooms.add(new Room(2,"2-465",2,true,4,465,"Queen",127.00));
-            rooms.add(new Room(3,"3-237",2,true,2,237,"Standard",79.00));
+            rooms.add(new Room(3,"3-237",2,false,2,237,"Standard",79.00));
             rooms.add(new Room(4,"4-212",1,false,2,212,"Standard",62.00));
             rooms.add(new Room(5,"5-111",1,true,1,111,"Standard",47.00));
             //rooms.add(new Room(1,"1-14",1,false,1,14,"Twin",333.00));
@@ -87,7 +87,7 @@ import org.junit.Test;
             LinkedList<Room> rooms = new LinkedList<>();
             //rooms.add(new Room(1,"1-13",2,true,1,13,"King",278.00));
             rooms.add(new Room(2,"2-465",2,true,4,465,"Queen",127.00));
-            rooms.add(new Room(3,"3-237",2,true,2,237,"Standard",79.00));
+            rooms.add(new Room(3,"3-237",2,false,2,237,"Standard",79.00));
             //rooms.add(new Room(4,"4-212",1,true,2,212,"Standard",62.00));
             //rooms.add(new Room(5,"5-111",1,true,1,111,"Standard",47.00));
             //rooms.add(new Room(1,"1-14",1,true,1,14,"Twin",333.00));
