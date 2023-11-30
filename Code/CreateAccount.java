@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,8 +9,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
 
+
 /** GUI class that allows users to sign up for an account, allowing them to access the booking application
  * @author Joey Kaz
+ * 
  * @version 10/28/2023
  */
 
@@ -16,7 +20,7 @@ import java.io.*;
 public class CreateAccount extends JFrame implements ActionListener, ItemListener {
     
     JFrame frame;
-    String userName, name, password, accountType, address, phoneNumber, type, email;
+    String userName, name, password, accountType, address, phoneNumber, type, email, text;
     char passwordResult[];
     JLabel userNameLabel, nameLabel, passwordLabel, addressLabel, phoneNumberLabel, subPhoneLabel, typeLabel, emailLabel;
     JPasswordField passwordField;
@@ -50,10 +54,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
         // add data entry fields
         typeLabel = new JLabel("Enter user type: ");
-        cb = new JComboBox<String>();
+        String[] accountTypes = {"select account type", "User", "Manager"};
+        cb = new JComboBox<String>(accountTypes);
         cb.addItemListener(this);
-        cb.addItem("User");
-        cb.addItem("Manager");
         typeLabel.setBounds(25,15,100,20);
         cb.setBounds(250,15,200,20);
         frame.add(typeLabel);
@@ -113,9 +116,6 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         setUsernameList();
     }
 
-    public static void main(String[] args) {
-        CreateAccount newAccount = new CreateAccount();
-    }
 
 
     /**Checks what actions were performed, to what components of the the GUI
@@ -125,10 +125,13 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createButton) {
             if(getAttributes() == 1) return;
+            if(validateCreateAccount()==1) return;
             createAccount();
             accountCreated();
         }
     }
+
+   
 
     /**Checks GUI componenets that are selecteable
      * @param e: refers to the GUI component which has a changable state
@@ -184,8 +187,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
         if(checkPhoneNumber() == false) return 1;
         
-        return 0;
         
+
+        return 0;
     }
 
 
@@ -267,6 +271,60 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
         return "";
     } // end getEmptyField Method
+    
+    
+    
+    int validateCreateAccount(){
+        if(validateAccountType() == 1)
+        return 1;
+        if(validateEmail() == 1)
+        return 1;
+        if(validatePassword() ==1)
+        return 1;
+        return 0;
+    }
+
+    int validateAccountType(){
+        if(cb.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null,"Must select account option");
+            return 1;
+        }
+    return 0;   
+    }
+
+    int validateEmail(){
+        String emailCheck = "^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
+        String text = emailField.getText();
+        Pattern pt = Pattern.compile(emailCheck);
+
+        if(pt.matcher(text).matches()== false){
+            JOptionPane.showMessageDialog(null, "must enter a valid email");
+            return 1;
+        }
+        return 0;
+    }
+
+
+    
+     //checks that a password has a minimum of 6 characters, at least 1 uppercase letter,
+     //1 lowercase letter, and 1 number and 1 special char.
+    
+    int validatePassword(){
+        String passwordCheck = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$";
+        char[] text2 = passwordField.getPassword();
+        String str = String.valueOf(text2);
+        Pattern qt = Pattern.compile(passwordCheck);
+
+        if(qt.matcher(str).matches()== false){
+            JOptionPane.showMessageDialog(null,"Enter Valid password");
+            return 1;
+        }
+        return 0;
+    }
+    
+
+
+
 
     /**Returns a boolean signifying whether the given phone number is in the correct format
      * @return boolean showing if the phonenumber is in the correct format 
@@ -311,6 +369,13 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     public void close() {
         frame.dispose();
     }
-    } // end NewAccount.java class
+     // end NewAccount.java class
+
+    
+    public static void main(String[] args) {
+        CreateAccount newAccount = new CreateAccount();
+    }
+
+}
     
 
