@@ -23,6 +23,7 @@ public class bookingGUI extends JFrame implements ActionListener{
     Booking booking;
     Confirmation c;
     Scanner scanner;
+    Account user;
         /**Default constructor for bookingGui 
          */
         bookingGUI(){}
@@ -30,9 +31,10 @@ public class bookingGUI extends JFrame implements ActionListener{
         /**Constructor with parameters for bookingGui
          * @param booking the booking that the user wants 
          */
-        bookingGUI(Booking booking, JFrame hotelGUIFrame){
+        bookingGUI(Booking booking, JFrame hotelGUIFrame, Account user){
             this.booking = booking;
             this.hotelGUIFrame = hotelGUIFrame;
+            this.user = user;
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
             hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
@@ -229,6 +231,8 @@ public class bookingGUI extends JFrame implements ActionListener{
                 writeBookings();
                 rewrite(new File("hotels.txt"), booking.hotelID, '-');
                 rewrite(new File("Room.txt"), booking.roomNumber, '-');
+                c = new Confirmation(user, booking, retrieveHotel(booking.getHotelID()));
+                c.confirm();
                 hotelGUIFrame.dispose();
                 frame.dispose();
                 new HotelGUI(booking.getAccount());

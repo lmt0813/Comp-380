@@ -21,7 +21,7 @@ public class Confirmation {
     /**Constructor with parameters for Booking objects
      * @param hotel the hotel whose attributes will be referenced in the confirmation email
      */
-    Confirmation(Hotel hotel, Account user, Booking booking) {this.hotel = hotel; this.user = user; this.booking = booking;}
+    Confirmation(Account user, Booking booking, Hotel hotel) {this.user = user; this.booking = booking; this.hotel = hotel;}
     
     /**Confirm method that processes the constructors arguments and creates a process to call the python script to send the email
      */
