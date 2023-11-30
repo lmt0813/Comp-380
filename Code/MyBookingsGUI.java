@@ -106,6 +106,13 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
         confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    public void disposeFrame() {
+        mainFrame.dispose();
+        if(confirmationFrame != null) {
+            confirmationFrame.dispose();
+        }
+    }
+
     public static void main(String[] args) {
         Booking b = new Booking();
         new MyBookingsGUI();

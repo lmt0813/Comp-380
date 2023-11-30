@@ -70,7 +70,7 @@ public class Account{
     /**Change the email associated with the account
      * @param newEmail: the new email that the user wants the account to be assocaited with
      */
-    private void changeEmail(String newEmail) {
+    public void changeEmail(String newEmail) {
         email = newEmail;
     }
 

@@ -10,6 +10,8 @@ public class MyAccountGUI extends JFrame implements ActionListener{
     private JTextField oldPasswordField, newPasswordField;
     private JButton changeUsername, changePassword, changeEmail, doneButton;
 
+    public MyAccountGUI() {}
+
     public MyAccountGUI(Account user ,JFrame hotelGUIFrame) {
         this.user = user;
         this.hotelGUIFrame = hotelGUIFrame;
@@ -65,6 +67,9 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         Object source = e.getSource();
 
         if(source == changeUsername || source == changePassword || source == changeEmail) {
+            if(confirmationFrame != null) {
+                confirmationFrame.dispose();
+            }
             confirmationFrameSetup(source);
         }
 
@@ -105,6 +110,13 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         confirmationFrame.setTitle("Account Settings");
         confirmationFrame.setVisible(true);
         confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    public void disposeFrame() {
+        mainFrame.dispose();
+        if(confirmationFrame != null) {
+            confirmationFrame.dispose();
+        }
     }
 
     public static void main(String[] args) {

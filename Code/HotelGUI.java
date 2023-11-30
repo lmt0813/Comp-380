@@ -44,6 +44,9 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     String checkInString, checkOutString;
     SimpleDateFormat sm;
     int checkInButtonIndex, checkOutButtonIndex, checkInMonthIndex, checkOutMonthIndex;
+    bookingGUI bookinggui;
+    MyAccountGUI myaccountgui;
+    MyBookingsGUI mybookingsgui;
 
     /**Defualt constructor for hotelGUI 
      */
@@ -209,11 +212,14 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
 
         if(source == settingsMenuItem) {
-            new MyAccountGUI(user, mainFrame);
+            if(myaccountgui != null) {
+                myaccountgui.disposeFrame();
+            }
+            myaccountgui = new MyAccountGUI(user, mainFrame);
         }
 
         if(source == logOutMenuItem) {
-            mainFrame.dispose();
+            disposeAll();
             new Login();
         }
         
@@ -221,14 +227,20 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             LinkedList<Booking> userBookings = user.getUserBookings();
             if(source == bookingResults.get(i)){ 
                 Booking current = userBookings.get(i);
-                new MyBookingsGUI(current, mainFrame);
+                if(mybookingsgui != null) {
+                    mybookingsgui.disposeFrame();
+                }
+                mybookingsgui = new MyBookingsGUI(current, mainFrame);
             }
         }
 
         for(int i = 0; i < buttonResults.size(); i++) {
             if(source == buttonResults.get(i)) {
                 Room r = roomResults.get(i);
-                bookingGUI b = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber), mainFrame);
+                if(bookinggui != null) {
+                    bookinggui.disposeFrame();
+                }
+                bookinggui = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber), mainFrame);
             }
         }
         
@@ -422,35 +434,19 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             myBookings.add(bookingResults.get(i));
         }
     }
-    /**Displays JMenuItems under myAccount JMenu 
-     */
-    public void displayAccountMenuItems() {
-        // settingsMenuItem = new JMenuItem(new AbstractAction("Settings") {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         new MyAccountGUI(user, mainFrame);
-        //     }
-            
-        // });
-        // logOutMenuItem = new JMenuItem(new AbstractAction("Log Out") {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         mainFrame.dispose();
-        //         new Login();
-        //     }
-        // });
-        //add JMenuItems to JMenu
-        myAccount.add(settingsMenuItem);
-        myAccount.add(logOutMenuItem);
+
+    public void disposeAll() {
+        if(bookinggui != null) {
+            bookinggui.disposeFrame();
+        }else System.out.println("bookinggui is null");
+        if(myaccountgui != null) {
+            myaccountgui.disposeFrame();
+        }else System.out.println("myaccountgui is null");
+        if(mybookingsgui != null) {
+            mybookingsgui.disposeFrame();
+        } else System.out.println("mybookingsgui is null");
+        mainFrame.dispose();
     }
-    
-    // uncertain whether to implement confirmation on log out
-    // public int setConfirmationJFrame() {
-    //     JFrame confirmation = new JFrame();
-    //     confirmation.setLocationRelativeTo(null);
-    //     JLabel confirmationLabel = new JLabel("Are you sure you want to log out?");
-        
-    //     return 0;
-    // }
+
 
 } // end class HotelGUI
