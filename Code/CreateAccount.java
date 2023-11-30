@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +12,7 @@ import java.io.*;
 
 /** GUI class that allows users to sign up for an account, allowing them to access the booking application
  * @author Joey Kaz
+ * 
  * @version 10/28/2023
  */
 
@@ -17,7 +20,7 @@ import java.io.*;
 public class CreateAccount extends JFrame implements ActionListener, ItemListener {
     
     JFrame frame;
-    String userName, name, password, accountType, address, phoneNumber, type, email;
+    String userName, name, password, accountType, address, phoneNumber, type, email, text;
     char passwordResult[];
     JLabel userNameLabel, nameLabel, passwordLabel, addressLabel, phoneNumberLabel, subPhoneLabel, typeLabel, emailLabel;
     JPasswordField passwordField;
@@ -122,9 +125,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createButton) {
             if(getAttributes() == 1) return;
+            if(validateCreateAccount()==1) return;
             createAccount();
             accountCreated();
-            //if(validatefields()==1) return;
         }
     }
 
@@ -184,8 +187,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
         if(checkPhoneNumber() == false) return 1;
         
-        return 0;
         
+
+        return 0;
     }
 
 
@@ -267,7 +271,18 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         }
         return "";
     } // end getEmptyField Method
-
+    
+    
+    
+    int validateCreateAccount(){
+        if(validateAccountType() == 1)
+        return 1;
+        if(validateEmail() == 1)
+        return 1;
+        if(validatePassword() ==1)
+        return 1;
+        return 0;
+    }
 
     int validateAccountType(){
         if(cb.getSelectedIndex() == 0){
@@ -278,11 +293,33 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     }
 
     int validateEmail(){
-        return 1; 
+        String emailCheck = "^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
+        String text = emailField.getText();
+        Pattern pt = Pattern.compile(emailCheck);
+
+        if(pt.matcher(text).matches()== false){
+            JOptionPane.showMessageDialog(null, "must enter a valid email");
+            return 1;
+        }
+        return 0;
     }
 
-    int validateUserName(){
-        return 1;
+
+    
+     //checks that a password has a minimum of 6 characters, at least 1 uppercase letter,
+     //1 lowercase letter, and 1 number and 1 special char.
+    
+    int validatePassword(){
+        String passwordCheck = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$";
+        char[] text2 = passwordField.getPassword();
+        String str = String.valueOf(text2);
+        Pattern qt = Pattern.compile(passwordCheck);
+
+        if(qt.matcher(str).matches()== false){
+            JOptionPane.showMessageDialog(null,"Enter Valid password");
+            return 1;
+        }
+        return 0;
     }
     
 
