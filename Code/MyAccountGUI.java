@@ -70,22 +70,47 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         }
 
         if(source == doneButton) {
-            if(oldLabel.getText().equals("Type Old Password: ")) {
-                if(oldField.getText().equals(user.getPassword())) {
-                JOptionPane.showMessageDialog(null, "Password Changed");
-                user.changePassword(newField.getText());
-                confirmationFrame.dispose();
-                } else JOptionPane.showMessageDialog(null, "Wrong Password");
-            } else {
-                if(oldField.getText().equals(user.getEmail())) {
-                    JOptionPane.showMessageDialog(null, "Email Changed");
-                    user.changeEmail(newField.getText());
-                    confirmationFrame.dispose();
-                } else JOptionPane.showMessageDialog(null, "Wrong email");
-            }
+            validateEmailFields();
+            validatePasswordFields();
             
         }
 
+    }
+
+    public void validateEmailFields() {
+        if(oldLabel.getText().equals("Type Old Email: ")) {
+            if(oldField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please input your old email");
+                return;
+            }
+            if(newField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please Input a New Email");
+                return;
+            }
+            if(oldField.getText().equals(user.getEmail())) {
+                JOptionPane.showMessageDialog(null, "Email Changed");
+                user.changeEmail(newField.getText());
+                confirmationFrame.dispose();
+            } else JOptionPane.showMessageDialog(null, "Incorrect email. Please Reenter");
+        }
+    }
+
+    public void validatePasswordFields() {
+        if(oldLabel.getText().equals("Type Old Password: ")) {
+            if(oldField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please input your old password");
+                return;
+            }
+            if(newField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please Input a New Password");
+                return;
+            }
+            if(oldField.getText().equals(user.getPassword())) {
+                JOptionPane.showMessageDialog(null, "Password Changed");
+                user.changePassword(newField.getText());
+                confirmationFrame.dispose();
+            } else JOptionPane.showMessageDialog(null, "Incorrect password. Please reenter");
+        }
     }
 
     public void confirmationFrameSetup(Object source) {
@@ -95,8 +120,8 @@ public class MyAccountGUI extends JFrame implements ActionListener{
             oldLabel = new JLabel("Type Old Password: ");
             newLabel = new JLabel("Type New Password: ");
         } else {
-            oldLabel = new JLabel("Type Old Email");
-            newLabel = new JLabel("Type New Email");
+            oldLabel = new JLabel("Type Old Email: ");
+            newLabel = new JLabel("Type New Email: ");
         }
         
         oldField = new JTextField();
