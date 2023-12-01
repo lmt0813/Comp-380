@@ -275,26 +275,26 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     
     
     int validateCreateAccount(){
-        if(validateAccountType() == 1)
+        if(validateAccountType(cb.getSelectedIndex()) == 1)
         return 1;
-        if(validateEmail() == 1)
+        if(validateEmail(text) == 1)
         return 1;
-        if(validatePassword() ==1)
+        if(validatePassword(passwordField.getPassword()) ==1)
         return 1;
         return 0;
     }
 
-    int validateAccountType(){
-        if(cb.getSelectedIndex() == 0){
+    int validateAccountType(int index){
+        if(index == 0){
             JOptionPane.showMessageDialog(null,"Must select account option");
             return 1;
         }
     return 0;   
     }
 
-    int validateEmail(){
+    int validateEmail(String text){
         String emailCheck = "^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
-        String text = emailField.getText();
+        text = emailField.getText();
         Pattern pt = Pattern.compile(emailCheck);
 
         if(pt.matcher(text).matches()== false){
@@ -309,9 +309,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
      //checks that a password has a minimum of 6 characters, at least 1 uppercase letter,
      //1 lowercase letter, and 1 number and 1 special char.
     
-    int validatePassword(){
+    int validatePassword(char[] text2){
         String passwordCheck = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$";
-        char[] text2 = passwordField.getPassword();
+        text2 = passwordField.getPassword();
         String str = String.valueOf(text2);
         Pattern qt = Pattern.compile(passwordCheck);
 
