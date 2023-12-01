@@ -24,6 +24,8 @@ public class bookingGUI extends JFrame implements ActionListener{
     Confirmation c;
     Scanner scanner;
     Account user;
+    searchControl sc;
+    double totalCost;
         /**Default constructor for bookingGui 
          */
         bookingGUI(){}
@@ -35,6 +37,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             this.booking = booking;
             this.hotelGUIFrame = hotelGUIFrame;
             this.user = booking.getAccount();
+            sc = new searchControl();
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
             hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
@@ -74,6 +77,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             checkoutDateLabel.setBounds(150, 125, 150, 50);
             frame.add(checkoutDateLabel);
             totalLabel.setBounds(50, 175, 150, 50);
+            totalCost = sc.compareDates(sc.convertDate(booking.checkInDate), sc.convertDate(booking.checkOutDate)) * booking.getPrice();
+            totalLabel.setText("Total Price: $          " +Double.toString(totalCost));
             frame.add(totalLabel);
             selectPay.setBounds(50, 225, 165, 25);
             frame.add(selectPay);
