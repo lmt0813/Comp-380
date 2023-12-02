@@ -47,6 +47,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     bookingGUI bookinggui;
     MyAccountGUI myaccountgui;
     MyBookingsGUI mybookingsgui;
+    String[][] hotelInfo;
 
     /**Defualt constructor for hotelGUI 
      */
@@ -105,18 +106,18 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         checkOutMonths = new JComboBox<String>(dates);
         checkInMonths.addItemListener(this);
         checkOutMonths.addItemListener(this);
-        dayChooserIn.setBounds(50,200, 270,90);
-        dayChooserOut.setBounds(490, 200, 270, 90);
+        dayChooserIn.setBounds(50,200, 350,90);
+        dayChooserOut.setBounds(490, 200, 350, 90);
         checkInMonths.setBounds(50, 150, 150, 20);
         checkOutMonths.setBounds(490,150, 150, 20);
         dayChooserIn.setVisible(false);
         dayChooserOut.setVisible(false);
 
         checkInDateButton = new JButton("Check In Selector");
-        checkInDateButton.setBounds(210, 150, 135,20);
+        checkInDateButton.setBounds(240, 150, 135,20);
         checkInDateButton.addActionListener(this);
         checkOutDateButton = new JButton("Check Out Selector");
-        checkOutDateButton.setBounds(650, 150, 145, 20);
+        checkOutDateButton.setBounds(670, 150, 145, 20);
         checkOutDateButton.addActionListener(this);
         top.add(checkInDateButton);
         top.add(checkOutDateButton);
@@ -240,7 +241,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
                 if(bookinggui != null) {
                     bookinggui.disposeFrame();
                 }
-                bookinggui = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber), mainFrame);
+                bookinggui = new bookingGUI(new Booking(user,  r.roomID ,r.price, r.hotelID, checkInString, checkOutString, r.roomNumber), mainFrame, hotelInfo[0][0]);
             }
         }
         
@@ -387,7 +388,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     public void displayResults() {
         for(int i = 0; i < roomResults.size(); i++) {
             Room room = roomResults.get(i);
-            String[][] hotelInfo = room.getHotelInfo();
+            hotelInfo = room.getHotelInfo();
             bottom.add(new JLabel(hotelInfo[0][0] + " " + roomResults.get(i).roomID +": $" + roomResults.get(i).price + "/night " + 
             Arrays.toString(hotelInfo[1])));
             bottom.add(buttonResults.get(i));

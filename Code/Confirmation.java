@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.swing.JOptionPane;
+
 /** GUI that creates the process to call the python script that will run the code, emailing the user their confirmation email
  * @author Joey Kaz
  * @version 11/11/2023
@@ -40,7 +42,7 @@ public class Confirmation {
 			while((line = reader.readLine()) != null) {
 				System.out.println(line);
 			}
-			System.out.println("Finished sending");
+			JOptionPane.showMessageDialog(null,"Email has been successfully sent to: " + user.getEmail());
 		}
 		catch(IOException e) {
 			e.printStackTrace();

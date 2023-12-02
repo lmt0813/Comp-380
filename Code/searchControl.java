@@ -29,6 +29,8 @@ public class searchControl {
      * @param checkIn Chosen check in date
      * @param checkOut Chosen checkout date
     */
+    searchControl(){}
+
     searchControl(LocalDate checkIn, LocalDate checkOut) {
         roomFile = new File("./Room.txt");
         bookingFile = new File("./ReservedRooms.txt");
@@ -188,7 +190,7 @@ public class searchControl {
                     hotelIDs.add(criteriaMatchIDs.get(i));
                 }
             }
-        }
+        }  
         try{
             scanner = new Scanner(new File("Room.txt"));
                 while(scanner.hasNextLine()){
