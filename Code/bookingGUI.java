@@ -33,14 +33,14 @@ public class bookingGUI extends JFrame implements ActionListener{
         /**Constructor with parameters for bookingGui
          * @param booking the booking that the user wants 
          */
-        bookingGUI(Booking booking, JFrame hotelGUIFrame){
+        bookingGUI(Booking booking, JFrame hotelGUIFrame, String hotelName){
             this.booking = booking;
             this.hotelGUIFrame = hotelGUIFrame;
             this.user = booking.getAccount();
             sc = new searchControl();
             frame = new JFrame();
             hotelLabel = new JLabel("Hotel :");
-            hotelNameLabel = new JLabel(Integer.toString(booking.hotelID));
+            hotelNameLabel = new JLabel(hotelName);
             checkinLabel = new JLabel("Checkin Date :");
             checkinDateLabel = new JLabel(booking.checkInDate);
             checkoutLabel = new JLabel("Checkout Date :");
