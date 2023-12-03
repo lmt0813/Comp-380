@@ -166,6 +166,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         myAccount.add(logOutMenuItem);
 
         displayBookings();
+        setInitialDates();
 
     } // end constructor
 
@@ -396,12 +397,28 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
     } // end displayResults() method
 
-    
-    
 
-    
+    /**Sets the initial radiobuttons to current date
+     */
+    public void setInitialDates() {
+        LocalDate tmp = LocalDate.now();
+        LocalDate today = LocalDate.of(tmp.getYear(),tmp.getMonthValue() , tmp.getDayOfMonth());
+        for(int i = 0; i < dateRadioButtonsIn.length; i++) {
+            if(today.getDayOfMonth() == i + 1) {
+                dateRadioButtonsIn[i].setSelected(true);
+                dateRadioButtonsOut[i+1].setSelected(true); 
+                break;
+            }
+        }
+        for(int i = 0; i < dates.length; i++) {
+            if(today.getMonthValue() == i+1) {
+                checkInMonths.setSelectedIndex(i); 
+                checkOutMonths.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
 
-    
      /**Changes the checkInMonth GUI and checkOutMonth GUI components
      * @param e the GUI component that was selected
      */
