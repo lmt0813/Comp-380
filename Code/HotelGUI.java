@@ -426,14 +426,22 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             myBookings.add(new JTextField("No Current Bookings"));
             return;
         }
-
+        int count = 0;
         for(int i = 0; i < userBooking.size(); i++){
             Booking booking = userBooking.get(i);
             Room room = booking.getRoom();
             String[][] hotelInfo = room.getHotelInfo();
-            bookingResults.add(new JButton(booking.getRoomID() + ": " + hotelInfo[0][0]));
-            bookingResults.get(i).addActionListener(this);
-            myBookings.add(bookingResults.get(i));
+            LocalDate today = LocalDate.now();
+            searchControl sc = new searchControl(checkIn, checkOut);
+            LocalDate checkindate = sc.convertDate(booking.getCheckInDate());
+            LocalDate checkoutdate = sc.convertDate(booking.getCheckoutDate());
+            if(checkindate.isAfter(today) || checkoutdate.isAfter(today) || checkindate.isEqual(today) || checkoutdate.isEqual(today)) {
+                bookingResults.add(new JButton(booking.getRoomID() + ": " + hotelInfo[0][0]));
+                bookingResults.get(count).addActionListener(this);
+                myBookings.add(bookingResults.get(count));
+                count++;
+            }
+            
         }
     }
 
