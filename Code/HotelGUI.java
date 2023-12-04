@@ -398,7 +398,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     } // end displayResults() method
 
 
-    /**Sets the initial radiobuttons to current date
+    /**Sets the initial combo boxes and radiobuttons to current date
      */
     public void setInitialDates() {
         LocalDate tmp = LocalDate.now();
