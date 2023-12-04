@@ -460,18 +460,22 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             }
             
         }
+        if(count == 0) {
+            myBookings.add(new JTextField("No Current Bookings"));
+            return;
+        }
     }
 
     public void disposeAll() {
         if(bookinggui != null) {
             bookinggui.disposeFrame();
-        }else System.out.println("bookinggui is null");
+        }
         if(myaccountgui != null) {
             myaccountgui.disposeFrame();
-        }else System.out.println("myaccountgui is null");
+        }
         if(mybookingsgui != null) {
             mybookingsgui.disposeFrame();
-        } else System.out.println("mybookingsgui is null");
+        }
         mainFrame.dispose();
     }
 
