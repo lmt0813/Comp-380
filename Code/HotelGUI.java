@@ -226,7 +226,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         }
         
         for(int i = 0; i < bookingResults.size(); i++){
-            LinkedList<Booking> userBookings = user.getUserBookings();
+            LinkedList<Booking> userBookings = user.getCurrentUserBookings();
             if(source == bookingResults.get(i)){ 
                 Booking current = userBookings.get(i);
                 if(mybookingsgui != null) {

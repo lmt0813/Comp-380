@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.time.*;
 
 /** Entity Class for Account Object
  * @author Geoffrey Anselmo
@@ -59,6 +60,33 @@ public class Account{
         }
         sc.close();
         }catch(FileNotFoundException e){}
+        return result;
+    }
+
+    public LinkedList<Booking> getCurrentUserBookings() {
+        LinkedList<Booking> result = new LinkedList<>();
+        try {
+            sc = new Scanner(new File("bookings.txt"));
+            while(sc.hasNextLine()) {
+                String[] readLine = sc.nextLine().split(",");
+                
+                if(readLine[0].equals(username)) {
+                    readLine = sc.nextLine().split(",");
+
+                    LocalDate today = LocalDate.now();
+                    searchControl searchcontrol = new searchControl();
+                    LocalDate checkindate = searchcontrol.convertDate(readLine[3]);
+                    LocalDate checkoutdate = searchcontrol.convertDate(readLine[4]);
+
+                    if(checkindate.isAfter(today) || checkoutdate.isAfter(today) || checkindate.isEqual(today) || checkoutdate.isEqual(today)) {
+                        Account account = this;
+                        Booking booking = new Booking(account, readLine[0], Double.parseDouble(readLine[1]), Integer.parseInt(readLine[2]), readLine[3], readLine[4], Integer.parseInt(readLine[5]));
+                        result.add(booking);
+                    } 
+                }else readLine = sc.nextLine().split(",");
+            }
+            sc.close();
+        } catch(FileNotFoundException e) {}
         return result;
     }
 
