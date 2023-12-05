@@ -8,3 +8,10 @@ Super_8,444_Address_4,4,48,40
 Gym,Pool
 Motel_6,555_Address_5,5,35,35
 Pool
+Four_Seasons,666,666_Address_6,100,100
+Pool,Gym,Free_Wi-Fi,Free_Breakfast
+Holiday_Inn,777,777_Address_777,55,55
+Pool,Free_Breakfast,Gym
+Best_Western,888,888_Address_888,74,72
+Gym,Free_Breakfast,Cable
+Mariott,999,999_Address_999,23,23
