@@ -52,9 +52,9 @@ public class Confirmation {
 
 	public String constructMessage() {
 		return new String("Hi " + user.getName() +",\n\nThank you for choosing " + hotel.getHotelName() + ". Your booking has been confirmed\n\n" +
-		"Confirmation Summary: \nHotel Name: " + hotel.getHotelName() + "\n" + 
+		"Confirmation Summary: \nHotel Name: " + hotel.getHotelName().replace("_", " ") + "\n" + 
 		"Check In Date: " + booking.getCheckInDate() + "\nCheck Out Date: " + booking.getCheckoutDate() + 
-		"Location: " + hotel.getAddress() + "\n\nWe look forward to seeing you soon.\n\nSincerely, XP Booking Services");
+		"\nLocation: " + hotel.getAddress().replace("_"," ") + "\n\nWe look forward to seeing you soon.\n\nSincerely, XP Booking Services");
 	}
 }
 
