@@ -30,7 +30,3 @@ geoff,password,Geoffrey_Anselmo,geoffrey.anselmo.807@my.csun.edu,user,123GeoffAv
 3-237,79.0,3,1/5/2023,1/13/2023,237
 geoff,password,Geoffrey_Anselmo,geoffrey.anselmo.807@my.csun.edu,user,123GeoffAve,123-456-1234
 4-212,62.0,4,5/23/2023,5/28/2023,212
-geoff,password,Geoffrey_Anselmo,geoffrey.anselmo.807@my.csun.edu,user,123GeoffAve,123-456-1234
-4-212,62.0,4,12/30/2023,12/31/2023,212
-geoff,password,Geoffrey_Anselmo,geoffrey.anselmo.807@my.csun.edu,user,123GeoffAve,123-456-1234
-1-14,333.0,1,12/10/2023,12/13/2023,14
