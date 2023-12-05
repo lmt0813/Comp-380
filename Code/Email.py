@@ -14,7 +14,7 @@ def send(receiver, subject, body):
     sender = "kazjoey37@gmail.com"
     password = 'ubsy dsqs atrp hnyj'
     message = f"""From: {sender}
-    To: Joey Kaz{receiver}
+    To: {receiver}
     Subject: {subject}\n
     {body}
     """

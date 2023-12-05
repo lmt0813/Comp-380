@@ -47,7 +47,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
     bookingGUI bookinggui;
     MyAccountGUI myaccountgui;
     MyBookingsGUI mybookingsgui;
-    String[][] hotelInfo;
+    String[][] hotelInfo = new String[100][100];
 
     /**Defualt constructor for hotelGUI 
      */
@@ -114,10 +114,10 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         dayChooserOut.setVisible(false);
 
         checkInDateButton = new JButton("Check In Selector");
-        checkInDateButton.setBounds(240, 150, 135,20);
+        checkInDateButton.setBounds(240, 150, 150,20);
         checkInDateButton.addActionListener(this);
         checkOutDateButton = new JButton("Check Out Selector");
-        checkOutDateButton.setBounds(670, 150, 145, 20);
+        checkOutDateButton.setBounds(670, 150, 150, 20);
         checkOutDateButton.addActionListener(this);
         top.add(checkInDateButton);
         top.add(checkOutDateButton);
