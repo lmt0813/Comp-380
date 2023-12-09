@@ -19,6 +19,7 @@ public class Account{
     private String accountType;
     private String address;
     private String phoneNumber;
+    private FileChange fc;
 
 
     /**Constructor for Account object
@@ -38,6 +39,7 @@ public class Account{
         this.accountType = accountType;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        fc = new FileChange(this);
     }
 
 
@@ -99,18 +101,16 @@ public class Account{
      * @param newEmail: the new email that the user wants the account to be assocaited with
      */
     public void changeEmail(String newEmail) {
+        fc.changeEmail(newEmail);
         email = newEmail;
-        FileChange fc = new FileChange();
-        fc.changeEmail();
     }
 
     /**Change the password associated with the account
      * @param newPassword: the new password that the user wants the account to be assocaited with
      */
     public void changePassword(String newPassword){
+        fc.changePassword(newPassword);
         password = newPassword;
-        FileChange fc = new FileChange();
-        fc.changePassword();
     }
 
     private void changeSettings(){
