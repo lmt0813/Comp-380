@@ -144,6 +144,7 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
         mainFrame.add(top);
         mainFrame.add(sp);
         mainFrame.setSize(1025,750);
+        mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(true);
         mainFrame.setVisible(true);

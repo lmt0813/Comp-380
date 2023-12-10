@@ -110,6 +110,7 @@ public class bookingGUI extends JFrame implements ActionListener{
             frame.add(submitButton);
             
             frame.setSize(600, 600);
+            frame.setLocationRelativeTo(null);
             frame.setLayout(null);
             frame.setTitle("Booking Confirmation");
             frame.setVisible(true);
