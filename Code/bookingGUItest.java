@@ -15,7 +15,7 @@ import org.junit.Test;
 public class bookingGUItest {
 
     Account a = new Account("username", "password", "name", "email", "user", "Address", "phone");
-    bookingGUI b = new bookingGUI(new Booking(a, "roomID", 10.0, 1, "t", "t", 1), new JFrame());
+    bookingGUI b = new bookingGUI(new Booking(a, "roomID", 10.0, 1, "t", "t", 1), new JFrame(), null);
 
     @Test
     public void testValidateExp() {
