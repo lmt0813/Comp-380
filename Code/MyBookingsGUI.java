@@ -48,6 +48,7 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
         mainFrame.add(cancelButton);
 
         mainFrame.setSize(400, 400);
+        mainFrame.setLocationRelativeTo(null);
         mainFrame.setLayout(null);
         mainFrame.setTitle("My Booking");
         mainFrame.setVisible(true);
@@ -101,6 +102,7 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
         confirmationFrame.add(denyButton);
 
         confirmationFrame.setSize(350, 175);
+        confirmationFrame.setLocationRelativeTo(null);
         confirmationFrame.setLayout(null);
         confirmationFrame.setVisible(true);
         confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

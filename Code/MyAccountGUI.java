@@ -146,7 +146,6 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         confirmationFrame.setSize(300, 250);
         confirmationFrame.setLocationRelativeTo(null);
         confirmationFrame.setLayout(null);
-        confirmationFrame.setTitle("Account Settings");
         confirmationFrame.setVisible(true);
         confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }

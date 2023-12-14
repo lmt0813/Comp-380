@@ -109,6 +109,7 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
         frame.setTitle("Create Account");
         frame.setSize(500,600);
+        frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

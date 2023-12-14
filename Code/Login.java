@@ -46,7 +46,7 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         mainFrame.add(label);
         // add combo box
         comboBox.setBounds(175, 115, 175, 23);
-        comboBox.addItemListener(this);
+        comboBox.addItemListener(this); 
         comboBox.setSelectedIndex(0);
         comboBox.setFocusable(false);
         
@@ -76,6 +76,7 @@ public class Login extends JFrame implements ActionListener, ItemListener{
         mainFrame.setTitle("Login Homepage");
         mainFrame.setLayout(null);
         mainFrame.setSize(500,500);
+        mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
