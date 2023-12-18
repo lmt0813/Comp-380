@@ -13,7 +13,7 @@ import java.util.*;
 /**GUI interface for hotel manager and print report
  * @author Victor Ruiz 
  * @author Joseph Kaz
- * @version 11/21/2023
+ * @version 11/28/2023
  */
 
 public class managerGUI extends JFrame implements ActionListener, ItemListener{

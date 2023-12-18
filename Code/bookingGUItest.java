@@ -12,11 +12,18 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
+/** Test class for the booking GUI page
+ * @author Joey Kaz
+ * @version 12/13/2023
+ */
+
 public class bookingGUItest {
 
     Account a = new Account("username", "password", "name", "email", "user", "Address", "phone");
     bookingGUI b = new bookingGUI(new Booking(a, "roomID", 10.0, 1, "t", "t", 1), new JFrame(), null);
 
+    /**Testing method that checks if the credit card expiration date is entered correctly
+    */
     @Test
     public void testValidateExp() {
         JTextField expField = new JTextField("01/27");
@@ -24,6 +31,8 @@ public class bookingGUItest {
         assertEquals(0, check);
     }
 
+    /**Testing method that checks if the credit card number is the correct format
+    */
     @Test
     public void validateCard() {
         JTextField card = new JTextField("1234123412341234");
@@ -31,6 +40,8 @@ public class bookingGUItest {
         assertEquals(0, check);
     }
 
+    /**Testing method that checks if the credit card security code is exactly 3 digits
+    */
     @Test
     public void validateCVV() {
         JTextField cvv = new JTextField("1234");
@@ -38,6 +49,8 @@ public class bookingGUItest {
         assertEquals(1, check);
     }
 
+    /**Testing method that checks if the user has selected a valid payment option
+    */
     @Test
     public void validatePaymentOption() {
         JComboBox cb = new JComboBox<>();
@@ -48,6 +61,8 @@ public class bookingGUItest {
         assertEquals(1, check);
     }
 
+    /**Testing method that checks if all fields have been entered and selected correctly
+    */
     @Test
     public void validateAllFields() {
         JTextField nameField = new JTextField("name");

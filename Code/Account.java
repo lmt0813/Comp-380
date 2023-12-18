@@ -7,7 +7,7 @@ import java.time.*;
 /** Entity Class for Account Object
  * @author Geoffrey Anselmo
  * @author Lance Trinidad
- * @version 11/18/2023
+ * @version 12/9/2023
  */
 
 public class Account{
@@ -65,6 +65,9 @@ public class Account{
         return result;
     }
 
+    /**Returns a LinkedList of the current bookings of the user
+     * @return LinkedList<Booking> of Booking objects that are only the current bookings associated with the user's account
+     */
     public LinkedList<Booking> getCurrentUserBookings() {
         LinkedList<Booking> result = new LinkedList<>();
         try {
@@ -92,11 +95,6 @@ public class Account{
         return result;
     }
 
-    
-    private void makeReview(Hotel hotel){
-        //will call another class to make review
-    }
-
     /**Change the email associated with the account
      * @param newEmail: the new email that the user wants the account to be assocaited with
      */
@@ -111,11 +109,6 @@ public class Account{
     public void changePassword(String newPassword){
         fc.changePassword(newPassword);
         password = newPassword;
-    }
-
-    private void changeSettings(){
-
-
     }
 
     /**Returns the account's username

@@ -1,6 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;  
 import java.awt.event.ActionListener;
+/** GUI for user login
+ * @author Geoffrey Anselmo
+ * @author Lance Trinidad
+ * @version 12/13/2023
+ */
 
 public class MyAccountGUI extends JFrame implements ActionListener{
     private Account user;
@@ -12,6 +17,10 @@ public class MyAccountGUI extends JFrame implements ActionListener{
 
     public MyAccountGUI() {}
 
+    /**Class Constructor
+     * @param user the user that is currently using the service
+     * @param hotelGUIFrame a reference to the Java Swing frame for the current application instance
+     */
     public MyAccountGUI(Account user ,JFrame hotelGUIFrame) {
         this.user = user;
         this.hotelGUIFrame = hotelGUIFrame;
@@ -58,6 +67,9 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    /**The action performed interface used to monitor action events
+     * @param e the ActionEvent that will be monitored for a change
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -77,6 +89,8 @@ public class MyAccountGUI extends JFrame implements ActionListener{
 
     }
 
+    /**Validates the old email to be changed and the new email that will substitute it
+     */
     public void validateEmailFields() {
         if(oldLabel.getText().equals("Type Old Email: ")) {
             if(oldField.getText().equals("")) {
@@ -95,6 +109,8 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         }
     }
 
+    /**Validates the old password to be changed and the new password that will substitute it
+     */
     public void validatePasswordFields() {
         if(oldLabel.getText().equals("Type Old Password: ")) {
             if(oldField.getText().equals("")) {
@@ -113,6 +129,9 @@ public class MyAccountGUI extends JFrame implements ActionListener{
         }
     }
 
+    /**Validates the old email to be changed and the new email that will substitute it
+     * @param source the reference to the current GUI instance that will be closed down after a successful attribute change
+     */
     public void confirmationFrameSetup(Object source) {
         confirmationFrame = new JFrame();
         
@@ -151,7 +170,8 @@ public class MyAccountGUI extends JFrame implements ActionListener{
     }
 
     
-
+    /**Disposes the current frame instance
+     */
     public void disposeFrame() {
         mainFrame.dispose();
         if(confirmationFrame != null) {

@@ -2,7 +2,7 @@ import java.time.*;
 
 /** Class that encompasses both a booking's check in and check out dates for comparison in the search control class
  * @author Joey Kaz
- * @version 11/19/2023
+ * @version 11/23/2023
  */
 public class BookingDate {
 

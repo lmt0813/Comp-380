@@ -6,7 +6,7 @@ import java.util.Scanner;
  *  @author Lance Trinidad
  *  @author Joey Kaz
  *  @author Geoffrey Anselmo
- *  @version 10/29/2023
+ *  @version 11/21/2023
  */
 
 public class Room {
@@ -41,11 +41,6 @@ public class Room {
         this.roomType = roomType;
         this.price = price;
     }
-
-    protected void assignKeyCard() {
-        
-    }
-
 
     /**Gets the information of the hotel that is assocaited with the given hotelID  
      * @param hotelID ID number that corresponds to the Hotel information that is desired

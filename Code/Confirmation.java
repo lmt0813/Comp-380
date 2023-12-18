@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /** GUI that creates the process to call the python script that will run the code, emailing the user their confirmation email
  * @author Joey Kaz
- * @version 11/11/2023
+ * @version 12/2/2023
  */
 
 public class Confirmation {
@@ -50,6 +50,9 @@ public class Confirmation {
 
 	}
 
+	/**Creates the confirmation message to be used in the email
+	 * @return a String representing the body of the message
+     */
 	public String constructMessage() {
 		return new String("Hi " + user.getName() +",\n\nThank you for choosing " + hotel.getHotelName().replace("_", " ") + ". Your booking has been confirmed\n\n" +
 		"Confirmation Summary: \nHotel Name: " + hotel.getHotelName().replace("_", " ") + "\n" + 

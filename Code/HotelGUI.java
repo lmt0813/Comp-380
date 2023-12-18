@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  * @author Joey Kaz
  * @author Victor Ruiz
  * @author Lance Trinidad
- * @version 11/19/2023
+ * @version 12/9/2023
  */
 
 public class HotelGUI extends JFrame implements ActionListener, ItemListener {
@@ -466,6 +466,8 @@ public class HotelGUI extends JFrame implements ActionListener, ItemListener {
             return;
         }
     }
+    /**Disposes all frames for the HoteGUI page
+     */
 
     public void disposeAll() {
         if(bookinggui != null) {

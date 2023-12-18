@@ -8,12 +8,15 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-
+    /**Constructor for searchControlTester classs 
+     */
     public class searchControlTester {
 
         LocalDate checkin = LocalDate.of(2023, 1, 1);
         LocalDate checkout = LocalDate.of(2023, 1, 14);
 
+        /**Testing method that checks if the expected result set matches the one returned for an empty search bar and empty criteria list
+        */
         @Test
         public void emptySearchbarAndEmptyCriteria() {
             LinkedList<Room> rooms = new LinkedList<>();
@@ -31,7 +34,8 @@ import org.junit.Test;
         }
 
         
-        
+        /**Testing method that checks if the expected result set matches the one returned for an empty criteria list
+        */
         @Test
         public void emptyCriteria() {
             LinkedList<Room> rooms = new LinkedList<>();
@@ -48,6 +52,8 @@ import org.junit.Test;
             assertEquals(rooms.toString(), result.toString());
         }
 
+        /**Testing method that checks if the expected result set matches the one returned for an empty search bar
+        */
         @Test
         public void emptySearchbar() {
             LinkedList<Room> rooms = new LinkedList<>();
@@ -65,6 +71,8 @@ import org.junit.Test;
             assertEquals(rooms.toString(), result.toString());
         }
 
+        /**Testing method that checks if the expected result set matches the one returned for when neither the search bar or criteria list are empty
+        */
         @Test
         public void searchBarAndCriteriaNotEmpty() {
             LinkedList<Room> rooms = new LinkedList<>();
@@ -82,6 +90,8 @@ import org.junit.Test;
             assertEquals(rooms.toString(), result.toString());
         }
 
+        /**Testing method that checks if the expected result set matches the one returned for when the search bar name doesn't match any rooms
+        */
         @Test
         public void searchbarIncorrectAndCriteriaNotEmpty() {
             LinkedList<Room> rooms = new LinkedList<>();
@@ -99,6 +109,8 @@ import org.junit.Test;
             assertEquals(rooms.toString(), result.toString());
         }
 
+        /**Testing method that checks if a requested booking date falls inbetween two others
+        */
         @Test 
         public void testDateBetweenTrue() {
             LocalDate one = LocalDate.of(2023, 11, 5);
@@ -111,6 +123,8 @@ import org.junit.Test;
             assertEquals(test, 1);
         }
 
+        /**Testing method that checks if a requested booking date does not fall inbetween two others
+        */
         @Test 
         public void testDateBetweenFalse() {
             LocalDate one = LocalDate.of(2023, 11, 5);

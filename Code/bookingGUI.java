@@ -9,7 +9,7 @@ import java.util.*;
  * @author Victor Ruiz 
  * @author Joseph Kaz
  * @author Geoffrey Anselmo
- * @version 11/21/2023
+ * @version 12/9/2023
  */
 
 public class bookingGUI extends JFrame implements ActionListener{
@@ -247,6 +247,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             
         }
 
+        /**Returns an instance of a hotel
+         * @param hotelID the hotelID that will be used to return the current hotel instance
+         * @return a Hotel reference that matches the hotelID
+        */
         public Hotel retrieveHotel(int hotelID) {
             Hotel tmp = new Hotel();
             String[] attributes;
@@ -271,6 +275,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             return tmp;
         }
 
+        /**Returns instance of a hotel created from a string array of attributes gathered from scanning the text file
+         * @param attributes the string array containing the result set scanned from the hotels.txt file
+         * @return a new instance of a hotel class created from the attributes
+        */
         public Hotel createHotel(String[] attributes) {
             return new Hotel(attributes[0], attributes[1], attributes[2], Integer.parseInt(attributes[3]),Integer.parseInt(attributes[4]));
         }
@@ -294,7 +302,10 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0;
         }
 
-        /*validates combo box to ensure a choice is made for payment methods */
+        /**Validates that a payment option from the combo box has been selected
+         * @param index the index of the combo box that has been selected
+          * @return an integer validating the combobox selection
+        */
         int validateCBox(int index){
             if(index == 0){
                 JOptionPane.showMessageDialog(null,"must select payment option");
@@ -303,9 +314,9 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0;   
         }
 
-        /*name validation method checks name field from user input for character limit and  
-         * and checks name is consisting of letters
-         */
+        /**Validates the name field for the entry to ensure the input consists of only characters
+          * @return an integer validating the name entry
+        */
         int validateName(){
             String nameLength = firstNameField.getText();
             if (nameLength.length()> 20) {
@@ -321,9 +332,9 @@ public class bookingGUI extends JFrame implements ActionListener{
             return 0;
         }
 
-         /*last name validation method checks name field from user input for character limit and  
-         * and checks name is consisting of letters
-         */
+         /**Validates the old email to be changed and the new email that will substitute it
+          * @return an integer validating the last name entry
+        */
         int validateLastName(){
             String lastNameLength = lastNameField.getText();
             if(lastNameLength.length() >20){
@@ -343,6 +354,7 @@ public class bookingGUI extends JFrame implements ActionListener{
 
 
         /**Checks if the card number entered is of the correct format
+         * @param cardLength the card identification number whose length will be verified
          * @return int which signifies how the method exitted
          */
         int validateCard(String cardLength){
@@ -362,6 +374,7 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         
         /**Checks if the experiation date of the card is of the correct format
+         * @param ExpDate the expiration date that has been entered for the card
          * @return int which signifies how the method exitted
          */
         int validateExp(String ExpDate){
@@ -387,6 +400,7 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         
         /**Checks if the CVV of the card is of the correct format
+         * @param CardCVV the security code that has been entered for verification
          * @return int which signifies how the method exitted
          */
         int validateCVV(String CardCVV){
@@ -404,6 +418,7 @@ public class bookingGUI extends JFrame implements ActionListener{
 
         
         /**Checks if any of the text fields are empty
+         * @param fields an array of JTextFields to be searched interatively
          * @return int which signifies how the method exitted
          */
         int checkFields(JTextField[] fields){
@@ -439,6 +454,8 @@ public class bookingGUI extends JFrame implements ActionListener{
             return "";
         }
 
+        /**Disposes the frame
+        */
         public void disposeFrame() {
             frame.dispose();
         }

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 /**A GUI component that displays the selected Booking
  * @author Lance Trinidad
  * @author Geoffrey Anselmo
- * @version 11/21/2023
+ * @version 12/9/2023
  */
 public class MyBookingsGUI extends JFrame implements ActionListener{
     JLabel hotelNameLabel, roomNumberLabel, checkinDateLabel, checkoutDateLabel, totalDueLabel, confirmationLabel1, confirmationLabel2;
@@ -108,6 +108,8 @@ public class MyBookingsGUI extends JFrame implements ActionListener{
         confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    /**Disposes the current frame
+     */
     public void disposeFrame() {
         mainFrame.dispose();
         if(confirmationFrame != null) {

@@ -5,7 +5,7 @@ import java.io.*;
  *  @author Geoffrey Anselmo
  *  @author Lance Trinidad
  *  @author Joey Kaz
- *  @version 11/18/2023
+ *  @version 11/28/2023
  */
 public class Booking {
     protected Account account;

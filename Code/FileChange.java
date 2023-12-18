@@ -1,6 +1,11 @@
 import java.util.*;
 import java.io.*;
 
+/** File Change class that controls operations for handling the text files that are used in the software
+ * @author Geoffrey Anselmo
+ * @version 12/13/2023
+ */
+
 public class FileChange {
     private Scanner sc;
     private PrintWriter pw;
@@ -11,6 +16,10 @@ public class FileChange {
     private int indexOfEmail;
     private Account user;
 
+    /**Constructor with parameters for hotelGUI
+     * @param user the Account that is using the application
+     */
+
     public FileChange(Account user) {
         this.user = user;
         usersFile = new File("users.txt");
@@ -20,6 +29,9 @@ public class FileChange {
         userData = new String[7][100];
     }
 
+    /**Changes the password for the user's account settings
+     * @param newPassword the new password that the user would like to change their account settings to
+     */
     public void changePassword(String newPassword) {
         try {
             sc = new Scanner(usersFile);
@@ -50,6 +62,9 @@ public class FileChange {
         
     }
 
+    /**Changes the email for the user's account settings
+     * @param newEmail the new email address that the user would like to change their account settings to
+     */
     public void changeEmail(String newEmail) {
         try {
             sc = new Scanner(usersFile);

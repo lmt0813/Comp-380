@@ -1,6 +1,7 @@
 from sys import argv
 import smtplib
 
+    
 def main():
     receiver = argv[1]
     subject = argv[2]
@@ -10,6 +11,11 @@ def main():
     
 # end send with arguments method
 
+"""
+param: receiver the receiver of the email
+param: subject the subject of the email
+param: body the body of the email
+"""
 def send(receiver, subject, body):
     sender = "kazjoey37@gmail.com"
     password = 'ubsy dsqs atrp hnyj'

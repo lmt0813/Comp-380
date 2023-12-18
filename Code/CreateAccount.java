@@ -12,8 +12,7 @@ import java.io.*;
 
 /** GUI class that allows users to sign up for an account, allowing them to access the booking application
  * @author Joey Kaz
- * 
- * @version 10/28/2023
+ * @version 11/28/2023
  */
 
 //CreateAccount handles the createAccount GUI and the create of any new accounts
@@ -273,7 +272,9 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return "";
     } // end getEmptyField Method
     
-    
+    /**Returns an integer for the status of the data entry fields to see if they are valid inputs
+     * @return An integer validating the status of all of the fields
+     */
     
     int validateCreateAccount(){
         if(validateAccountType(cb.getSelectedIndex()) == 1)
@@ -284,6 +285,10 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
         return 1;
         return 0;
     }
+    /**Returns an integer indicating that one of the account options was selected
+     * @param index to read which index was selected
+     * @return An integer validating that the account type was selected
+     */
 
     int validateAccountType(int index){
         if(index == 0){
@@ -293,6 +298,10 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
     return 0;   
     }
 
+    /**Returns an integer reflecting the status of the entry email to validate that it contains the correct characters
+     * @param text the email that will be validated
+     * @return An integer validating the status of the email
+     */
     int validateEmail(String text){
         String emailCheck = "^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
         text = emailField.getText();
@@ -307,9 +316,10 @@ public class CreateAccount extends JFrame implements ActionListener, ItemListene
 
 
     
-     //checks that a password has a minimum of 6 characters, at least 1 uppercase letter,
-     //1 lowercase letter, and 1 number and 1 special char.
-    
+     /**Returns sn integer marking the validation status of their password
+      * @param text2 a character array gathered as input from the JPasswordField component
+     * @return An integer validating the status of all of the fields
+     */
     int validatePassword(char[] text2){
         String passwordCheck = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$";
         text2 = passwordField.getPassword();

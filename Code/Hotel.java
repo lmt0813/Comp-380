@@ -1,7 +1,7 @@
 /**Entity Class for Hotel Object
  * @author Joey Kaz
  * @author Lance Trinidad
- * @version 11/21/2023
+ * @version 11/28/2023
  */
 public class Hotel {
     protected int roomCapacity;
@@ -44,20 +44,6 @@ public class Hotel {
 
     public String getAddress() {
         return this.location;
-    }
-
-    protected void hireStaff(){
-
-    }
-
-    protected void takesPayment(){
-
-
-    }
-
-    protected void providesService(){
-
-
     }
 
     

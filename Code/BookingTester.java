@@ -3,8 +3,15 @@ import java.util.*;
 import java.io.*;
 import org.junit.Test;
 
+/** GUI for user login
+ * @author Joey Kaz
+ * @version 11/20/2023
+ */
+
 public class BookingTester {
     
+    /**Testing method that checks if someone requesting to cancel their booking changes the available rooms 
+    */
     @Test
     public void cancelBookingTest(){
         Account user = new Account("lance", "password2", "lance", "lancetrinidad0813@gmail.com", "customer", "123 Sesame St.", "123-456-7891");
@@ -33,6 +40,8 @@ public class BookingTester {
     }
 
     @Test
+    /**Testing method that checks if the method that creates a room does it properly
+    */
     public void getRoomTest(){
         Account existingAccount = new Account("jsmith1", "Password2" , "JohnSmith" ,"jsmith1@gmail.com" ,"user" ,"234fakestreet" ,"818-888-8888");
         Booking existingBooking = new Booking(existingAccount, "4-212", 62.0,4, "2/13/2023", "2/25/2023",212);
